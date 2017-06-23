@@ -8,7 +8,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:textSize="21dp"
-        android:hint="设置密码"
+        android:hint="设置新的密码"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content" />
 

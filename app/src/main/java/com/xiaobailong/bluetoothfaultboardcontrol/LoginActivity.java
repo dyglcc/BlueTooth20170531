@@ -33,8 +33,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-import me.grantland.widget.AutofitTextView;
-
 
 public class LoginActivity extends BaseActivity {
 
@@ -46,7 +44,7 @@ public class LoginActivity extends BaseActivity {
     private Student student;
 
     private String savePath = null;
-    private String companyFileName = "CompanyInfo.txt";
+    public static String companyFileName = "CompanyInfo.txt";
     private String companyBrandFileName = "brand.png";
     private String backgroundFileName = "background.jpg";
     private String companyName = null;
@@ -125,7 +123,6 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                saveCompanyInfo(s.toString());
             }
         });
         pwdEdit = (EditText) findViewById(R.id.login_password); // 密码输入框
@@ -192,7 +189,7 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    public  void getSdcardPath() {
+    public void getSdcardPath() {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             hasSdcard = true;
@@ -249,6 +246,7 @@ public class LoginActivity extends BaseActivity {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("student", student);
         startActivity(intent);
+        finish();
 //        Toast.makeText(this, "todo 打开学生考试界面", Toast.LENGTH_SHORT).show();
 
     }
@@ -261,6 +259,8 @@ public class LoginActivity extends BaseActivity {
 //        finish();
 //    }
     private void startMain() {
+        String s = idEdit.getText().toString();
+        saveCompanyInfo(s);
         Intent intent = new Intent();
         intent.setClass(this, MenuActivity.class);
         startActivity(intent);

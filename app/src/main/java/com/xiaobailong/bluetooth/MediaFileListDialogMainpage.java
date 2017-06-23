@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.xiaobailong.base.BaseApplication;
 import com.xiaobailong.bluetoothfaultboardcontrol.MainActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.MediaListAdapter;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
@@ -64,6 +65,9 @@ public class MediaFileListDialogMainpage extends Dialog implements OnItemClickLi
 
     public static ArrayList<String> getDirFilesDir(File file) {
         ArrayList<String> list = new ArrayList<String>();
+        if(file == null){
+            return list;
+        }
         for (File f : file.listFiles()) {
             if (f.isFile() && f.getName().endsWith(".txt")) {
                 list.add(f.getAbsolutePath());
@@ -89,8 +93,9 @@ public class MediaFileListDialogMainpage extends Dialog implements OnItemClickLi
             listView.setOnItemClickListener(this);
 //            paths.push(path);
         } else {
+            BaseApplication.app.descStrFile = file;
             ((MainActivity) context).setFileName(file);
-            Toast.makeText(context, "设置名称" + file.getName(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "设置名称" + file.getName(), Toast.LENGTH_SHORT).show();
             List<FaultBean> datas = readFile(file);
 
             ((MainActivity) context).setValues(datas);

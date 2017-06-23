@@ -18,17 +18,14 @@ public class Student implements java.io.Serializable {
 
     @NotNull
     private String username;
-    private long semester;
+    private String semester;
     private long classes;
     private Integer results;
-
-    @NotNull
     private String mobile;
-
-    @NotNull
     private String ids;
     private String sex;
     private String devices;
+    private String consume_time;
 
     @Generated
     public Student() {
@@ -39,7 +36,7 @@ public class Student implements java.io.Serializable {
     }
 
     @Generated
-    public Student(Long id, String xuehao, String username, long semester, long classes, Integer results, String mobile, String ids, String sex, String devices) {
+    public Student(Long id, String xuehao, String username, String semester, long classes, Integer results, String mobile, String ids, String sex, String devices, String consume_time) {
         this.id = id;
         this.xuehao = xuehao;
         this.username = username;
@@ -50,6 +47,7 @@ public class Student implements java.io.Serializable {
         this.ids = ids;
         this.sex = sex;
         this.devices = devices;
+        this.consume_time = consume_time;
     }
 
     public Long getId() {
@@ -80,11 +78,11 @@ public class Student implements java.io.Serializable {
         this.username = username;
     }
 
-    public long getSemester() {
+    public String getSemester() {
         return semester;
     }
 
-    public void setSemester(long semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 
@@ -104,23 +102,19 @@ public class Student implements java.io.Serializable {
         this.results = results;
     }
 
-    @NotNull
     public String getMobile() {
         return mobile;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setMobile(@NotNull String mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
-    @NotNull
     public String getIds() {
         return ids;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setIds(@NotNull String ids) {
+    public void setIds(String ids) {
         this.ids = ids;
     }
 
@@ -138,6 +132,14 @@ public class Student implements java.io.Serializable {
 
     public void setDevices(String devices) {
         this.devices = devices;
+    }
+
+    public String getConsume_time() {
+        return consume_time;
+    }
+
+    public void setConsume_time(String consume_time) {
+        this.consume_time = consume_time;
     }
 
 }

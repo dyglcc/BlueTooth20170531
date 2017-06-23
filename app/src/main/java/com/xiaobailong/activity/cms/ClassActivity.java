@@ -90,7 +90,7 @@ public class ClassActivity extends BaseActivity {
         Classes y = datas.get(position);
         if (y != null) {
             Intent intent = new Intent(this, StudentManageActivity.class);
-            intent.putExtra("class_", y);
+            intent.putExtra("classes", y);
             startActivity(intent);
         }
 

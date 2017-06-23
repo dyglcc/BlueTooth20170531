@@ -14,7 +14,7 @@ public class Generator {
 
     public static void main(String[] args) throws Exception {
 
-        int version = 11;
+        int version = 15;
 
         String defaultPackage = "com.xiaobailong.bean";
 
@@ -72,14 +72,14 @@ public class Generator {
         entity.addIdProperty().autoincrement();//添加Id,自增长
         entity.addStringProperty("xuehao").notNull();
         entity.addStringProperty("username").notNull();
-        entity.addLongProperty("semester").notNull();
+        entity.addStringProperty("semester");
         entity.addLongProperty("classes").notNull();
         entity.addIntProperty("results");
-        entity.addStringProperty("mobile").notNull();//添加String类型的name,不能为空
-        entity.addStringProperty("ids").notNull();//添加String类型的name,不能为空
+        entity.addStringProperty("mobile");//添加String类型的name,不能为空
+        entity.addStringProperty("ids");//添加String类型的name,不能为空
         entity.addStringProperty("sex");
         entity.addStringProperty("devices");
-
+        entity.addStringProperty("consume_time");
     }
     private static void addExaminationEntity(Schema schema, String name) {
         Entity entity = schema.addEntity(name);

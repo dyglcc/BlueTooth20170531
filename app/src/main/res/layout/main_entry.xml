@@ -31,20 +31,20 @@
         <Button
             android:id="@+id/btn_teacher"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/login_button"
             android:text="教师登录"
             android:textColor="@color/white"
-            android:textSize="38dp" />
+            android:textSize="30dp" />
 
         <Button
             android:id="@+id/btn_student"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:background="@drawable/login_button"
             android:text="学生登录"
             android:textColor="@color/white"
-            android:textSize="38dp" />
+            android:textSize="30dp" />
     </LinearLayout>
 </RelativeLayout>

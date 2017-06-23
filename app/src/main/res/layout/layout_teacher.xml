@@ -146,6 +146,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="0.6"
             android:gravity="center"
+            android:maxLength="3"
             android:inputType="numberDecimal"
             android:text="40"
             android:textSize="12dp" />

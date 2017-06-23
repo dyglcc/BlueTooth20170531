@@ -25,7 +25,7 @@
         android:background="@drawable/login_button"
         android:text="考核故障设置"
         android:textColor="@color/white"
-        android:textSize="18dp" />
+        android:textSize="@dimen/login_size" />
 
     <Button
         android:id="@+id/btn_student_cms"
@@ -37,7 +37,7 @@
         android:background="@drawable/login_button"
         android:text="学生信息管理"
         android:textColor="@color/white"
-        android:textSize="18dp" />
+        android:textSize="@dimen/login_size" />
 
     <Button
         android:id="@+id/btn_pass_setting"
@@ -49,5 +49,5 @@
         android:background="@drawable/login_button"
         android:text="登录密码设置"
         android:textColor="@color/white"
-        android:textSize="18dp" />
+        android:textSize="@dimen/login_size" />
 </LinearLayout>

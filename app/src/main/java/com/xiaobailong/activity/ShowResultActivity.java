@@ -1,7 +1,9 @@
 package com.xiaobailong.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,26 +20,27 @@ import butterknife.ButterKnife;
  */
 
 public class ShowResultActivity extends BaseActivity {
+
+    Student student = null;
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_name_value)
     TextView tvNameValue;
-    @BindView(R.id.tv_devices)
-    TextView tvDevices;
-    @BindView(R.id.tv_devices_value)
-    TextView tvDevicesValue;
     @BindView(R.id.tv_xuehao)
     TextView tvXuehao;
     @BindView(R.id.tv_xuehao_value)
     TextView tvXuehaoValue;
+    @BindView(R.id.tv_devices)
+    TextView tvDevices;
+    @BindView(R.id.tv_devices_value)
+    TextView tvDevicesValue;
     @BindView(R.id.tv_scores)
     TextView tvScores;
     @BindView(R.id.tv_scores_value)
     TextView tvScoresValue;
     @BindView(R.id.button_save)
     Button buttonSave;
-
-    Student student = null;
+    String str = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +49,17 @@ public class ShowResultActivity extends BaseActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         student = (Student) intent.getSerializableExtra("student");
-        String str = intent.getStringExtra("view");
-        if (str != null) {
-            buttonSave.setVisibility(View.GONE);
+        str = intent.getStringExtra("view");
+//        if (str != null) {
+//            buttonSave.setVisibility(View.GONE);
+//        }
+        String minutes = student.getConsume_time();
+        if (minutes == null) {
+            minutes = "暂无时间";
+        } else {
+            minutes += "分钟";
         }
-        tvDevicesValue.setText(student.getDevices());
+        tvDevicesValue.setText(minutes);
         tvNameValue.setText(student.getUsername());
         tvXuehaoValue.setText(student.getXuehao() + "");
         String result = student.getResults() == null ? "暂无成绩" : student.getResults() + "";
@@ -62,5 +71,13 @@ public class ShowResultActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (TextUtils.isEmpty(str)) {
+            setResult(Activity.RESULT_OK, new Intent());
+        }
+        super.onBackPressed();
     }
 }

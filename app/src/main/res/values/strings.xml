@@ -18,7 +18,10 @@
     <string name="button_submit">提交试卷</string>
     <string name="already_send">已发送，可以考试</string>
     <string name="already_start">考试进行中，开始倒计时！</string>
-    <string name="already_start2">考试进行中，共%1$s道题，已答%2$s道</string>
+    <!--<string name="already_start2">断路故障%1$s道题,虚接故障%2$s道题,短路故障%3$s道题目</string>-->
+    <string name="already_start3">断路故障%1$s道题</string>
+    <string name="already_start4">虚接故障%1$s道题</string>
+    <string name="already_start5">短路故障%1$s道题</string>
     <string name="Back">返回</string>
     <string name="action_connect">蓝牙连接</string>
     <string name="action_close">断开连接</string>

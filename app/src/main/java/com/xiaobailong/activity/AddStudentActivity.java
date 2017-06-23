@@ -12,8 +12,8 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.xiaobailong.base.BaseApplication;
+import com.xiaobailong.bean.Classes;
 import com.xiaobailong.bean.Student;
-import com.xiaobailong.bean.Time_;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 
@@ -45,26 +45,27 @@ public class AddStudentActivity extends BaseActivity {
     @BindView(R.id.scroll)
     ScrollView scroll;
 
-    private Time_ semester;
+    private Classes classes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_add_student);
         ButterKnife.bind(this);
-        semester = (Time_) getIntent().getSerializableExtra("semester");
-        if (semester == null) {
-            Toast.makeText(this, "没有学期信息", Toast.LENGTH_SHORT).show();
+        classes = (Classes) getIntent().getSerializableExtra("classes");
+        if (classes == null) {
+            Toast.makeText(this, "没有班级信息", Toast.LENGTH_SHORT).show();
             return;
         }
     }
 
     @OnClick(R.id.android_btn)
     public void save() {
-        String xuehaoStr = xuehao.getText().toString();
-        String usernamestr = username.getText().toString();
-        String mobileStr = mobile.getText().toString();
-        String idsStr = ids.getText().toString();
+        String xuehaoStr = xuehao.getText().toString().trim();
+        String usernamestr = username.getText().toString().trim();
+        String mobileStr = mobile.getText().toString().trim();
+        String idsStr = ids.getText().toString().trim();
+
 
         if (TextUtils.isEmpty(xuehaoStr)) {
             Toast.makeText(this, "请输入学号", Toast.LENGTH_SHORT).show();
@@ -74,28 +75,13 @@ public class AddStudentActivity extends BaseActivity {
             Toast.makeText(this, "请输入姓名", Toast.LENGTH_SHORT).show();
             return;
         }
-//        if (TextUtils.isEmpty(mobileStr)) {
-//            Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (TextUtils.isEmpty(idsStr)) {
-//            Toast.makeText(this, "请输入身份证号", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-
-//        if (!Utils.isRightIdNum(idsStr)) {
-//            Toast.makeText(this, "身份证证号格式不正确，请检查", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-
         // save database
-
         Student student = new Student();
         student.setXuehao(xuehaoStr);
         student.setUsername(usernamestr);
         student.setIds(idsStr);
         student.setMobile(mobileStr);
-        student.setSemester(semester.getId());
+        student.setClasses(classes.getId());
 
         if (btnMan.isChecked()) {
             student.setSex("男");

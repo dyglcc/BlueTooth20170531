@@ -19,6 +19,7 @@ public class ConstValue {
     public static String dir = "simulation";
     public static String DIR_STUDENT = "dir_student";
     public static String dir_autoblue = "autoblue";
+    public static String dir_scores = "scores";
 
     public static String getSdcardPath() {
         if (haveSdcard()) {
@@ -54,6 +55,9 @@ public class ConstValue {
 
     public static String getFailureDir(){
         return getSdcardPath()+"/" + dir_autoblue;
+    }
+    public static String getScoresDir(){
+        return getSdcardPath()+"/" + dir_scores;
     }
 
 }

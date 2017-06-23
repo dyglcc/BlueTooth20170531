@@ -2,6 +2,7 @@ package com.xiaobailong.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.xiaobailong.base.BaseApplication;
 import com.xiaobailong.bluetoothfaultboardcontrol.LoginActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.tools.SpDataUtils;
@@ -61,10 +63,15 @@ public class EntryActivity extends Activity {
 
     @OnClick(R.id.btn_student)
     public void studentClick() {
+        studentLogin(EntryActivity.this);
+    }
+
+    public static void studentLogin(Context context) {
+
         SpDataUtils.saveLoginType(SpDataUtils.TYPE_STUDENT);
-        Intent intent = new Intent(EntryActivity.this, LoginActivity.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         intent.putExtra("type", SpDataUtils.TYPE_STUDENT);
-        startActivity(intent);
+        context.startActivity(intent);
     }
 
     @OnClick(R.id.btn_teacher)
@@ -82,5 +89,24 @@ public class EntryActivity extends Activity {
             savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/autoblue/";
 //			Toast.makeText(this, sdcardPath, Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 关闭第一个页面清除数据
+        clearData();
+
+    }
+
+    private void clearData() {
+        if (BaseApplication.app.faultboardOption != null) {
+            BaseApplication.app.faultboardOption.closeBluetoothSocket();
+            BaseApplication.app.faultboardOption = null;
+        }
+        BaseApplication.app.descStrFile = null;
+        BaseApplication.app.shortList = null;
+        BaseApplication.app.falseList = null;
+        BaseApplication.app.breakfaultList = null;
     }
 }
