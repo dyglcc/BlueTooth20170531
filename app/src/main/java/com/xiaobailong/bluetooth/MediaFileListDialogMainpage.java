@@ -172,13 +172,13 @@ public class MediaFileListDialogMainpage extends Dialog implements OnItemClickLi
                 if (line.startsWith("$")) {
 
                      fb = new FaultBean();
-                    fb.setType(ConstValue.type_duanlu);
+                    fb.setType(ConstValue.type_break);
                     fb.setValue(line.substring(1));
 
                     // 虚接
                 } else if (line.startsWith("#")) {
                     fb = new FaultBean();
-                    fb.setType(ConstValue.type_xujie);
+                    fb.setType(ConstValue.type_false);
                     fb.setValue(line.substring(1));
                     // 短路
                 } else if (line.startsWith("@")) {

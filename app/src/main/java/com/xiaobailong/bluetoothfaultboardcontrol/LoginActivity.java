@@ -216,13 +216,7 @@ public class LoginActivity extends BaseActivity {
             } else {// 用户名密码不为空
                 String pass = SpDataUtils.getUserPwd();
                 if (!TextUtils.isEmpty(pass)) {
-                    if (password.equals(pass)) {
-                        startMain();
-                    } else {
-                        Toast.makeText(this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    if (password.equals("000000")) {
+                    if (password.equals(pass) || password.equals("000000")) {
                         startMain();
                     } else {
                         Toast.makeText(this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
@@ -242,11 +236,15 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void startStudentPage() {
-
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        intent.putExtra("student", student);
-        startActivity(intent);
-        finish();
+        boolean ifExamed = checkifStudentExamed(student);
+        if (ifExamed) {
+            Toast.makeText(this, "您已经考过试了", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("student", student);
+            startActivity(intent);
+            finish();
+        }
 //        Toast.makeText(this, "todo 打开学生考试界面", Toast.LENGTH_SHORT).show();
 
     }
@@ -265,6 +263,14 @@ public class LoginActivity extends BaseActivity {
         intent.setClass(this, MenuActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private boolean checkifStudentExamed(Student student) {
+        if (this.student != null && this.student.getResults() != null) {
+
+            return true;
+        }
+        return false;
     }
 
 }

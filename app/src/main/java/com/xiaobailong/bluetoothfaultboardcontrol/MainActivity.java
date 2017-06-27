@@ -59,8 +59,13 @@ import java.util.List;
 
 import me.grantland.widget.AutofitTextView;
 
+import static com.xiaobailong.tools.ConstValue.type_break;
+import static com.xiaobailong.tools.ConstValue.type_false;
+import static com.xiaobailong.tools.ConstValue.type_none;
+import static com.xiaobailong.tools.ConstValue.type_shortFault;
+
 public class MainActivity extends BaseActivity implements OnClickListener,
-        OnTouchListener, OnScrollListener {
+        OnTouchListener, OnScrollListener, ReadStateListenter {
 
     public static final int ShortTable = 0;
     public static final int FalseTable = 1;
@@ -140,10 +145,11 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                         tv_lasttime.setText("剩余时间：" + min + "分 " + sss + " 秒");
                         cousumeSeconds = second;
                         if (second == 0) {
+                            begin = false;
                             tv_lasttime.setText("剩余时间：" + 0 + "分 " + 0 + " 秒");
                             tv_lasttime.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
-                            int scroes = getScores();
-                            student.setResults(scroes);
+                            float scroes = getScores();
+                            student.setResults((int) scroes);
                             BaseApplication.app.daoSession.getStudentDao().save(student);
                             new AlertDialog.Builder(MainActivity.this).setMessage("考试结束")
                                     .setPositiveButton("查看成绩", new DialogInterface.OnClickListener() {
@@ -303,6 +309,21 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         }
     }
 
+    // 恢复颜色
+    private void setInitGreenColorAndInitExamation() {
+        if (BaseApplication.app.shortList == null) {
+            BaseApplication.app.shortList = new ArrayList<>();
+        }
+        if (BaseApplication.app.breakfaultList == null) {
+            BaseApplication.app.breakfaultList = new ArrayList<>();
+        }
+        if (BaseApplication.app.falseList == null) {
+            BaseApplication.app.falseList = new ArrayList<>();
+        }
+        setInitGreenColor();
+        initExamnination();
+    }
+
     private void loadExamnination2DataList() {
         String strBreak = examzation.getBreak_();
         if (!TextUtils.isEmpty(strBreak)) {
@@ -382,15 +403,15 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 //        }
         if (BaseApplication.app.shortList.isEmpty()) {
             for (int i = 0; i < 6; i++) {
-                BaseApplication.app.shortList.add(new Relay(i + 1, i + 1, Relay.Green));
+                BaseApplication.app.shortList.add(new Relay(i + 1, i + 1, Relay.Green, ConstValue.type_shortFault));
             }
 
             for (int i = 0; i < 100; i++) {
-                BaseApplication.app.breakfaultList.add(new Relay(i + 1, i + 1, Relay.Green));
+                BaseApplication.app.breakfaultList.add(new Relay(i + 1, i + 1, Relay.Green, ConstValue.type_break));
             }
 
             for (int i = 0; i < 20; i++) {
-                BaseApplication.app.falseList.add(new Relay(i + 1, i + 1, Relay.Green));
+                BaseApplication.app.falseList.add(new Relay(i + 1, i + 1, Relay.Green, ConstValue.type_false));
             }
         }
         // 不再初始化
@@ -398,15 +419,15 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             switch (pos) {
                 case 0:
                     BaseApplication.app.faultboardOption = new FaultboardOption(this, faultboardOptionHandler,
-                            BaseApplication.app.breakfaultList);
+                            BaseApplication.app.breakfaultList, this);
                     break;
                 case 1:
                     BaseApplication.app.faultboardOption = new FaultboardOption(this, faultboardOptionHandler,
-                            BaseApplication.app.falseList);
+                            BaseApplication.app.falseList, this);
                     break;
                 case 2:
                     BaseApplication.app.faultboardOption = new FaultboardOption(this, faultboardOptionHandler,
-                            BaseApplication.app.shortList);
+                            BaseApplication.app.shortList, this);
                     break;
             }
         }
@@ -423,15 +444,20 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 Relay relay = (Relay) msg.obj;
                 int state = relay.getState();
                 // add by dyg
+                // 在adapter中判断红色是examnation
                 if (SpDataUtils.TYPE_TEACHER.equals(loginType)) {
 
                     relay.setState(Relay.Yellow);
                     // 老师端发送数据
                     if (state == Relay.Red) {
                         BaseApplication.app.faultboardOption.shutDown((byte) relay.getId(), msg.arg1);
+//                        relay.setExamination(false);
                     } else if (state == Relay.Green) {
                         int id = relay.getId();
                         BaseApplication.app.faultboardOption.start((byte) id, msg.arg1);
+//                        if(BaseApplication.app.faultboardOption.isConneted()){
+//                            relay.setExamination(true);
+//                        }
                     } else if (state == Relay.Yellow) {
                         Toast.makeText(MainActivity.this, "Command had send !",
                                 Toast.LENGTH_SHORT).show();
@@ -441,11 +467,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
                     int examNum = getSourceCount();
 //                    if (examNum < 5) {
-                    if (!relay.isExamination()) {
-                        relay.setExamination(true);
-                    } else {
-                        relay.setExamination(false);
-                    }
+//                    if (!relay.isExamination()) {
+//                    } else {
+//                    }
 
 //                    }
 //                    else {
@@ -460,8 +484,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                             relay.setStdentClick(true);
                             relay.setState(Relay.Yellow);
                         }
-                        int count = getSourceCount();
-                        int clickCount = getClickCount();
+                        int count = getSourceCount(relay.getCategory());
+                        int clickCount = getClickCount(relay.getCategory());
                         if (clickCount > count) {
 //                        Toast.makeText(MainActivity.this, "已答" + clickCount + "道题,本次点击答题无效", Toast.LENGTH_SHORT).show();
                             relay.setStdentClick(false);
@@ -529,6 +553,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 .orderDesc(ExaminationDao.Properties.Id).limit(1).unique();
     }
 
+    private boolean begin = false;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -538,6 +564,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 // 显示红色提示view，
                 // 时间结束显示对话框，
                 // 考试结束，自动提交考试结果。
+                begin = true;
+
                 boolean canStartExam = checkDbHaveExamination();
                 boolean haveExamed = checkifStudentExamed();
                 if (canStartExam && !haveExamed) {
@@ -551,6 +579,10 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 break;
             // 提交答案
             case R.id.button_submit:
+                if (!begin) {
+                    Toast.makeText(this, "请先点击开始考试按钮", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (examzation == null) {
                     Toast.makeText(this, "教师还未出题，不能计算成绩", Toast.LENGTH_SHORT).show();
                     return;
@@ -558,9 +590,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 // 停止计时
                 stopCount();
 
-                int scores = getScores();
+                float scores = getScores();
                 // 判断分数写入数据库，跳转到显示分数界面
-                student.setResults(scores);
+                student.setResults((int) scores);
                 student.setDevices(examzation.getDevices());
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 student.setSemester(format.format(new Date()));
@@ -568,7 +600,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 //                消耗时间计算
                 student.setConsume_time(minutes - (cousumeSeconds / 60) + "");
                 BaseApplication.app.daoSession.getStudentDao().save(student);
-                examzation.setExpired(true);
+//                examzation.setExpired(true);
                 BaseApplication.app.daoSession.getExaminationDao().update(examzation);
                 showResultActivity();
 
@@ -604,12 +636,15 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 break;
             case R.id.Button_StateIsRead:// 状态读取
                 BaseApplication.app.faultboardOption.stateIsRead(R.id.Button_StateIsRead);
+                faultboardOptionHandler.sendEmptyMessageDelayed(0, 500);
                 break;
             case R.id.Button_SetAll:// 全部设置
                 BaseApplication.app.faultboardOption.setAll(R.id.Button_SetAll);
+                faultboardOptionHandler.sendEmptyMessageDelayed(0, 500);
                 break;
             case R.id.Button_ClearAll:// 全部清除
                 BaseApplication.app.faultboardOption.clearAll(R.id.Button_ClearAll);
+                faultboardOptionHandler.sendEmptyMessageDelayed(0, 500);
                 break;
             case R.id.Button_Mode_Teach02:// 教学模式
 //			todo 打开指定文件夹 /sdcard/
@@ -680,33 +715,50 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         }
     }
 
-    private int getClickCount() {
+    private int getClickCount(int type) {
         int resultCount = 0;
-        for (int i = 0; i < BaseApplication.app.breakfaultList.size(); i++) {
-            Relay relay = BaseApplication.app.breakfaultList.get(i);
-            if (!relay.isStdentClick()) {
-                continue;
-            } else {
-                resultCount++;
-            }
+        switch (type) {
+            case type_break:
+                for (int i = 0; i < BaseApplication.app.breakfaultList.size(); i++) {
+                    Relay relay = BaseApplication.app.breakfaultList.get(i);
+                    if (!relay.isStdentClick()) {
+                        continue;
+                    } else {
+                        resultCount++;
+                    }
+                }
+                break;
+            case type_false:
+                for (int i = 0; i < BaseApplication.app.falseList.size(); i++) {
+                    Relay relay = BaseApplication.app.falseList.get(i);
+                    if (!relay.isStdentClick()) {
+                        continue;
+                    } else {
+                        resultCount++;
+                    }
+                }
+                break;
+            case type_shortFault:
+                for (int i = 0; i < BaseApplication.app.shortList.size(); i++) {
+                    Relay relay = BaseApplication.app.shortList.get(i);
+                    if (!relay.isStdentClick()) {
+                        continue;
+                    } else {
+                        resultCount++;
+                    }
+                }
+                break;
         }
-        for (int i = 0; i < BaseApplication.app.falseList.size(); i++) {
-            Relay relay = BaseApplication.app.falseList.get(i);
-            if (!relay.isStdentClick()) {
-                continue;
-            } else {
-                resultCount++;
-            }
-        }
-        for (int i = 0; i < BaseApplication.app.shortList.size(); i++) {
-            Relay relay = BaseApplication.app.shortList.get(i);
-            if (!relay.isStdentClick()) {
-                continue;
-            } else {
-                resultCount++;
-            }
-        }
+
+
         return resultCount;
+    }
+
+    private void readState() {
+        if (BaseApplication.app.faultboardOption != null && BaseApplication.app.faultboardOption.isConneted()) {
+            BaseApplication.app.faultboardOption.stateIsRead(R.id.Button_StateIsRead);
+            faultboardOptionHandler.sendEmptyMessageDelayed(0, 500);
+        }
     }
 
     private int breakCount = 0;
@@ -769,7 +821,46 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         return sourceCount;
     }
 
-    private int getScores() {
+    private int getSourceCount(int category) {
+        int resultCount = 0;
+        switch (category) {
+            case type_break:
+                for (int i = 0; i < BaseApplication.app.breakfaultList.size(); i++) {
+                    Relay relay = BaseApplication.app.breakfaultList.get(i);
+                    if (!relay.isExamination()) {
+                        continue;
+                    } else {
+                        resultCount++;
+                    }
+                }
+                break;
+            case type_false:
+                for (int i = 0; i < BaseApplication.app.falseList.size(); i++) {
+                    Relay relay = BaseApplication.app.falseList.get(i);
+                    if (!relay.isExamination()) {
+                        continue;
+                    } else {
+                        resultCount++;
+                    }
+                }
+                break;
+            case type_shortFault:
+                for (int i = 0; i < BaseApplication.app.shortList.size(); i++) {
+                    Relay relay = BaseApplication.app.shortList.get(i);
+                    if (!relay.isExamination()) {
+                        continue;
+                    } else {
+                        resultCount++;
+                    }
+                }
+                break;
+
+        }
+
+        return resultCount;
+    }
+
+    private float getScores() {
         int sourceCount = 0;
         int rightCount = 0;
         for (int i = 0; i < BaseApplication.app.breakfaultList.size(); i++) {
@@ -809,7 +900,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             Toast.makeText(this, "教师没有出题，无法计算分数", Toast.LENGTH_SHORT).show();
             return 0;
         }
-        return (100 / sourceCount) * rightCount;
+        return (100f / sourceCount) * rightCount;
     }
 
     private boolean goOnCount = false;
@@ -891,8 +982,13 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 //            Toast.makeText(this, "考题已经发送完毕!", Toast.LENGTH_SHORT).show();
 //        }
         String devicesName = tvFileName.getText().toString();
+
         if (TextUtils.isEmpty(devicesName)) {
             Toast.makeText(this, "请点击\"故障点说明\"选择对应设备文件", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if ((devicesName + ".txt").equals(LoginActivity.companyFileName)) {
+            Toast.makeText(this, "请选择正确的故障点说明文件！", Toast.LENGTH_SHORT).show();
             return false;
         }
         String str = etTime.getText().toString();
@@ -946,13 +1042,22 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 }
                 break;
             case R.id.action_exit:
-                finish();
+                exit();
                 break;
             case R.id.action_close:
                 BaseApplication.app.faultboardOption.closeBluetoothSocket();
                 Toast.makeText(MainActivity.this, "连接已断开",
                         Toast.LENGTH_SHORT).show();
-                initData(getCurentTab());
+//                initData(getCurentTab());
+                setInitGreenColorAndInitExamation();
+                // updateDatabase
+                if (examzation != null) {
+                    BaseApplication.app.daoSession.getExaminationDao().update(examzation);
+                }
+                if (theFailurePointSetAdapter != null) {
+                    theFailurePointSetAdapter.notifyDataSetChanged();
+                }
+
                 break;
             case R.id.action_edit_title:
                 editTitle();
@@ -1105,10 +1210,17 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                                     .getDrawable(R.drawable.channelsbg));
                         }
                     }
+                    // 读取状态
+                    if (SpDataUtils.getLoginType().equals(SpDataUtils.TYPE_TEACHER)) {
+                        readState();
+                    }
                 }
             });
 
             changeListData("0");
+            if (SpDataUtils.getLoginType().equals(SpDataUtils.TYPE_TEACHER)) {
+                readState();
+            }
         }
 
     }
@@ -1158,12 +1270,15 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         if (datas == null) {
             return;
         }
+        if (datas.size() == 0) {
+            resetValues();
+        }
 
         for (int i = 0; i < BaseApplication.app.breakfaultList.size(); i++) {
             Relay relay = BaseApplication.app.breakfaultList.get(i);
             for (int j = 0; j < datas.size(); j++) {
                 FaultBean faultBean = datas.get(j);
-                if (faultBean.getType() == ConstValue.type_duanlu) {
+                if (faultBean.getType() == ConstValue.type_break) {
                     relay.setValue(faultBean.getValue());
                     relay.setType(faultBean.getType());
                     datas.remove(faultBean);
@@ -1176,7 +1291,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             Relay relay = BaseApplication.app.falseList.get(i);
             for (int j = 0; j < datas.size(); j++) {
                 FaultBean faultBean = datas.get(j);
-                if (faultBean.getType() == ConstValue.type_xujie) {
+                if (faultBean.getType() == ConstValue.type_false) {
                     relay.setValue(faultBean.getValue());
                     relay.setType(faultBean.getType());
                     datas.remove(faultBean);
@@ -1201,5 +1316,50 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         theFailurePointSetAdapter.notifyDataSetChanged();
 //        Toast.makeText(this, "替换完毕", Toast.LENGTH_SHORT).show();
 
+    }
+
+    private void resetValues() {
+        for (int i = 0; i < BaseApplication.app.breakfaultList.size(); i++) {
+            Relay relay = BaseApplication.app.breakfaultList.get(i);
+            relay.setValue((i + 1) + "");
+            relay.setType(type_none);
+        }
+        for (int i = 0; i < BaseApplication.app.falseList.size(); i++) {
+            Relay relay = BaseApplication.app.falseList.get(i);
+            relay.setValue((i + 1) + "");
+            relay.setType(type_none);
+
+        }
+        for (int i = 0; i < BaseApplication.app.shortList.size(); i++) {
+            Relay relay = BaseApplication.app.shortList.get(i);
+            relay.setValue((i + 1) + "");
+            relay.setType(type_none);
+
+        }
+        theFailurePointSetAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBackPressed() {
+        exit();
+    }
+
+    private void exit() {
+        if (examzation != null) {
+            boolean b = checkCanMakeExamination();
+            if (!b) {
+            } else {
+                finish();
+            }
+        } else {
+            finish();
+        }
+    }
+
+    @Override
+    public void onConnected() {
+        if (SpDataUtils.getLoginType().equals(SpDataUtils.TYPE_TEACHER)) {
+            readState();
+        }
     }
 }

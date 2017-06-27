@@ -3,10 +3,12 @@ package com.xiaobailong.tools;
 import android.os.Environment;
 
 public class ConstValue {
+    // 没有状态
+    public static final int type_none = -1;
     // $ 文件中开头符号 断路
-    public static final int type_duanlu = 0;
+    public static final int type_break = 0;
     // # 文件中开头符号 虚接
-    public static final int type_xujie = 1;
+    public static final int type_false = 1;
     // @ 文件中开头符号 短路
     public static final int type_shortFault = 2;
     /**

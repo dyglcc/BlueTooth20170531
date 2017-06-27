@@ -5,7 +5,7 @@ package com.xiaobailong.model;
  */
 
 public class FaultBean {
-    private int type;
+    private int type = -1;
     private String value;
 
     public int getType() {

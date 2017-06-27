@@ -1,23 +1,22 @@
 package com.xiaobailong.activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.xiaobailong.base.BaseApplication;
+import com.xiaobailong.bean.Examination;
 import com.xiaobailong.bluetoothfaultboardcontrol.LoginActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.tools.SpDataUtils;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,10 +43,10 @@ public class EntryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_entry);
         ButterKnife.bind(this);
-        if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            ActivityCompat.requestPermissions(this, mPermissionList, 123);
-        }
+//        if (Build.VERSION.SDK_INT >= 23) {
+//            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+//            ActivityCompat.requestPermissions(this, mPermissionList, 123);
+//        }
 
         getSdcardPath();
 
@@ -108,5 +107,13 @@ public class EntryActivity extends Activity {
         BaseApplication.app.shortList = null;
         BaseApplication.app.falseList = null;
         BaseApplication.app.breakfaultList = null;
+        List<Examination> list = BaseApplication.app.daoSession.getExaminationDao().queryBuilder().list();
+        for (int i = 0; i < list.size(); i++) {
+            Examination examination = list.get(i);
+            if (examination != null) {
+                examination.setExpired(true);
+                BaseApplication.app.daoSession.getExaminationDao().update(examination);
+            }
+        }
     }
 }

@@ -4,11 +4,13 @@ import android.app.Application;
 
 import com.xiaobailong.bean.DaoMaster;
 import com.xiaobailong.bean.DaoSession;
+import com.xiaobailong.bean.Examination;
 import com.xiaobailong.bluetoothfaultboardcontrol.FaultboardOption;
 import com.xiaobailong.bluetoothfaultboardcontrol.Relay;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dongyuangui on 2017/5/31.
@@ -50,6 +52,16 @@ public class BaseApplication extends Application {
         devOpenHelper = new DaoMaster.DevOpenHelper(getApplicationContext(), "cms", null);
         daoMaster = new DaoMaster(devOpenHelper.getWritableDb());
         daoSession = daoMaster.newSession();
+        if(faultboardOption == null){
+            List<Examination> list = BaseApplication.app.daoSession.getExaminationDao().queryBuilder().list();
+            for (int i = 0; i < list.size(); i++) {
+                Examination examination = list.get(i);
+                if (examination != null) {
+                    examination.setExpired(true);
+                    BaseApplication.app.daoSession.getExaminationDao().update(examination);
+                }
+            }
+        }
     }
 
 }

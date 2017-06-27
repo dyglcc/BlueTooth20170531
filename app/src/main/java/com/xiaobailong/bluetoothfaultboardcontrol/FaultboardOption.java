@@ -21,6 +21,7 @@ public class FaultboardOption implements BluetoothListener {
     private final String DefaultPSW = "1234";
     private final int DataReadWrong = 0;
     private final int BluetoothError = 1;
+    private ReadStateListenter readStateListenter;
 
     private Handler mHandler = null;
 
@@ -37,7 +38,7 @@ public class FaultboardOption implements BluetoothListener {
     private ArrayList<Relay> relayList = null;
 
     public FaultboardOption(Context context, Handler mHandler,
-                            ArrayList<Relay> relayList) {
+                            ArrayList<Relay> relayList, ReadStateListenter listener) {
         this.context = context;
         this.mHandler = mHandler;
         blueToothManager = new BluetoothManager(context, this);
@@ -45,6 +46,7 @@ public class FaultboardOption implements BluetoothListener {
         dataParser = new DataParser();
         this.relayList = relayList;
         openBluetooth();
+        readStateListenter = listener;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class FaultboardOption implements BluetoothListener {
                 if (waitingDialog != null && waitingDialog.isShowing()) {
                     waitingDialog.dismiss();
                 }
-                if(activity!=null && !activity.isFinishing()){
+                if (activity != null && !activity.isFinishing()) {
                     showBlueToothDevice(activity);
                 }
                 break;
@@ -72,6 +74,10 @@ public class FaultboardOption implements BluetoothListener {
                 }
                 Toast.makeText(context, "Bluetooth connect Success !",
                         Toast.LENGTH_SHORT).show();
+                if (readStateListenter != null) {
+
+                    readStateListenter.onConnected();
+                }
                 break;
         }
     }
@@ -241,8 +247,10 @@ public class FaultboardOption implements BluetoothListener {
             Relay relay = relayList.get(i);
             if (state[i] == 0) {
                 relay.setState(Relay.Green);
+                relay.setExamination(false);
             } else {
                 relay.setState(Relay.Red);
+                relay.setExamination(true);
             }
         }
         Message msg = this.mHandler.obtainMessage();

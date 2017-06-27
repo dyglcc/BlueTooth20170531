@@ -300,7 +300,7 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
                 holder = (ViewHolder) convertView.getTag();
             }
             Student student = datalist.get(position);
-            holder.serId.setText(position + "");
+            holder.serId.setText(position + 1 + "");
             holder.xuehao.setText(student.getXuehao() + "");
             holder.username.setText(student.getUsername());
             holder.sex.setText(student.getSex());

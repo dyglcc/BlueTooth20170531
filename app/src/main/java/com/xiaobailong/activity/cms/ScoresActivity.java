@@ -2,6 +2,7 @@ package com.xiaobailong.activity.cms;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xiaobailong.activity.AddFileActivity;
 import com.xiaobailong.base.BaseApplication;
@@ -19,6 +21,9 @@ import com.xiaobailong.bean.Student;
 import com.xiaobailong.bean.StudentDao;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
+import com.xiaobailong.widget.BottomMenuFragment;
+import com.xiaobailong.widget.MenuItem;
+import com.xiaobailong.widget.MenuItemOnClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,6 +79,53 @@ public class ScoresActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        grid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                Toast.makeText(ScoresActivity.this, "长按" + position, Toast.LENGTH_SHORT).show();
+
+                BottomMenuFragment bottomMenuFragment = new BottomMenuFragment();
+                List<MenuItem> menuItemList = new ArrayList<MenuItem>();
+                MenuItem item0 = new MenuItem();
+                item0.setText("删除");
+                item0.setPosition(0);
+                item0.setMenuItemOnClickListener(new MenuItemOnClickListener(bottomMenuFragment, item0) {
+                    @Override
+                    public void onClickMenuItem(View v, MenuItem menuItem) {
+
+                        // 学生学期信息删除
+                        String dateStr = groups.get(position);
+                        for (int i = 0; i < times.size(); i++) {
+                            Student student = times.get(i);
+                            if (student == null) {
+                                continue;
+                            }
+
+                            String strTime = student.getSemester();
+                            if (strTime == null) {
+                                continue;
+                            }
+                            if (strTime.equals(dateStr)) {
+                                student.setSemester(null);
+                                student.setResults(null);
+                                dao.update(student);
+                            }
+                        }
+                        // 初始化数据
+                        getData();
+                        adapter.notifyDataSetChanged();
+
+                    }
+                });
+                menuItemList.add(item0);
+
+                bottomMenuFragment.setMenuItems(menuItemList);
+                bottomMenuFragment.show(getFragmentManager(), "BottomMenuFragment");
+
+
+                return true;
+            }
+        });
 
     }
 
@@ -100,6 +152,9 @@ public class ScoresActivity extends BaseActivity {
         HashMap<String, Student> map = new HashMap<>();
         for (int i = 0; i < times.size(); i++) {
             Student stu = times.get(i);
+            if (TextUtils.isEmpty(stu.getSemester())) {
+                continue;
+            }
             if (!map.containsKey(stu.getSemester())) {
                 map.put(stu.getSemester(), stu);
             }
@@ -140,8 +195,8 @@ public class ScoresActivity extends BaseActivity {
             } else {
                 holder = (YeadViewHolder) convertView.getTag();
             }
-            Student s = times.get(position);
-            holder.fileName.setText(s.getSemester().toString());
+
+            holder.fileName.setText(groups.get(position));
             return convertView;
         }
     }

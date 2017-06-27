@@ -27,34 +27,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by dongyuangui on 2017/6/12.
- * <p>
- * Created by dongyuangui on 2017/6/1.
- * <p>
- * Created by dongyuangui on 2017/6/1.
- * <p>
- * Created by dongyuangui on 2017/6/1.
- * <p>
- * Created by dongyuangui on 2017/6/1.
- * <p>
- * Created by dongyuangui on 2017/6/1.
- * <p>
- * Created by dongyuangui on 2017/6/1.
- * <p>
- * Created by dongyuangui on 2017/6/1.
- * <p>
- * Created by dongyuangui on 2017/6/1.
- * <p>
- * Created by dongyuangui on 2017/6/1.
- */
 
 /**
  * Created by dongyuangui on 2017/6/1.
- */
-
-/**
- * Created by dongyuangui on 2017/6/1.
+ * des:新的设备代码，之前有个旧的设备代码
  */
 
 public class NewDevicesActivity extends BaseActivity {
