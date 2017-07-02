@@ -30,7 +30,7 @@
 
         <Button
             android:id="@+id/btn_teacher"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@drawable/login_button"
             android:text="教师登录"
@@ -39,7 +39,7 @@
 
         <Button
             android:id="@+id/btn_student"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:background="@drawable/login_button"

@@ -4,12 +4,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -46,33 +46,35 @@ public class TheFailurePointSetAdapter extends BaseAdapter implements
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Button button = null;
 
+        ViewHolder holder = null;
         if (convertView == null) {
-            button = new Button(context);
-            convertView = button;
+            holder = new ViewHolder();
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_fault,null);
+            holder.button = (TextView) convertView.findViewById(R.id.button);
+            convertView.setTag(holder);
         } else {
-            button = (Button) convertView;
+            holder = (ViewHolder) convertView.getTag();
         }
 
         Relay relay = this.list.get(position);
         if (relay.isStdentClick()) {
-            button.setBackgroundColor(Relay.Yellow);
+            holder.button.setBackgroundColor(Relay.Yellow);
         } else {
-            button.setBackgroundColor(relay.getState());
+            holder.button.setBackgroundColor(relay.getState());
         }
-        button.setTag(relay);
-        button.setId(relay.getId());
-        button.setOnClickListener(this);
+        holder.button.setTag(relay);
+        holder.button.setId(relay.getId());
+        holder.button.setOnClickListener(this);
         // 原来是10
-        button.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.grid_text_size));
+//        holder.button.setTextSize(context.getResources().getDimension(R.dimen.grid_text_size));
         // button.setWidth(40/2*3);
         // button.setHeight(40/2*3);
         String value = relay.getValue();
         if (TextUtils.isEmpty(value)) {
-            button.setText(relay.showId() + "");
+            holder.button.setText(relay.showId() + "");
         } else {
-            button.setText(value);
+            holder.button.setText(value);
         }
         return convertView;
     }
@@ -87,6 +89,7 @@ public class TheFailurePointSetAdapter extends BaseAdapter implements
 
     final class ViewHolder {
 
+        TextView button;
     }
 
 }

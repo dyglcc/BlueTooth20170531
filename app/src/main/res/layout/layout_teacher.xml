@@ -13,9 +13,8 @@
 
         <Button
             android:id="@+id/Button_PointOfFailureThat"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="45dp"
-            android:layout_weight="1"
             android:background="@drawable/yellow"
             android:text="@string/Button_PointOfFailureThat"
             android:textSize="13sp" />
@@ -23,17 +22,15 @@
             android:layout_marginRight="50dp" -->
         <Button
             android:id="@+id/Button_Mode_Teach02"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="45dp"
-            android:layout_weight="1"
             android:background="@drawable/yellow"
             android:text="@string/Button_Mode_Teach"
             android:textSize="13sp" />
         <Button
             android:id="@+id/Button_StateIsRead"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="45dp"
-            android:layout_weight="1"
             android:visibility="gone"
             android:background="@drawable/yellow"
             android:text="@string/Button_StateIsRead"
@@ -42,9 +39,8 @@
 
         <Button
             android:id="@+id/Button_SetAll"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="45dp"
-            android:layout_weight="1"
             android:background="@drawable/yellow"
             android:text="@string/Button_SetAll"
             android:textSize="15sp" />
@@ -52,9 +48,8 @@
 
         <Button
             android:id="@+id/Button_ClearAll"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="45dp"
-            android:layout_weight="1"
             android:background="@drawable/yellow"
             android:text="@string/Button_ClearAll"
             android:textSize="15sp" />
@@ -73,9 +68,8 @@
 
         <Button
             android:id="@+id/Button_Mode_Teach09"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="45dp"
-            android:layout_weight="1"
             android:background="@drawable/yellow"
             android:text="@string/Button_Mode_Teach"
             android:textSize="13sp" />
@@ -84,9 +78,8 @@
 
         <Button
             android:id="@+id/Button_an02"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="45dp"
-            android:layout_weight="1"
             android:background="@drawable/yellow"
             android:text="@string/Button_StateIsRead"
             android:textSize="15sp"
@@ -95,9 +88,8 @@
 
         <Button
             android:id="@+id/Button_an03"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="45dp"
-            android:layout_weight="1"
             android:background="@drawable/yellow"
             android:text="@string/Button_SetAll"
             android:textSize="15sp"
@@ -106,7 +98,7 @@
 
         <Button
             android:id="@+id/Button_an04"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="45dp"
             android:layout_weight="1"
             android:background="@drawable/yellow"
@@ -129,7 +121,7 @@
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1.4"
+            android:layout_weight="1.6"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
@@ -156,7 +148,7 @@
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1.2"
+            android:layout_weight="1.4"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
@@ -169,10 +161,9 @@
 
         <Button
             android:id="@+id/button_send"
-            android:layout_width="0px"
+            android:layout_width="90dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.8"
             android:background="@drawable/yellow"
             android:text="@string/button_send"
             android:textSize="15sp"

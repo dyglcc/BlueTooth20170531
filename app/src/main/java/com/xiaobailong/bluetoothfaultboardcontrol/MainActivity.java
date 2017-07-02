@@ -26,6 +26,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabWidget;
@@ -109,6 +110,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
     private Button button_start_exam, button_submit;
     private Examination examzation;
     private Student student;
+    private LinearLayout content;
     private int count;
     private int resultCount;
     private String loginType;
@@ -181,6 +183,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         // 滑动区域冲突
         listscroll = (ListScrollView) findViewById(R.id.listscroll);
         listscroll.setListView(theFailurePointSetGV);
+        content = (LinearLayout) findViewById(R.id.layout_content);
         // 点火
         ignitionButton = (Button) findViewById(R.id.Button_Ignition);
         ignitionButton.setOnClickListener(this);
@@ -1038,7 +1041,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 if (!BaseApplication.app.faultboardOption.isConneted()) {
                     BaseApplication.app.faultboardOption.bluetoothConnect(MainActivity.this);
                 } else {
-                    Toast.makeText(this, "还在链接当中", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "还在连接当中", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.action_exit:
@@ -1257,13 +1260,39 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         if (file != null && !this.isFinishing()) {
             tvFileName.setVisibility(View.VISIBLE);
             String name = file.getName().toString();
-            String[] names = name.split("\\.");
+            final String[] names = name.split("\\.");
             if (names.length > 0) {
+
                 tvFileName.setText(names[0]);
+
+//                if (names.length > 2) {
+//                    String lastword = names[0].substring(names[0].length() - 2, names[0].length() - 1);
+//                    countHandler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            afterSet(names[0]);
+//                        }
+//                    }, 2000);
+//                }
+
+                // 修复bug:设置之后textview的高度不会减小
+                afterSet(names[0]);
+
             }
         } else {
             tvFileName.setVisibility(View.GONE);
         }
+    }
+
+    private void afterSet(final String str) {
+        tvFileName.setText(str + "..");
+        countHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                tvFileName.setText(str);
+            }
+        }, 200);
     }
 
     public void setValues(List<FaultBean> datas) {
@@ -1346,9 +1375,51 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
     private void exit() {
         if (examzation != null) {
-            boolean b = checkCanMakeExamination();
-            if (!b) {
+
+            // 已经发送完了考题
+            int countCheck = getSourceCount();
+            if (countCheck == 0) {
+                examzation.setExpired(true);
+                BaseApplication.app.daoSession.getExaminationDao().delete(examzation);
+                finish();
+                return;
+            }
+
+            if (!checkCanMakeExamination()) {
             } else {
+                // 不管学生还是老师登陆都要保存一次
+                int count = 0;
+                StringBuilder fasleString = new StringBuilder();
+                StringBuilder breakString = new StringBuilder();
+                StringBuilder shortString = new StringBuilder();
+                for (int i = 0; i < BaseApplication.app.falseList.size(); i++) {
+                    Relay relay = BaseApplication.app.falseList.get(i);
+                    if (relay.isExamination()) {
+                        fasleString.append(i + ",");
+                        count++;
+                    }
+                }
+                for (int i = 0; i < BaseApplication.app.breakfaultList.size(); i++) {
+                    Relay relay = BaseApplication.app.breakfaultList.get(i);
+                    if (relay.isExamination()) {
+                        breakString.append(i + ",");
+                        count++;
+                    }
+                }
+                for (int i = 0; i < BaseApplication.app.shortList.size(); i++) {
+                    Relay relay = BaseApplication.app.shortList.get(i);
+                    if (relay.isExamination()) {
+                        shortString.append(i + ",");
+                        count++;
+                    }
+                }
+                examzation.setBreak_(breakString.toString());
+                examzation.setFalse_(fasleString.toString());
+                examzation.setShort_(shortString.toString());
+                if (count == 0) {
+                    examzation.setExpired(true);
+                }
+                BaseApplication.app.daoSession.getExaminationDao().update(examzation);
                 finish();
             }
         } else {

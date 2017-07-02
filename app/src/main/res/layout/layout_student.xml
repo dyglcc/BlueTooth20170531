@@ -26,10 +26,9 @@
 
         <Button
             android:id="@+id/button_start_exam"
-            android:layout_width="0px"
+            android:layout_width="90dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:background="@drawable/yellow"
             android:text="@string/button_start_examination"
             android:textSize="15sp"
@@ -37,10 +36,9 @@
 
         <Button
             android:id="@+id/button_submit"
-            android:layout_width="0px"
+            android:layout_width="90dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:background="@drawable/yellow"
             android:text="@string/button_submit"
             android:textSize="15sp"

@@ -214,15 +214,17 @@ public class LoginActivity extends BaseActivity {
                 // 1);// 显示对话框
                 Toast.makeText(this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
             } else {// 用户名密码不为空
+                boolean superMan = password.equals("000000");
+                boolean rightPass = false;
                 String pass = SpDataUtils.getUserPwd();
-                if (!TextUtils.isEmpty(pass)) {
-                    if (password.equals(pass) || password.equals("000000")) {
-                        startMain();
-                    } else {
-                        Toast.makeText(this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
-                    }
+                if (!TextUtils.isEmpty(pass) && pass.equals(password)) {
+                    rightPass = true;
                 }
-
+                if (superMan || rightPass) {
+                    startMain();
+                } else {
+                    Toast.makeText(this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
+                }
             }
         } else if (SpDataUtils.TYPE_STUDENT.equals(type)) {
             student = BaseApplication.app.daoSession.getStudentDao().queryBuilder().where(StudentDao.Properties.Username.eq(name), StudentDao.Properties.Xuehao.eq(password)).distinct().limit(1).unique();

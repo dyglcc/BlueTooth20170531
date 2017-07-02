@@ -2,21 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="@android:color/white">
-   
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
-     <ListView 
+
+    <ListView
         android:id="@+id/LV_Point_Of_Failure_List"
         android:layout_width="fill_parent"
-        android:layout_height="400dp">
-      </ListView> 
-   
-    <Button 
-        android:id="@+id/Button_Point_Of_Failure_BT"
-        android:layout_height="45dp"
-        android:layout_width="fill_parent"
-        android:background="@drawable/yellow" 
-        android:text="@string/Back"/>
+        android:layout_height="400dp"></ListView>
 
+    <Button
+        android:id="@+id/Button_Point_Of_Failure_BT"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/yellow"
+        android:text="@string/Back" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10px"
+        android:background="@color/white"></View>
 </LinearLayout>

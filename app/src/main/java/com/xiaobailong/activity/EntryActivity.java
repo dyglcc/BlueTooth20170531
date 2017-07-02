@@ -1,7 +1,9 @@
 package com.xiaobailong.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -91,11 +93,26 @@ public class EntryActivity extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(EntryActivity.this).setTitle("确定退出？")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        }).create().show();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         // 关闭第一个页面清除数据
         clearData();
-
     }
 
     private void clearData() {
