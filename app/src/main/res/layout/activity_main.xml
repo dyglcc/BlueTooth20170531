@@ -37,8 +37,9 @@
 
             <Button
                 android:id="@+id/Button_Ignition"
-                android:layout_width="100dp"
                 android:layout_height="45dp"
+                android:layout_weight="1"
+                android:layout_width="0px"
                 android:background="@drawable/red"
                 android:text="@string/Button_Ignition" />
             <!--
@@ -48,7 +49,8 @@
 
             <Button
                 android:id="@+id/Button_Start"
-                android:layout_width="100dp"
+                android:layout_weight="1"
+                android:layout_width="0px"
                 android:layout_height="45dp"
                 android:background="@drawable/red"
                 android:text="@string/Button_Start" />
@@ -56,7 +58,8 @@
 
             <Button
                 android:id="@+id/Button_ShutDown"
-                android:layout_width="100dp"
+                android:layout_weight="1"
+                android:layout_width="0px"
                 android:layout_height="45dp"
                 android:background="@drawable/green"
                 android:text="@string/Button_ShutDown" />

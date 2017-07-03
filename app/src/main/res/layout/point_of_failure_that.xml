@@ -13,7 +13,7 @@
 
     <Button
         android:id="@+id/Button_Point_Of_Failure_BT"
-        android:layout_width="90dp"
+        android:layout_width="180dp"
         android:layout_height="45dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/yellow"

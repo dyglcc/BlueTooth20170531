@@ -22,7 +22,7 @@
         android:layout_height="match_parent">
         <Button
             android:id="@+id/btn_examination_setting"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/login_button"
@@ -33,7 +33,7 @@
 
         <Button
             android:id="@+id/btn_student_cms"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/login_button"
@@ -44,7 +44,7 @@
 
         <Button
             android:id="@+id/btn_pass_setting"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
