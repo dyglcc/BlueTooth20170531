@@ -1,6 +1,5 @@
 package com.xiaobailong.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +12,7 @@ import android.widget.ImageView;
 
 import com.xiaobailong.base.BaseApplication;
 import com.xiaobailong.bean.Examination;
+import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.LoginActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.tools.SpDataUtils;
@@ -28,7 +28,7 @@ import butterknife.OnClick;
  * Created by dongyuangui on 2017/6/1.
  */
 
-public class EntryActivity extends Activity {
+public class EntryActivity extends BaseActivity {
 
     @BindView(R.id.btn_teacher)
     Button btnTeacher;

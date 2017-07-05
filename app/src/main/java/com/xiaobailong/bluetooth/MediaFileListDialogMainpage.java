@@ -65,11 +65,14 @@ public class MediaFileListDialogMainpage extends Dialog implements OnItemClickLi
 
     public static ArrayList<String> getDirFilesDir(File file) {
         ArrayList<String> list = new ArrayList<String>();
-        if(file == null){
+        if (file == null) {
             return list;
         }
         for (File f : file.listFiles()) {
             if (f.isFile() && f.getName().endsWith(".txt")) {
+                if (f.getName().toLowerCase().indexOf("companyinfo") != -1) {
+                    continue;
+                }
                 list.add(f.getAbsolutePath());
             }
         }
@@ -171,7 +174,7 @@ public class MediaFileListDialogMainpage extends Dialog implements OnItemClickLi
                 // 断路
                 if (line.startsWith("$")) {
 
-                     fb = new FaultBean();
+                    fb = new FaultBean();
                     fb.setType(ConstValue.type_break);
                     fb.setValue(line.substring(1));
 
@@ -186,7 +189,7 @@ public class MediaFileListDialogMainpage extends Dialog implements OnItemClickLi
                     fb.setType(ConstValue.type_shortFault);
                     fb.setValue(line.substring(1));
                 }
-                if(fb!=null){
+                if (fb != null) {
                     list.add(fb);
                 }
             }
