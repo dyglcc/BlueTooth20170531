@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 /**
  * Created by dongyuangui on 2017/6/1.
  */
@@ -39,7 +41,9 @@ public class EntryActivity extends BaseActivity {
     private String savePath = null;
     private boolean hasSdcard = false;
     private String companyBrandFileName = "brand.png";
+    public static  String backgroundFileName = "background.jpg";
 
+    ImageView rl = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +55,14 @@ public class EntryActivity extends BaseActivity {
 //        }
 
         getSdcardPath();
-
+        rl = (ImageView) findViewById(R.id.login_Background);
+        if (savePath != null && hasSdcard) {
+            File file = new File(savePath + backgroundFileName);
+            if (file.exists()) {
+                rl.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeFile(savePath + backgroundFileName)));
+//                rl.setImageDrawable(new BitmapDrawable());
+            }
+        }
 //        init brand image
         brandIV = (ImageView) findViewById(R.id.img_brand);
         if (savePath != null && hasSdcard) {
