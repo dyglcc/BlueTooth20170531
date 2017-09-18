@@ -23,7 +23,7 @@
     <string name="already_start4">虚接故障%1$s道题</string>
     <string name="already_start5">短路故障%1$s道题</string>
     <string name="Back">返回</string>
-    <string name="action_connect">蓝牙连接</string>
+    <string name="action_connect">热点列表</string>
     <string name="action_close">断开连接</string>
     <string name="action_set_title">设置标题文字</string>
 

@@ -1,14 +1,12 @@
 package com.xiaobailong.bluetoothfaultboardcontrol;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
-import com.xiaobailong.bluetooth.BluetoothDevicesListDialog;
 import com.xiaobailong.bluetooth.BluetoothListener;
 import com.xiaobailong.bluetooth.BluetoothManager;
 import com.xiaobailong.bluetooth.BluetoothMessage;
@@ -21,7 +19,7 @@ public class FaultboardOption implements BluetoothListener {
     private final String DefaultPSW = "1234";
     private final int DataReadWrong = 0;
     private final int BluetoothError = 1;
-    private ReadStateListenter readStateListenter;
+    private final int connectSuccess = BluetoothError + 1;
 
     private Handler mHandler = null;
 
@@ -46,38 +44,30 @@ public class FaultboardOption implements BluetoothListener {
         dataParser = new DataParser();
         this.relayList = relayList;
         openBluetooth();
-        readStateListenter = listener;
     }
 
     @Override
     public void optionCallBack(int optionId, BluetoothMessage msg) {
         switch (optionId) {
             case SearchFinished:
-                if (waitingDialog != null && waitingDialog.isShowing()) {
-                    waitingDialog.dismiss();
-                }
-                if (activity != null && !activity.isFinishing()) {
-                    showBlueToothDevice(activity);
-                }
+//			if (waitingDialog != null && waitingDialog.isShowing()) {
+//				waitingDialog.dismiss();
+//			}
+//			showBlueToothDevice();
                 break;
             case BluetoothDevicesSelected:
                 int position = msg.getArg1();
                 blueToothManager.connect(position, DefaultPSW);
                 break;
             case BluetoothSearch:
-                blueToothManager.search();
-                showWaitingDialog(context.getString(R.string.bluetooth_searching));
+//			blueToothManager.search();
+//			showWaitingDialog(context.getString(R.string.bluetooth_searching));
                 break;
             case BluetoothConnected:
                 if (waitingDialog != null && waitingDialog.isShowing()) {
                     waitingDialog.dismiss();
                 }
-                Toast.makeText(context, "Bluetooth connect Success !",
-                        Toast.LENGTH_SHORT).show();
-                if (readStateListenter != null) {
-
-                    readStateListenter.onConnected();
-                }
+                showConectSucc();
                 break;
         }
     }
@@ -95,11 +85,11 @@ public class FaultboardOption implements BluetoothListener {
         }
     }
 
-    public void showBlueToothDevice(Activity activity) {
-        BluetoothDevicesListDialog bluetoothDevicesListDialog = new BluetoothDevicesListDialog(
-                activity, blueToothManager.getAllBluetoothName(), this);
-        bluetoothDevicesListDialog.show();
-    }
+//	public void showBlueToothDevice() {
+//		BluetoothDevicesListDialog bluetoothDevicesListDialog = new BluetoothDevicesListDialog(
+//				context, blueToothManager.getAllBluetoothName(), this);
+//		bluetoothDevicesListDialog.show();
+//	}
 
     public void openBluetooth() {
         if (!blueToothManager.isBluetoothOpened()) {
@@ -107,17 +97,9 @@ public class FaultboardOption implements BluetoothListener {
         }
     }
 
-    public boolean isConneted() {
-
-        return blueToothManager.isBluetoothCononected();
-    }
-
-    private Activity activity;
-
-    public void bluetoothConnect(Activity activity) {
-        this.activity = activity;
-        blueToothManager.getBondedDevices();
-        showBlueToothDevice(activity);
+    public void bluetoothConnect() {
+        blueToothManager.connect(0, "");
+//		showBlueToothDevice();
     }
 
     public void setArray(ArrayList<Relay> relays) {
@@ -211,10 +193,10 @@ public class FaultboardOption implements BluetoothListener {
     }
 
     public void closeBluetoothSocket() {
-        if (blueToothManager.isBluetoothCononected()) {
-            blueToothManager.close();
+        if (blueToothManager.isBluetoothCononected() == false) {
+            return;
         }
-
+        blueToothManager.close();
     }
 
     @Override
@@ -225,6 +207,11 @@ public class FaultboardOption implements BluetoothListener {
         bluetoothListenerHandler.sendMessage(msg);
     }
 
+    private void showConectSucc() {
+        Message msg = bluetoothListenerHandler.obtainMessage();
+        msg.arg1 = connectSuccess;
+        bluetoothListenerHandler.sendMessage(msg);
+    }
     /**
      * 解析蓝牙板反馈数据
      */
@@ -268,13 +255,21 @@ public class FaultboardOption implements BluetoothListener {
                                     + msg.arg2 + ".", Toast.LENGTH_LONG).show();
                     break;
                 case BluetoothError:
-                    Toast.makeText(context, (String) msg.obj, Toast.LENGTH_SHORT)
+                    Toast.makeText(context.getApplicationContext(), (String) msg.obj, Toast.LENGTH_SHORT)
                             .show();
+                    break;
+                case connectSuccess:
+                    Toast.makeText(context, "connect Success !",
+                            Toast.LENGTH_SHORT).show();
                     break;
             }
         }
 
         ;
     };
+    public boolean isConneted() {
+
+        return blueToothManager.isBluetoothCononected();
+    }
 
 }

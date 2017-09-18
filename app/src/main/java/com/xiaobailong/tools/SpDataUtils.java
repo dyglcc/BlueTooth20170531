@@ -33,10 +33,17 @@ public class SpDataUtils {
     private static final String IS_FIRST = "is_first";
     private static final String IS_MENU_FIRST = "is_menu_first";
 
+    private static final String WIFI_SSID = "wifi_ssid";
     static {
         sp = new SharedPreferenceUtils();
     }
+    public static void saveWIFI_SSID(String ssid) {
+        sp.saveString(WIFI_SSID, ssid);
+    }
 
+    public static String getWIFI_SSID() {
+        return sp.getString(WIFI_SSID, "");
+    }
     public static void saveIsFirst(boolean first) {
         sp.saveBoolean(IS_FIRST, first);
     }

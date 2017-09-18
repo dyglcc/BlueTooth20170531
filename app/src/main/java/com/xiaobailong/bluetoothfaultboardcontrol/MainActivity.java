@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,11 +42,17 @@ import com.xiaobailong.bean.ExaminationDao;
 import com.xiaobailong.bean.Student;
 import com.xiaobailong.bluetooth.MediaFileListDialog;
 import com.xiaobailong.bluetooth.MediaFileListDialogMainpage;
+import com.xiaobailong.event.Msgtype;
 import com.xiaobailong.model.FaultBean;
 import com.xiaobailong.titile.WriteTitleActivity;
 import com.xiaobailong.tools.ConstValue;
+import com.xiaobailong.tools.NetWorkUtils;
 import com.xiaobailong.tools.SpDataUtils;
 import com.xiaobailong.widget.ListScrollView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -128,8 +135,25 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         initData(0);
         initView();
 
+        EventBus.getDefault().register(this);
+        WifiManager manager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        String SSID = SpDataUtils.getWIFI_SSID();
+        boolean wifiEnabled = manager.isWifiEnabled();
+        boolean b = NetWorkUtils.checkEnable(this.getApplication());
+        if (wifiEnabled && b) {
+            connectNetwork();
+        }
     }
-
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        MenuItem item = menu.getItem(0);
+//        String ssid = NetWorkUtils.getCurrentWifiSSID(this.getApplicationContext());
+//        String title = getString(R.string.action_connect);
+//        if (!TextUtils.isEmpty(ssid)) {
+//            item.setTitle(title + "(当前热点：" + ssid.replace("\"", "") + ")");
+//        }
+//        return super.onPrepareOptionsMenu(menu);
+//    }
     private Handler countHandler;
     private int cousumeSeconds = 0;
 
@@ -1037,31 +1061,38 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                if (!BaseApplication.app.faultboardOption.isConneted()) {
-                    BaseApplication.app.faultboardOption.bluetoothConnect(MainActivity.this);
-                } else {
-                    Toast.makeText(this, "还在连接当中", Toast.LENGTH_SHORT).show();
-                }
-                break;
+//            case R.id.action_settings:
+////                if (!BaseApplication.app.faultboardOption.isConneted()) {
+////                    BaseApplication.app.faultboardOption.bluetoothConnect(MainActivity.this);
+////                } else {
+////                    Toast.makeText(this, "还在连接当中", Toast.LENGTH_SHORT).show();
+////                }
+//                WifiManager manager = (WifiManager) MainActivity.this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//                boolean wifiEnabled = manager.isWifiEnabled();
+//                if (!wifiEnabled) {
+//                    Toast.makeText(this, "未打开wifi设备,请开启wifi", Toast.LENGTH_SHORT).show();
+//                    return true;
+//                }
+//                new WifiHelper().showWifiList(MainActivity.this);
+//                break;
             case R.id.action_exit:
                 exit();
                 break;
-            case R.id.action_close:
-                BaseApplication.app.faultboardOption.closeBluetoothSocket();
-                Toast.makeText(MainActivity.this, "连接已断开",
-                        Toast.LENGTH_SHORT).show();
-//                initData(getCurentTab());
-                setInitGreenColorAndInitExamation();
-                // updateDatabase
-                if (examzation != null) {
-                    BaseApplication.app.daoSession.getExaminationDao().update(examzation);
-                }
-                if (theFailurePointSetAdapter != null) {
-                    theFailurePointSetAdapter.notifyDataSetChanged();
-                }
-
-                break;
+//            case R.id.action_close:
+//                BaseApplication.app.faultboardOption.closeBluetoothSocket();
+//                Toast.makeText(MainActivity.this, "连接已断开",
+//                        Toast.LENGTH_SHORT).show();
+////                initData(getCurentTab());
+//                setInitGreenColorAndInitExamation();
+//                // updateDatabase
+//                if (examzation != null) {
+//                    BaseApplication.app.daoSession.getExaminationDao().update(examzation);
+//                }
+//                if (theFailurePointSetAdapter != null) {
+//                    theFailurePointSetAdapter.notifyDataSetChanged();
+//                }
+//
+//                break;
             case R.id.action_edit_title:
                 editTitle();
                 break;
@@ -1426,11 +1457,32 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             finish();
         }
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(Msgtype msgtype) {
+        if (msgtype.isConnect()) {
+            connectNetwork();
+        } else {
+            if (BaseApplication.app.faultboardOption != null) {
+                BaseApplication.app.faultboardOption.closeBluetoothSocket();
+            }
+        }
+    }
     @Override
     public void onConnected() {
         if (SpDataUtils.getLoginType().equals(SpDataUtils.TYPE_TEACHER)) {
             readState();
         }
+    }
+
+    public void connectNetwork() {
+        if (!BaseApplication.app.faultboardOption.isConneted()) {
+            BaseApplication.app.faultboardOption.bluetoothConnect();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 }
