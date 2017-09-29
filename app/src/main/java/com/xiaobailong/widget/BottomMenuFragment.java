@@ -1,7 +1,6 @@
 package com.xiaobailong.widget;
 
 import android.app.DialogFragment;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -85,18 +84,6 @@ public class BottomMenuFragment extends DialogFragment {
         Log.i(TAG, "onDestroyView: ");
 
     }
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.i(TAG, "onAttach: ");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.i(TAG, "onDetach: ");
-    }
-
     @Override
     public void onStart() {
         super.onStart();

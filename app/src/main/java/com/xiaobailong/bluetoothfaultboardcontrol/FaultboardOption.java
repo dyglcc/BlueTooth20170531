@@ -43,7 +43,7 @@ public class FaultboardOption implements BluetoothListener {
         commandCreater = new CommandCreater();
         dataParser = new DataParser();
         this.relayList = relayList;
-        openBluetooth();
+//        openBluetooth();
     }
 
     @Override
@@ -91,11 +91,11 @@ public class FaultboardOption implements BluetoothListener {
 //		bluetoothDevicesListDialog.show();
 //	}
 
-    public void openBluetooth() {
-        if (!blueToothManager.isBluetoothOpened()) {
-            blueToothManager.openBluetooth();
-        }
-    }
+//    public void openBluetooth() {
+//        if (!blueToothManager.isBluetoothOpened()) {
+//            blueToothManager.openBluetooth();
+//        }
+//    }
 
     public void bluetoothConnect() {
         blueToothManager.connect(0, "");
@@ -212,6 +212,7 @@ public class FaultboardOption implements BluetoothListener {
         msg.arg1 = connectSuccess;
         bluetoothListenerHandler.sendMessage(msg);
     }
+
     /**
      * 解析蓝牙板反馈数据
      */
@@ -267,9 +268,13 @@ public class FaultboardOption implements BluetoothListener {
 
         ;
     };
+
     public boolean isConneted() {
 
         return blueToothManager.isBluetoothCononected();
     }
 
+    public void setHandler(Handler faultboardOptionHandler) {
+        this.mHandler = faultboardOptionHandler;
+    }
 }

@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -173,7 +172,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                         if (second == 0) {
                             begin = false;
                             tv_lasttime.setText("剩余时间：" + 0 + "分 " + 0 + " 秒");
-                            tv_lasttime.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+                            tv_lasttime.setTextColor(getResources().getColor(R.color.red));
                             float scroes = getScores();
                             student.setResults((int) scroes);
                             BaseApplication.app.daoSession.getStudentDao().save(student);
@@ -441,7 +440,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 BaseApplication.app.falseList.add(new Relay(i + 1, i + 1, Relay.Green, ConstValue.type_false));
             }
         }
-        // 不再初始化
+        // 不再初始化 但是需要设置新的handler
         if (BaseApplication.app.faultboardOption == null) {
             switch (pos) {
                 case 0:
@@ -458,6 +457,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                     break;
             }
         }
+        // 重新设置handler
+        BaseApplication.app.faultboardOption.setHandler(faultboardOptionHandler);
         // 初始化颜色为绿色 并且清除上一个学生答题的结果
         setInitGreenColor();
         //
@@ -521,7 +522,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                     } else {
                         Toast.makeText(MainActivity.this, "还没开始考试,请点击开始考试", Toast.LENGTH_SHORT).show();
                     }
-
 
                 }
 

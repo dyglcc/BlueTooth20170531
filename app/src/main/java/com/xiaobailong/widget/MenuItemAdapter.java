@@ -1,7 +1,6 @@
 package com.xiaobailong.widget;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,7 @@ public class MenuItemAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return this.menuItems == null ? 0 :this.menuItems.size();
+        return this.menuItems == null ? 0 : this.menuItems.size();
     }
 
     @Override
@@ -82,9 +81,9 @@ public class MenuItemAdapter extends BaseAdapter {
 //            textView.setTextColor(ContextCompat.getColor(context, R.color.bottom_menu_btn_text_stress_color));
 //        }
         if (menuItem.getStyle() == MenuItem.MenuItemStyle.COMMON) {
-            textView.setTextColor(ContextCompat.getColor(context, R.color.change_team_text_color));
+            textView.setTextColor(context.getResources().getColor(R.color.change_team_text_color));
         } else {
-            textView.setTextColor(ContextCompat.getColor(context, R.color.change_team_text_color));
+            textView.setTextColor(context.getResources().getColor(R.color.change_team_text_color));
         }
         MenuItemOnClickListener _menuItemOnClickListener = menuItem.getMenuItemOnClickListener();
         if (_menuItemOnClickListener != null) {

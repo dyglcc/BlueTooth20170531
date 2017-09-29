@@ -2,20 +2,19 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 //apply plugin: 'org.greenrobot.greendao'
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 21
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.bluetooth.gao20170601"
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        sourceSets{
-            main{
-                java.srcDirs=['src/main/java','src/main/java-gen']
+        sourceSets {
+            main {
+                java.srcDirs = ['src/main/java', 'src/main/java-gen']
             }
         }
         release {
@@ -23,7 +22,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -31,7 +35,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:21.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     testCompile 'junit:junit:4.12'
     compile 'org.greenrobot:greendao:3.2.2'
