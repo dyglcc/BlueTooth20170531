@@ -1,1 +1,1 @@
-include ':app', ':mylibrary', ':student'
+include ':app', ':mylibrary', ':student', ':andserver', ':sample'

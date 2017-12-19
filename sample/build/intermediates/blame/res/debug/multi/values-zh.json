@@ -1,0 +1,121 @@
+[
+    {
+        "outputFile": "/Users/dongyuangui/GITHUB/AndServer/sample/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh/values-zh.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 46,
+                    "endOffset": 97
+                },
+                "from": {
+                    "file": "/Users/dongyuangui/GITHUB/AndServer/sample/src/main/res/values-zh/strings.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 655,
+                        "endColumn": 46,
+                        "endOffset": 697
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 102,
+                    "endColumn": 67,
+                    "endOffset": 165
+                },
+                "from": {
+                    "file": "/Users/dongyuangui/GITHUB/AndServer/sample/src/main/res/values-zh/strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 797,
+                        "endColumn": 67,
+                        "endOffset": 860
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 170,
+                    "endColumn": 51,
+                    "endOffset": 217
+                },
+                "from": {
+                    "file": "/Users/dongyuangui/GITHUB/AndServer/sample/src/main/res/values-zh/strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 865,
+                        "endColumn": 51,
+                        "endOffset": 912
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 222,
+                    "endColumn": 53,
+                    "endOffset": 271
+                },
+                "from": {
+                    "file": "/Users/dongyuangui/GITHUB/AndServer/sample/src/main/res/values-zh/strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 918,
+                        "endColumn": 53,
+                        "endOffset": 967
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 276,
+                    "endColumn": 46,
+                    "endOffset": 318
+                },
+                "from": {
+                    "file": "/Users/dongyuangui/GITHUB/AndServer/sample/src/main/res/values-zh/strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 703,
+                        "endColumn": 46,
+                        "endOffset": 745
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 323,
+                    "endColumn": 45,
+                    "endOffset": 364
+                },
+                "from": {
+                    "file": "/Users/dongyuangui/GITHUB/AndServer/sample/src/main/res/values-zh/strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 750,
+                        "endColumn": 45,
+                        "endOffset": 791
+                    }
+                }
+            }
+        ]
+    }
+]
