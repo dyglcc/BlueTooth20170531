@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/mipmap-mdpi/ic_launcher.png",
+        "source": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
         "merged": "/Users/dongyuangui/GITHUB/AndServer/sample/build/intermediates/res/merged/debug/mipmap-mdpi/ic_launcher.png",
         "source": "/Users/dongyuangui/GITHUB/AndServer/sample/src/main/res/mipmap-mdpi/ic_launcher.png"
     }

@@ -247,7 +247,7 @@ public class LoginActivity extends BaseActivity {
             startActivity(intent);
             finish();
         }
-//        Toast.makeText(this, "todo 打开学生考试界面", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, " 打开学生考试界面", Toast.LENGTH_SHORT).show();
 
     }
 

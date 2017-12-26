@@ -1,0 +1,23 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml:17:1-19:12
+INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml:17:1-19:12
+INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml:17:1-19:12
+	package
+		ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml:17:11-45
+		INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+		INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+uses-sdk
+INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+		ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+		INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+		ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml
+		INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/src/main/AndroidManifest.xml

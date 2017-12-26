@@ -1,0 +1,52 @@
+//package com.xiaobailong_student.activity;
+//
+//import android.content.Intent;
+//import android.os.Bundle;
+//import android.widget.Button;
+//
+//import com.xiaobailong_student.activity.cms.YearsActivity;
+//import com.xiaobailong_student.bluetoothfaultboardcontrol.BaseActivity;
+//import com.xiaobailong_student.bluetoothfaultboardcontrol.MainActivity;
+//import com.xiaobailong_student.bluetoothfaultboardcontrol.R;
+//
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
+//import butterknife.OnClick;
+//
+///**
+// * Created by dongyuangui on 2017/6/1.
+// */
+//
+//public class MenuActivity extends BaseActivity {
+//    @BindView(R.id.btn_examination_setting)
+//    Button btnExaminationSetting;
+//    @BindView(R.id.btn_student_cms)
+//    Button btnStudentCms;
+//    @BindView(R.id.btn_pass_setting)
+//    Button btnPassSetting;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.main_menu);
+//        ButterKnife.bind(this);
+//    }
+//
+//    @OnClick(R.id.btn_examination_setting)
+//    public void examination() {
+//
+//        startActivity(new Intent(this, MainActivity.class));
+//    }
+//
+//    @OnClick(R.id.btn_student_cms)
+//    public void cms() {
+//
+//        startActivity(new Intent(this, YearsActivity.class));
+//    }
+//
+//    @OnClick(R.id.btn_pass_setting)
+//    public void passSetting() {
+//
+//        startActivity(new Intent(this, PasswordSettingActivity.class));
+//    }
+//}

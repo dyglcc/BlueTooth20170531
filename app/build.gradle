@@ -39,9 +39,10 @@ dependencies {
     // butterknife
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile files('libs/aa-poi-3.10-min-0.1.5.jar')
-    compile files('libs/aa-poi-ooxml-schemas-3.10-reduced-more-0.1.5.jar')
+    //    compile files('libs/aa-poi-3.10-min-0.1.5.jar')
+    //    compile files('libs/aa-poi-ooxml-schemas-3.10-reduced-more-0.1.5.jar')
     compile files('libs/jxl.jar')
     compile 'com.android.support:multidex:1.0.1'
     compile 'me.grantland:autofittextview:0.2.+'
+    implementation project(':andserver')
 }

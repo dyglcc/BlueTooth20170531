@@ -1,5 +1,13 @@
 [
     {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_borderless_text_material.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_thumb.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_tint_switch_thumb.xml"
+    },
+    {
         "merged": "/Users/dongyuangui/GITHUB/AndServer/sample/build/intermediates/res/merged/debug/color-v23/abc_tint_btn_checkable.xml",
         "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_tint_btn_checkable.xml"
     },
@@ -12,6 +20,30 @@
         "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_btn_colored_text_material.xml"
     },
     {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_text_material.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/abc_color_highlight_material.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/design_tint_password_toggle.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/2d0bb4250daa8b78ddf21964257ca07ba8db9179/output/res/color-v23/design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/abc_tint_edittext.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/abc_tint_btn_checkable.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_track.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_tint_switch_track.xml"
+    },
+    {
         "merged": "/Users/dongyuangui/GITHUB/AndServer/sample/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_borderless_text_material.xml",
         "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_btn_colored_borderless_text_material.xml"
     },
@@ -20,8 +52,16 @@
         "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_tint_spinner.xml"
     },
     {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/abc_tint_seek_thumb.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_tint_seek_thumb.xml"
+    },
+    {
         "merged": "/Users/dongyuangui/GITHUB/AndServer/sample/build/intermediates/res/merged/debug/color-v23/abc_tint_edittext.xml",
         "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/abc_tint_spinner.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_tint_spinner.xml"
     },
     {
         "merged": "/Users/dongyuangui/GITHUB/AndServer/sample/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_thumb.xml",
@@ -42,5 +82,9 @@
     {
         "merged": "/Users/dongyuangui/GITHUB/AndServer/sample/build/intermediates/res/merged/debug/color-v23/abc_color_highlight_material.xml",
         "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/color-v23/abc_tint_default.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/cef8985d7be166764c0b0c7ccbd03fc4a1ba4ebc/output/res/color-v23/abc_tint_default.xml"
     }
 ]

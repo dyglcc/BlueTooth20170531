@@ -1,4 +1,4 @@
-<com.xiaobailong.widget.ListScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xiaobailong_student.widget.ListScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:id="@+id/listscroll"
     android:layout_height="fill_parent"
@@ -118,4 +118,4 @@
             android:layout_below="@+id/LL_midlleContainer"
             android:visibility="gone" />
     </LinearLayout>
-</com.xiaobailong.widget.ListScrollView>
+</com.xiaobailong_student.widget.ListScrollView>

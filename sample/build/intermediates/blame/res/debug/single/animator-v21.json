@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/res/merged/debug/animator-v21/design_appbar_state_list_animator.xml",
+        "source": "/Users/dongyuangui/.android/build-cache/2d0bb4250daa8b78ddf21964257ca07ba8db9179/output/res/animator-v21/design_appbar_state_list_animator.xml"
+    },
+    {
         "merged": "/Users/dongyuangui/GITHUB/AndServer/sample/build/intermediates/res/merged/debug/animator-v21/design_appbar_state_list_animator.xml",
         "source": "/Users/dongyuangui/.android/build-cache/2d0bb4250daa8b78ddf21964257ca07ba8db9179/output/res/animator-v21/design_appbar_state_list_animator.xml"
     }

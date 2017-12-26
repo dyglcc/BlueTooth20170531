@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xiaobailong.bluetoothfaultboardcontrol"
+    package="com.xiaobailong_student.bluetoothfaultboardcontrol"
     android:versionCode="2"
     android:versionName="2.0">
 
@@ -17,13 +17,13 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
 
     <application
-        android:name="com.xiaobailong.base.BaseApplication"
+        android:name="com.xiaobailong_student.base.BaseApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.xiaobailong.activity.EntryActivity"
+            android:name="com.xiaobailong_student.activity.EntryActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>
@@ -34,71 +34,71 @@
         </activity>
 
         <activity
-            android:name="com.xiaobailong.bluetoothfaultboardcontrol.MainActivity"
+            android:name="com.xiaobailong_student.bluetoothfaultboardcontrol.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.cms.ScoresActivity"
+            android:name="com.xiaobailong_student.activity.cms.ScoresActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.cms.ScoresContentActivity"
+            android:name="com.xiaobailong_student.activity.cms.ScoresContentActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.cms.NewDevicesActivity"
+            android:name="com.xiaobailong_student.activity.cms.NewDevicesActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.titile.WriteTitleActivity"
+            android:name="com.xiaobailong_student.titile.WriteTitleActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.cms.YearsActivity"
+            android:name="com.xiaobailong_student.activity.cms.YearsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.cms.TimeActivity"
+            android:name="com.xiaobailong_student.activity.cms.TimeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.cms.DevicesActity"
+            android:name="com.xiaobailong_student.activity.cms.DevicesActity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.cms.ClassActivity"
+            android:name="com.xiaobailong_student.activity.cms.ClassActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.bluetoothfaultboardcontrol.LoginActivity"
+            android:name="com.xiaobailong_student.bluetoothfaultboardcontrol.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.MenuActivity"
+            android:name="com.xiaobailong_student.activity.MenuActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.PasswordSettingActivity"
+            android:name="com.xiaobailong_student.activity.PasswordSettingActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.AddFileActivity"
+            android:name="com.xiaobailong_student.activity.AddFileActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.AddStudentActivity"
+            android:name="com.xiaobailong_student.activity.AddStudentActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.StudentManageActivity"
+            android:name="com.xiaobailong_student.activity.StudentManageActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.xiaobailong.activity.ShowResultActivity"
+            android:name="com.xiaobailong_student.activity.ShowResultActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
 
-        <!-- <receiver android:name="com.xiaobailong.bluetooth.BluetoothPairReceiver">
+        <!-- <receiver android:name="com.xiaobailong_student.bluetooth.BluetoothPairReceiver">
             <intent-filter>
                 <action android:name="android.bluetooth.device.action.PAIRING_REQUEST" />
                 <action android:name="android.bluetooth.device.action.PAIRING_CANCEL" />

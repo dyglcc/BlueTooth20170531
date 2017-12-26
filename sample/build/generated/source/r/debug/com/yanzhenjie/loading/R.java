@@ -8,12 +8,12 @@ package com.yanzhenjie.loading;
 
 public final class R {
     public static final class id {
-        public static final int loading_view = 0x7f0d0084;
+        public static final int loading_view = 0x7f08004d;
     }
     public static final class layout {
-        public static final int loading_wait_dialog = 0x7f04002a;
+        public static final int loading_wait_dialog = 0x7f0a002a;
     }
     public static final class style {
-        public static final int LoadingWaitDialog = 0x7f0900d4;
+        public static final int LoadingWaitDialog = 0x7f0d00a0;
     }
 }

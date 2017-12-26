@@ -104,6 +104,10 @@
                 <action android:name="android.bluetooth.device.action.PAIRING_CANCEL" />
             </intent-filter>
         </receiver> -->
+
+        <service
+            android:name=".CoreService"
+            android:exported="false"/>
     </application>
 
 </manifest>

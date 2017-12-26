@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh/values-zh.xml",
+            "map": [
+                {
+                    "source": "/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/res/values-zh/strings.xml",
+                    "from": {
+                        "startLines": "17,22,23,25,19,20",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "655,797,865,918,703,750",
+                        "endColumns": "46,67,51,53,46,45",
+                        "endOffsets": "697,860,912,967,745,791"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,102,170,222,276,323",
+                        "endColumns": "46,67,51,53,46,45",
+                        "endOffsets": "97,165,217,271,318,364"
+                    }
+                }
+            ]
+        }
+    ]
+}
