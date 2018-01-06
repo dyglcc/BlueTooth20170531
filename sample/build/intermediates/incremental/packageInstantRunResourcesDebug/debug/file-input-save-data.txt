@@ -1,0 +1,23 @@
+#Internal package file, do not edit.
+#Fri Jan 05 23:36:50 CST 2018
+2.base=/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/assets/debug
+0.path=web/login.html
+2.baseType=DIRECTORY
+3.base=/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/assets/debug
+2.set=ASSET
+1.path=web/error.html
+4.base=/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/assets/debug
+count=5
+2.path=web/index.html
+4.set=ASSET
+3.path=web/css/login.css
+3.baseType=DIRECTORY
+1.set=ASSET
+4.path=web/image/image.jpg
+1.baseType=DIRECTORY
+0.base=/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/assets/debug
+0.baseType=DIRECTORY
+3.set=ASSET
+1.base=/Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/build/intermediates/assets/debug
+4.baseType=DIRECTORY
+0.set=ASSET

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">学生版故障模拟系统</string>
     <string name="action_logout">退出</string>
     <string name="Button_Back_BeCanceled">抱歉，返回键已被屏蔽！</string>

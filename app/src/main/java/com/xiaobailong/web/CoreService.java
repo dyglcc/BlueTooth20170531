@@ -21,7 +21,9 @@ import android.content.res.AssetManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.xiaobailong.web.handler.RequestExaminationHandler;
 import com.xiaobailong.web.handler.RequestLoginHandler;
+import com.xiaobailong.web.handler.RequestSaveScoresHandler;
 import com.xiaobailong.web.handler.RequestUploadHandler;
 import com.yanzhenjie.andserver.AndServer;
 import com.yanzhenjie.andserver.Server;
@@ -48,6 +50,8 @@ public class CoreService extends Service {
                 .port(8080)
                 .timeout(10 * 1000)
                 .registerHandler("login", new RequestLoginHandler())
+                .registerHandler("examination", new RequestExaminationHandler())
+                .registerHandler("saveScores", new RequestSaveScoresHandler())
                 // .registerHandler("download", new RequestFileHandler("Your file path"))
                 .registerHandler("upload", new RequestUploadHandler())
                 .website(new AssetsWebsite(mAssetManager, "web"))

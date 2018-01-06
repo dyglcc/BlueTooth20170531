@@ -1,5 +1,4 @@
 package com.xiaobailong_student.activity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.xiaobailong_student.beans.Student;
 import com.xiaobailong_student.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong_student.bluetoothfaultboardcontrol.R;
 
@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 
 public class ShowResultActivity extends BaseActivity {
 
+    Student student = null;
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_name_value)
@@ -46,24 +47,21 @@ public class ShowResultActivity extends BaseActivity {
         setContentView(R.layout.main_show_result);
         ButterKnife.bind(this);
         Intent intent = getIntent();
+        student = (Student) intent.getSerializableExtra("student");
         str = intent.getStringExtra("view");
 //        if (str != null) {
 //            buttonSave.setVisibility(View.GONE);
 //        }
-//        todo 需要接口获取分钟,学生姓名，学号，成绩。
-        String minutes = null;
-        String xuehao = null;
-        String username = null;
-        String result__ = null;
+        String minutes = student.getConsume_time();
         if (minutes == null) {
             minutes = "暂无时间";
         } else {
             minutes += "分钟";
         }
         tvDevicesValue.setText(minutes);
-        tvNameValue.setText(username);
-        tvXuehaoValue.setText(xuehao + "");
-        String result =  result__ ==null ? "暂无成绩" : result__  + "";
+        tvNameValue.setText(student.getUsername());
+        tvXuehaoValue.setText(student.getXuehao() + "");
+        String result = student.getResults() == null ? "暂无成绩" : student.getResults() + "";
         tvScoresValue.setText(result);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {

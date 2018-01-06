@@ -17,6 +17,11 @@ package com.xiaobailong.web.handler;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.xiaobailong.base.BaseApplication;
+import com.xiaobailong.bean.Student;
+import com.xiaobailong.bean.StudentDao;
+import com.xiaobailong.response.ResponseData;
 import com.yanzhenjie.andserver.RequestHandler;
 import com.yanzhenjie.andserver.util.HttpRequestParser;
 
@@ -36,23 +41,35 @@ import java.util.Map;
  */
 public class RequestLoginHandler implements RequestHandler {
 
+    private static String TAG = "AndServer";
     @Override
     public void handle(HttpRequest request, HttpResponse response, HttpContext context) throws HttpException, IOException {
         Map<String, String> params = HttpRequestParser.parse(request);
 
-        Log.i("AndServer", "Params: " + params.toString());
+        Log.i(TAG, "Params: " + params.toString());
 
         String userName = URLDecoder.decode(params.get("username"), "utf-8");
-        String password = URLDecoder.decode(params.get("password"), "utf-8");
+        String password = URLDecoder.decode(params.get("xuehao"), "utf-8");
 
         System.out.println("The Username: " + userName);
         System.out.println("The Password: " + password);
 
-        if ("123".equals(userName) && "123".equals(password)) {
-            StringEntity stringEntity = new StringEntity("Login Succeed", "utf-8");
+        Student student = BaseApplication.app.daoSession.getStudentDao().queryBuilder().where(StudentDao.Properties.Username.eq(userName), StudentDao.Properties.Xuehao.eq(password)).distinct().limit(1).unique();
+//        if ("123".equals(userName) && "123".equals(password)) {
+
+        ResponseData data = new ResponseData();
+        Gson gson = new Gson();
+        if (student != null && student.getId() != null) {
+            data.setError(0);
+            data.setData(student);
+            data.setMsg("login success");
+            Log.i(TAG, gson.toJson(data));
+            StringEntity stringEntity = new StringEntity(gson.toJson(data), "utf-8");
             response.setEntity(stringEntity);
         } else {
-            StringEntity stringEntity = new StringEntity("Login Failed", "utf-8");
+            data.setError(1);
+            data.setMsg("姓名或者学号不正确，请重新输入");
+            StringEntity stringEntity = new StringEntity(gson.toJson(data), "utf-8");
             response.setEntity(stringEntity);
         }
     }

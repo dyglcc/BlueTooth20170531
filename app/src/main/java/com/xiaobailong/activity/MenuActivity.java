@@ -8,6 +8,7 @@ import com.xiaobailong.activity.cms.YearsActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.MainActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
+import com.xiaobailong.web.ServerActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +37,11 @@ public class MenuActivity extends BaseActivity {
     public void examination() {
 
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @OnClick(R.id.btn_server)
+    public void server() {
+        startActivity(new Intent(this, ServerActivity.class));
     }
 
     @OnClick(R.id.btn_student_cms)

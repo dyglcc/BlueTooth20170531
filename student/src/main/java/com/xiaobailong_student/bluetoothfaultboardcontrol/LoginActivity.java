@@ -1,7 +1,11 @@
 package com.xiaobailong_student.bluetoothfaultboardcontrol;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
@@ -17,9 +21,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xiaobailong_student.activity.EntryActivity;
+import com.xiaobailong_student.base.BaseApplication;
 import com.xiaobailong_student.beans.Student;
 import com.xiaobailong_student.net.AbstractNet;
+import com.xiaobailong_student.result.ResponseLoginData;
 import com.xiaobailong_student.tools.SpDataUtils;
+import com.yanzhenjie.loading.dialog.LoadingDialog;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -51,11 +59,13 @@ public class LoginActivity extends BaseActivity {
 
     TextView login_type_text;
 
+    private LoadingDialog mDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginpage);
-        type = getIntent().getStringExtra("type");
+        type = SpDataUtils.TYPE_STUDENT;
 
         // initHandler();
         // initData();
@@ -226,17 +236,59 @@ public class LoginActivity extends BaseActivity {
             }
         } else if (SpDataUtils.TYPE_STUDENT.equals(type)) {
 
-            Student student = AbstractNet.getInstance().login(name,password);
-            if (student != null && student.getId() != null) {
-                startStudentPage();
-            } else {
-                Toast.makeText(this, "姓名或者学号不正确，请重新输入", Toast.LENGTH_SHORT).show();
-            }
+            @SuppressLint("StaticFieldLeak") AsyncTask task = new AsyncTask() {
+                @Override
+                protected Object doInBackground(Object[] objects) {
+                    return AbstractNet.getInstance().login((String) objects[0], (String) objects[1]);
+                }
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    showDialog();
+
+                }
+
+                @Override
+                protected void onPostExecute(Object o) {
+                    super.onPostExecute(o);
+                    closeDialog();
+                    ResponseLoginData data = (ResponseLoginData) o;
+                    if (data != null) {
+                        if (data.getError() == 0) {
+                            Student student = data.getData();
+                            if (student != null && student.getId() != null) {
+                                startStudentPage(student);
+                            } else {
+                                Toast.makeText(LoginActivity.this, "" + data.getMsg(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(LoginActivity.this, "" + data.getMsg(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "返回异常", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            };
+            task.execute(name, password);
         }
+
 
     }
 
-    private void startStudentPage() {
+    private void showDialog() {
+        if (mDialog == null)
+            mDialog = new LoadingDialog(this);
+        if (!mDialog.isShowing()) mDialog.show();
+    }
+
+    private void closeDialog() {
+        if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
+    }
+
+    private void startStudentPage(Student student) {
         boolean ifExamed = checkifStudentExamed(student);
         if (ifExamed) {
             Toast.makeText(this, "您已经考过试了", Toast.LENGTH_SHORT).show();
@@ -267,11 +319,47 @@ public class LoginActivity extends BaseActivity {
     }
 
     private boolean checkifStudentExamed(Student student) {
-        if (this.student != null && this.student.getResults() != null) {
+        if (student != null && student.getResults() != null) {
 
             return true;
         }
         return false;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(LoginActivity.this).setTitle("确定退出？")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        }).create().show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 关闭第一个页面清除数据
+        clearData();
+    }
+
+    private void clearData() {
+        if (BaseApplication.app.faultboardOption != null) {
+            BaseApplication.app.faultboardOption.closeBluetoothSocket();
+            BaseApplication.app.faultboardOption = null;
+        }
+        BaseApplication.app.descStrFile = null;
+        BaseApplication.app.shortList = null;
+        BaseApplication.app.falseList = null;
+        BaseApplication.app.breakfaultList = null;
+
     }
 
 }

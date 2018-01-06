@@ -4,16 +4,16 @@ ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/Androi
 INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:17:1-47:12
 INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:17:1-47:12
 INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:17:1-47:12
-MERGED from [com.yanzhenjie:andserver:1.0.3] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/andserver-1.0.3.aar/92a7ae4b422a166408841f24e4c94bc9/AndroidManifest.xml:17:1-25:12
 MERGED from [com.android.support:design:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/166053d856b7b101d9a0af3722f4e60a/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/888cf21620d0b28bebae35b6077f3563/AndroidManifest.xml:17:1-31:12
 MERGED from [com.yanzhenjie.nohttp:nohttp:1.1.2] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/nohttp-1.1.2.aar/08fbcfaa6a526fdf32fb9f651008b7a1/AndroidManifest.xml:17:1-30:12
 MERGED from [com.yanzhenjie:loading:1.0.0] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/loading-1.0.0.aar/d90274eb51def1efa1a7310cc92c215f/AndroidManifest.xml:17:1-25:12
-MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:17:1-28:12
-MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:17:1-31:12
-MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/85d91a005a73029e7e8f8fbd435f2d1a/AndroidManifest.xml:17:1-26:12
+MERGED from [:andserver] /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/build/intermediates/manifests/full/debug/AndroidManifest.xml:17:1-27:12
 MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/8489e2f60f700cf3cfb0e13a4f5ab410/AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/16285a61209cce59da300cfcdf1feea2/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/85d91a005a73029e7e8f8fbd435f2d1a/AndroidManifest.xml:17:1-26:12
+MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-fragment:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/cffe65e77184cb46239b53dd6592f85f/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-media-compat:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/395a3e67fae6289069fe16dca30dbdd2/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-core-utils:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/5dba52b1250567746fda8dfdd6d79ae2/AndroidManifest.xml:17:1-31:12
@@ -60,14 +60,14 @@ MERGED from [com.android.support:design:25.3.1] /Users/dongyuangui/.gradle/cache
 MERGED from [com.android.support:design:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/166053d856b7b101d9a0af3722f4e60a/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/888cf21620d0b28bebae35b6077f3563/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/888cf21620d0b28bebae35b6077f3563/AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/8489e2f60f700cf3cfb0e13a4f5ab410/AndroidManifest.xml:26:5-20
 MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/8489e2f60f700cf3cfb0e13a4f5ab410/AndroidManifest.xml:26:5-20
 MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/16285a61209cce59da300cfcdf1feea2/AndroidManifest.xml:26:5-20
 MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/16285a61209cce59da300cfcdf1feea2/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:support-fragment:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/cffe65e77184cb46239b53dd6592f85f/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:support-fragment:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/cffe65e77184cb46239b53dd6592f85f/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:support-media-compat:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/395a3e67fae6289069fe16dca30dbdd2/AndroidManifest.xml:29:5-20
@@ -88,14 +88,14 @@ MERGED from [com.android.support:support-compat:25.3.1] /Users/dongyuangui/.grad
 		ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:26:9-36
 	android:theme
 		ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:30:9-40
-activity#com.yanzhenjie.andserver.sample.MainActivity
+activity#com.yanzhenjie.andserver.sample.ServerActivity
 ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:31:9-40:20
 	android:label
 		ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:33:13-45
 	android:theme
 		ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:34:13-44
 	android:name
-		ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:32:13-41
+		ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:32:13-43
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
 ADDED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml:35:13-39:29
 action#android.intent.action.MAIN
@@ -116,8 +116,6 @@ uses-sdk
 INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml
 INJECTED from /Users/dongyuangui/GITHUB/BluetoothGao20170531/sample/src/main/AndroidManifest.xml
-MERGED from [com.yanzhenjie:andserver:1.0.3] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/andserver-1.0.3.aar/92a7ae4b422a166408841f24e4c94bc9/AndroidManifest.xml:21:5-23:41
-MERGED from [com.yanzhenjie:andserver:1.0.3] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/andserver-1.0.3.aar/92a7ae4b422a166408841f24e4c94bc9/AndroidManifest.xml:21:5-23:41
 MERGED from [com.android.support:design:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/166053d856b7b101d9a0af3722f4e60a/AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:design:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/166053d856b7b101d9a0af3722f4e60a/AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/888cf21620d0b28bebae35b6077f3563/AndroidManifest.xml:21:5-23:78
@@ -126,16 +124,18 @@ MERGED from [com.yanzhenjie.nohttp:nohttp:1.1.2] /Users/dongyuangui/.gradle/cach
 MERGED from [com.yanzhenjie.nohttp:nohttp:1.1.2] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/nohttp-1.1.2.aar/08fbcfaa6a526fdf32fb9f651008b7a1/AndroidManifest.xml:20:5-22:41
 MERGED from [com.yanzhenjie:loading:1.0.0] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/loading-1.0.0.aar/d90274eb51def1efa1a7310cc92c215f/AndroidManifest.xml:21:5-23:41
 MERGED from [com.yanzhenjie:loading:1.0.0] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/loading-1.0.0.aar/d90274eb51def1efa1a7310cc92c215f/AndroidManifest.xml:21:5-23:41
-MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:21:5-23:54
-MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:21:5-23:54
-MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/85d91a005a73029e7e8f8fbd435f2d1a/AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/85d91a005a73029e7e8f8fbd435f2d1a/AndroidManifest.xml:20:5-43
+MERGED from [:andserver] /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/build/intermediates/manifests/full/debug/AndroidManifest.xml:23:5-25:41
+MERGED from [:andserver] /Users/dongyuangui/GITHUB/BluetoothGao20170531/andserver/build/intermediates/manifests/full/debug/AndroidManifest.xml:23:5-25:41
 MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/8489e2f60f700cf3cfb0e13a4f5ab410/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/8489e2f60f700cf3cfb0e13a4f5ab410/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/16285a61209cce59da300cfcdf1feea2/AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/16285a61209cce59da300cfcdf1feea2/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/85d91a005a73029e7e8f8fbd435f2d1a/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/85d91a005a73029e7e8f8fbd435f2d1a/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-fragment:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/cffe65e77184cb46239b53dd6592f85f/AndroidManifest.xml:21:5-23:60
 MERGED from [com.android.support:support-fragment:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/cffe65e77184cb46239b53dd6592f85f/AndroidManifest.xml:21:5-23:60
 MERGED from [com.android.support:support-media-compat:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/395a3e67fae6289069fe16dca30dbdd2/AndroidManifest.xml:21:5-23:63
@@ -162,16 +162,16 @@ meta-data#android.support.VERSION
 ADDED from [com.android.support:design:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/166053d856b7b101d9a0af3722f4e60a/AndroidManifest.xml:25:5-27:34
 MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/888cf21620d0b28bebae35b6077f3563/AndroidManifest.xml:25:5-27:34
 MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/888cf21620d0b28bebae35b6077f3563/AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:22:5-24:34
-MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:22:5-24:34
-MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/85d91a005a73029e7e8f8fbd435f2d1a/AndroidManifest.xml:22:5-24:34
-MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/85d91a005a73029e7e8f8fbd435f2d1a/AndroidManifest.xml:22:5-24:34
 MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/8489e2f60f700cf3cfb0e13a4f5ab410/AndroidManifest.xml:22:5-24:34
 MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/8489e2f60f700cf3cfb0e13a4f5ab410/AndroidManifest.xml:22:5-24:34
 MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/16285a61209cce59da300cfcdf1feea2/AndroidManifest.xml:22:5-24:34
 MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/16285a61209cce59da300cfcdf1feea2/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/85d91a005a73029e7e8f8fbd435f2d1a/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/85d91a005a73029e7e8f8fbd435f2d1a/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/c5aff9562764ce6341c1812b36d7b899/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/418523fbc159bdca9e4c1b9ac478fdd4/AndroidManifest.xml:25:5-27:34
 MERGED from [com.android.support:support-fragment:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/cffe65e77184cb46239b53dd6592f85f/AndroidManifest.xml:25:5-27:34
 MERGED from [com.android.support:support-fragment:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/cffe65e77184cb46239b53dd6592f85f/AndroidManifest.xml:25:5-27:34
 MERGED from [com.android.support:support-media-compat:25.3.1] /Users/dongyuangui/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/395a3e67fae6289069fe16dca30dbdd2/AndroidManifest.xml:25:5-27:34

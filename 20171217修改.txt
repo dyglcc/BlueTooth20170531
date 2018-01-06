@@ -6,3 +6,8 @@ API接口
 1.login
 2.student
 3.
+
+
+todo
+
+ServerActivity oncreate setcontent出错。

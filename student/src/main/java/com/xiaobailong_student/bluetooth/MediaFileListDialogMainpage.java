@@ -97,7 +97,7 @@ public class MediaFileListDialogMainpage extends Dialog implements OnItemClickLi
 //            paths.push(path);
         } else {
             BaseApplication.app.descStrFile = file;
-            ((MainActivity) context).setFileName(file);
+            ((MainActivity) context).setFileName(file.getName());
 //            Toast.makeText(context, "设置名称" + file.getName(), Toast.LENGTH_SHORT).show();
             List<FaultBean> datas = readFile(file);
 

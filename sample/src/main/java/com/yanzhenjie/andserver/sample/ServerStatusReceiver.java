@@ -51,9 +51,9 @@ public class ServerStatusReceiver extends BroadcastReceiver {
         context.sendBroadcast(broadcast);
     }
 
-    private MainActivity mActivity;
+    private ServerActivity mActivity;
 
-    public ServerStatusReceiver(MainActivity mMainActivity) {
+    public ServerStatusReceiver(ServerActivity mMainActivity) {
         this.mActivity = mMainActivity;
     }
 

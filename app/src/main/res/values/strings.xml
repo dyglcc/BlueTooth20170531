@@ -56,4 +56,13 @@
     <string name="tag_fragment_FileSave">Save File</string>
     <string name="tag_save_hint">请输入文件名</string>
 
+    <!--serve-->
+    <string name="start_server">启动服务器</string>
+    <string name="stop_server">关闭服务器</string>
+
+    <string name="server_start_succeed">服务器已经启动.</string>
+    <string name="server_started">服务器正在运行.</string>
+
+    <string name="server_stop_succeed">服务器已关闭。</string>
+
 </resources>

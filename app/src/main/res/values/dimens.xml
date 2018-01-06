@@ -32,4 +32,8 @@
 
     <dimen name="login_size">24dp</dimen>
     <dimen name="grid_text_size">14sp</dimen>
+
+
+    <!--android server-->
+    <dimen name="dp_16">16dp</dimen>
 </resources>

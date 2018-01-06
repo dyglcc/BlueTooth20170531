@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import com.xiaobailong.bluetoothfaultboardcontrol.MainActivity;
-
 /**
  * Created by Yan Zhenjie on 2017/3/17.
  */
@@ -53,9 +51,9 @@ public class ServerStatusReceiver extends BroadcastReceiver {
         context.sendBroadcast(broadcast);
     }
 
-    private MainActivity mActivity;
+    private ServerActivity mActivity;
 
-    public ServerStatusReceiver(MainActivity mMainActivity) {
+    public ServerStatusReceiver(ServerActivity mMainActivity) {
         this.mActivity = mMainActivity;
     }
 

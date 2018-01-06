@@ -24,6 +24,7 @@
             android:maxLength="10"
             android:maxLines="1"
             android:saveEnabled="true"
+            android:text="123"
             android:singleLine="true"
             android:textSize="16sp"
             android:layout_centerVertical="true"
@@ -42,6 +43,7 @@
             android:hint="@string/inputpasswordhint"
             android:inputType="textPassword"
             android:maxLength="16"
+            android:text="123"
             android:maxLines="1"
             android:saveEnabled="true"
             android:singleLine="true"
@@ -76,6 +78,7 @@
             android:layout_marginBottom="56dp"
             android:layout_toLeftOf="@+id/passwordstate"
             android:background="@drawable/img_0499"
+            android:visibility="gone"
             android:contentDescription="sss" />
 
         <TextView

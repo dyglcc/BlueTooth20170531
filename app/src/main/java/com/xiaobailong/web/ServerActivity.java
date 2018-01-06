@@ -17,13 +17,12 @@ package com.xiaobailong.web;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.yanzhenjie.loading.dialog.LoadingDialog;
 import com.yanzhenjie.nohttp.tools.NetUtil;
@@ -31,7 +30,7 @@ import com.yanzhenjie.nohttp.tools.NetUtil;
 /**
  * Created by Yan Zhenjie on 2016/6/13.
  */
-public class ServerActivity extends AppCompatActivity implements View.OnClickListener {
+public class ServerActivity extends BaseActivity implements View.OnClickListener {
 
     private Intent mService;
     /**
@@ -49,9 +48,9 @@ public class ServerActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_main_andserver);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         findViewById(R.id.btn_start).setOnClickListener(this);
         findViewById(R.id.btn_stop).setOnClickListener(this);
@@ -63,6 +62,7 @@ public class ServerActivity extends AppCompatActivity implements View.OnClickLis
         mReceiver = new ServerStatusReceiver(this);
         mReceiver.register();
     }
+
 
     @Override
     protected void onDestroy() {
@@ -94,13 +94,22 @@ public class ServerActivity extends AppCompatActivity implements View.OnClickLis
 
         String ip = NetUtil.getLocalIPAddress();
         if (!TextUtils.isEmpty(ip)) {
-            message += ("\nhttp://" + ip + ":8080/\n"
-                    + "http://" + ip + ":8080/login\n"
-                    + "http://" + ip + ":8080/upload\n"
-                    + "http://" + ip + ":8080/web/index.html\n"
-                    + "http://" + ip + ":8080/web/error.html\n"
-                    + "http://" + ip + ":8080/web/login.html\n"
-                    + "http://" + ip + ":8080/web/image/image.jpg");
+            message += "\n服务器地址http://" + ip + ":8080/\n";
+//                    + "http://" + ip + ":8080/login\n"
+//                    + "http://" + ip + ":8080/examination\n"
+//                    + "http://" + ip + ":8080/upload\n"
+//                    + "http://" + ip + ":8080/web/index.html\n"
+//                    + "http://" + ip + ":8080/web/error.html\n"
+//                    + "http://" + ip + ":8080/web/login.html\n"
+//                    + "http://" + ip + ":8080/web/image/image.jpg");
+//            message += ("\nhttp://" + ip + ":8080/\n"
+//                    + "http://" + ip + ":8080/login\n"
+//                    + "http://" + ip + ":8080/examination\n"
+//                    + "http://" + ip + ":8080/upload\n"
+//                    + "http://" + ip + ":8080/web/index.html\n"
+//                    + "http://" + ip + ":8080/web/error.html\n"
+//                    + "http://" + ip + ":8080/web/login.html\n"
+//                    + "http://" + ip + ":8080/web/image/image.jpg");
         }
         mTvMessage.setText(message);
     }

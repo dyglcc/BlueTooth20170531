@@ -1,1 +1,1 @@
-[{"outputType":{"type":"MERGED_MANIFESTS"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":12},"path":"AndroidManifest.xml","properties":{"packageId":"com.yanzhenjie.andserver.sample","split":"","minSdkVersion":"11"}}]
+[{"outputType":{"type":"MERGED_MANIFESTS"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":12},"path":"AndroidManifest.xml","properties":{"packageId":"com.yanzhenjie.andserver.sample","split":"","minSdkVersion":"14"}}]

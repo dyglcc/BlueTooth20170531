@@ -100,7 +100,6 @@ public class EntryActivity extends BaseActivity {
 //			Toast.makeText(this, sdcardPath, Toast.LENGTH_LONG).show();
         }
     }
-
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(EntryActivity.this).setTitle("确定退出？")
@@ -134,14 +133,6 @@ public class EntryActivity extends BaseActivity {
         BaseApplication.app.falseList = null;
         BaseApplication.app.breakfaultList = null;
 
-//        todo 需要一个将最近的置为过期的接口。
-//        List<Examination> list = BaseApplication.app.daoSession.getExaminationDao().queryBuilder().list();
-//        for (int i = 0; i < list.size(); i++) {
-//            Examination examination = list.get(i);
-//            if (examination != null) {
-//                examination.setExpired(true);
-//                BaseApplication.app.daoSession.getExaminationDao().update(examination);
-//            }
-//        }
     }
+
 }

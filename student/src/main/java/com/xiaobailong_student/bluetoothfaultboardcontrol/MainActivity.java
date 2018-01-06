@@ -1,11 +1,13 @@
 package com.xiaobailong_student.bluetoothfaultboardcontrol;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,10 +43,14 @@ import com.xiaobailong_student.beans.Student;
 import com.xiaobailong_student.bluetooth.MediaFileListDialog;
 import com.xiaobailong_student.bluetooth.MediaFileListDialogMainpage;
 import com.xiaobailong_student.model.FaultBean;
+import com.xiaobailong_student.net.AbstractNet;
+import com.xiaobailong_student.result.ResponseLoadExamData;
+import com.xiaobailong_student.result.ResponseSaveScoreData;
 import com.xiaobailong_student.titile.WriteTitleActivity;
 import com.xiaobailong_student.tools.ConstValue;
 import com.xiaobailong_student.tools.SpDataUtils;
 import com.xiaobailong_student.widget.ListScrollView;
+import com.yanzhenjie.loading.dialog.LoadingDialog;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -52,6 +58,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -126,11 +133,39 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         initCountHandler();
         initData(0);
         initView();
+        initShowResultHandler();
 
     }
 
-    private Handler countHandler;
+    private void initShowResultHandler() {
+        showResultHandler = new ShowResultHandler(this);
+    }
+
+    private static Handler countHandler;
     private int cousumeSeconds = 0;
+
+    private ShowResultHandler showResultHandler;
+
+    private static class ShowResultHandler extends Handler {
+
+        private WeakReference<MainActivity> mainActivityWeakReference = null;
+
+        public ShowResultHandler(MainActivity reference) {
+            mainActivityWeakReference = new WeakReference<MainActivity>(reference);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 0) {
+
+                MainActivity activity = mainActivityWeakReference.get();
+                if (activity != null) {
+                    activity.afterSaveScores();
+                }
+            }
+        }
+    }
 
     private void initCountHandler() {
         countHandler = new Handler() {
@@ -151,24 +186,64 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                             tv_lasttime.setTextColor(ContextCompat.getColor(MainActivity.this, com.xiaobailong_student.bluetoothfaultboardcontrol.R.color.red));
                             float scroes = getScores();
                             student.setResults((int) scroes);
-//                            todo 保存学生成绩的接口
+//                           保存学生成绩
+                            saveScoresInAsynTask(student);
+
 //                            BaseApplication.app.daoSession.getStudentDao().save(student);
-                            new AlertDialog.Builder(MainActivity.this).setMessage("考试结束")
-                                    .setPositiveButton("查看成绩", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                            showResultActivity();
-                                        }
-                                    }).show();
-                            // 判断答案
-                            Toast.makeText(MainActivity.this, "考试时间结束", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 }
             }
         };
 
+    }
+
+    private void afterSaveScores() {
+        new AlertDialog.Builder(MainActivity.this).setMessage("考试结束")
+                .setPositiveButton("查看成绩", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        showResultActivity();
+                    }
+                }).show();
+        // 判断答案
+//        Toast.makeText(MainActivity.this, "考试时间结束", Toast.LENGTH_SHORT).show();
+    }
+
+    private void saveScoresInAsynTask(Student student) {
+
+        AsyncTask task = new AsyncTask() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                showDialog();
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                closeDialog();
+                ResponseSaveScoreData data = (ResponseSaveScoreData) o;
+                if (data != null) {
+                    if (data.getError() == 0) {
+                        showResultHandler.sendEmptyMessage(0);
+                    } else {
+                        Toast.makeText(MainActivity.this, "成功保存失败 " + data.getMsg(), Toast.LENGTH_LONG);
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "保存成绩出错", Toast.LENGTH_LONG);
+                }
+            }
+
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                Student student1 = (Student) objects[0];
+                return AbstractNet.getInstance().saveScores(student1);
+            }
+        };
+        task.execute(student);
     }
 
     private void showResultActivity() {
@@ -211,64 +286,50 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         layout_student = (ViewGroup) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.layout_student);
         layout_teacher = (ViewGroup) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.layout_teacher);
 
-        examzation = loadExamnination();
+        loadExamnination();
 
+    }
+
+    private void initStudentConsole() {
         // 读取故障点说明文件名称
-        if (BaseApplication.app.descStrFile != null) {
-            setFileName(BaseApplication.app.descStrFile);
-        }
-        // 加载考试题数据
-        if (examzation != null) {
-            loadExamnination2DataList();
-        } else {
-            initExamnination();
-        }
-        if (SpDataUtils.TYPE_TEACHER.equals(loginType)) {
-            layout_student.setVisibility(View.GONE);
-            layout_teacher.setVisibility(View.VISIBLE);
+//        if (BaseApplication.app.descStrFile != null) {
+//            setFileName(BaseApplication.app.descStrFile);
+//        }
 
-//            boolean havealreadySendExamination = checkIfHaveExamnation();
-//            if (havealreadySendExamination) {
-//                findViewById(R.id.tv_tip2).setVisibility(View.VISIBLE);
-//            }
-//            if (examzation != null) {
-//                etTime.setText(examzation.getMinutes() + "");
-//            }
-        } else {
-            layout_student.setVisibility(View.VISIBLE);
-            layout_teacher.setVisibility(View.GONE);
-            button_start_exam = (Button) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.button_start_exam);
-            button_submit = (Button) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.button_submit);
+        layout_student.setVisibility(View.VISIBLE);
+        layout_teacher.setVisibility(View.GONE);
+        button_start_exam = (Button) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.button_start_exam);
+        button_submit = (Button) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.button_submit);
 
-            button_start_exam.setOnClickListener(this);
-            button_submit.setOnClickListener(this);
-            tv_exam_tip_break = (TextView) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.tv_exam_tip_break);
-            tv_exam_tip_false = (TextView) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.tv_exam_tip_false);
-            tv_exam_tip_short = (TextView) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.tv_exam_tip_short);
-            tv_lasttime = (TextView) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.tv_lasttime);
+        button_start_exam.setOnClickListener(this);
+        button_submit.setOnClickListener(this);
+        tv_exam_tip_break = (TextView) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.tv_exam_tip_break);
+        tv_exam_tip_false = (TextView) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.tv_exam_tip_false);
+        tv_exam_tip_short = (TextView) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.tv_exam_tip_short);
+        tv_lasttime = (TextView) findViewById(com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.tv_lasttime);
 //            获取考试题
-            if (examzation == null) {
-                Toast.makeText(this, "教师还未出题", Toast.LENGTH_SHORT).show();
-                tv_exam_tip_break.setVisibility(View.GONE);
-                tv_exam_tip_false.setVisibility(View.GONE);
-                tv_exam_tip_short.setVisibility(View.GONE);
-            } else {
-                // 显示考试时间 只是展示时间
-                tv_lasttime.setText("本次考试时间：" + examzation.getMinutes() + "分钟");
-                tv_exam_tip_break.setVisibility(View.VISIBLE);
-                tv_exam_tip_false.setVisibility(View.VISIBLE);
-                tv_exam_tip_short.setVisibility(View.VISIBLE);
+        if (examzation == null) {
+            Toast.makeText(this, "教师还未出题", Toast.LENGTH_SHORT).show();
+            tv_exam_tip_break.setVisibility(View.GONE);
+            tv_exam_tip_false.setVisibility(View.GONE);
+            tv_exam_tip_short.setVisibility(View.GONE);
+        } else {
+            // 显示考试时间 只是展示时间
+            tv_lasttime.setText("本次考试时间：" + examzation.getMinutes() + "分钟");
+            tv_exam_tip_break.setVisibility(View.VISIBLE);
+            tv_exam_tip_false.setVisibility(View.VISIBLE);
+            tv_exam_tip_short.setVisibility(View.VISIBLE);
 //                etTime.setText(examzation.getMinutes()+"");
 //                Toast.makeText(this, "time is " + examzation.getMinutes(), Toast.LENGTH_SHORT).show();
-                calcCount();
-                // 设置题目数量
-                String strbreak = getString(com.xiaobailong_student.bluetoothfaultboardcontrol.R.string.already_start3, breakCount + "");
-                tv_exam_tip_break.setText(strbreak);
-                String strFalse = getString(com.xiaobailong_student.bluetoothfaultboardcontrol.R.string.already_start4, falsecount + "");
-                tv_exam_tip_false.setText(strFalse);
-                String strShort = getString(com.xiaobailong_student.bluetoothfaultboardcontrol.R.string.already_start5, shotCount + "");
-                tv_exam_tip_short.setText(strShort);
-            }
+            calcCount();
+            // 设置题目数量
+            String strbreak = getString(com.xiaobailong_student.bluetoothfaultboardcontrol.R.string.already_start3, breakCount + "");
+            tv_exam_tip_break.setText(strbreak);
+            String strFalse = getString(com.xiaobailong_student.bluetoothfaultboardcontrol.R.string.already_start4, falsecount + "");
+            tv_exam_tip_false.setText(strFalse);
+            String strShort = getString(com.xiaobailong_student.bluetoothfaultboardcontrol.R.string.already_start5, shotCount + "");
+            tv_exam_tip_short.setText(strShort);
+            setFileName(examzation.getDevices());
         }
     }
 
@@ -550,10 +611,59 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         return str;
     }
 
-//    todo 加载学生成绩
-    private Examination loadExamnination() {
-        return new Examination();
+    private LoadingDialog mDialog;
+
+    private void showDialog() {
+        if (mDialog == null)
+            mDialog = new LoadingDialog(this);
+        if (!mDialog.isShowing()) mDialog.show();
     }
+
+    private void closeDialog() {
+        if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
+    }
+
+    //    todo 加载学生成绩
+    private void loadExamnination() {
+        @SuppressLint("StaticFieldLeak") AsyncTask task = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                return AbstractNet.getInstance().loadExamination();
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                showDialog();
+
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                closeDialog();
+                ResponseLoadExamData data = (ResponseLoadExamData) o;
+                if (data != null) {
+                    if (data.getError() == 0) {
+                        examzation = data.getData();
+                        // 加载考试题数据
+                        if (examzation != null) {
+                            loadExamnination2DataList();
+                            initStudentConsole();
+                        } else {
+                            initExamnination();
+                        }
+                    } else {
+                        Toast.makeText(MainActivity.this, "" + data.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "返回异常", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        task.execute();
+    }
+
 
     private boolean begin = false;
 
@@ -603,11 +713,13 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 student.setConsume_time(minutes - (cousumeSeconds / 60) + "");
                 // todo 保存考试使用时间
 //                BaseApplication.app.daoSession.getStudentDao().save(student);
+
+                saveScoresInAsynTask(student);
 //                examzation.setExpired(true);
                 // 保存
                 // todo 更新考试信息。
 //                BaseApplication.app.daoSession.getExaminationDao().update(examzation);
-                showResultActivity();
+//                showResultActivity();
 
                 break;
             case com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.Button_Ignition:// 点火
@@ -1261,11 +1373,10 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
     }
 
-    public void setFileName(File file) {
-        if (file != null && !this.isFinishing()) {
+    public void setFileName(String deviceName) {
+        if (!TextUtils.isEmpty(deviceName) && !this.isFinishing()) {
             tvFileName.setVisibility(View.VISIBLE);
-            String name = file.getName().toString();
-            final String[] names = name.split("\\.");
+            final String[] names = deviceName.split("\\.");
             if (names.length > 0) {
 
                 tvFileName.setText(names[0]);
