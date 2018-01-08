@@ -38,7 +38,7 @@ public class CoreService extends Service {
     /**
      * AndServer.
      */
-    private Server mServer;
+    public static  Server mServer;
 
     private AssetManager mAssetManager;
 
@@ -94,8 +94,9 @@ public class CoreService extends Service {
 
         stopServer(); // Stop server.
 
-        if (mAssetManager != null)
-            mAssetManager.close();
+//        add by dyg
+//        if (mAssetManager != null)
+//            mAssetManager.close();
     }
 
     /**

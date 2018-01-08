@@ -71,6 +71,17 @@ public class ServerActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (CoreService.mServer != null && CoreService.mServer.isRunning()) {
+            mTvMessage.setText("服务器正在运行");
+        }else{
+            mTvMessage.setText("服务器已停止");
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
@@ -131,8 +142,9 @@ public class ServerActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void showDialog() {
-        if (mDialog == null)
+        if (mDialog == null) {
             mDialog = new LoadingDialog(this);
+        }
         if (!mDialog.isShowing()) mDialog.show();
     }
 

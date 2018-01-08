@@ -28,19 +28,23 @@
 
     <Button
         android:id="@+id/btn_start"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="启动服务器"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:text="启动服务器"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:textSize="@dimen/login_size"
         android:background="@drawable/login_button"
         android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_stop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/login_size"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
         android:text="关闭服务器"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

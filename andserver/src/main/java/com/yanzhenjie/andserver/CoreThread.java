@@ -237,6 +237,8 @@ class CoreThread extends Thread {
             if (mServerSocket != null)
                 mServerSocket.close();
         } catch (IOException ignored) {
+            String msg  = ignored == null ? "null error" :ignored.getMessage();
+            System.out.println("ignored exception " + msg);
         }
         if (isInterrupted())
             interrupt();

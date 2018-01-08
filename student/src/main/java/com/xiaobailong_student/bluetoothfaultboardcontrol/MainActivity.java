@@ -129,9 +129,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 //        dao = BaseApplication.app.daoSession.getExaminationDao();
         loginType = SpDataUtils.getLoginType();
         initSDcard();
+        initData(0);
         initHandler();
         initCountHandler();
-        initData(0);
         initView();
         initShowResultHandler();
 
@@ -329,6 +329,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             tv_exam_tip_false.setText(strFalse);
             String strShort = getString(com.xiaobailong_student.bluetoothfaultboardcontrol.R.string.already_start5, shotCount + "");
             tv_exam_tip_short.setText(strShort);
+            // 设置设备名称
             setFileName(examzation.getDevices());
         }
     }
@@ -396,6 +397,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 if (!TextUtils.isEmpty(breaks[i])) {
                     try {
                         int position = Integer.parseInt(breaks[i]);
+                        System.out.println("use init data ...." + BaseApplication.app.breakfaultList);
                         Relay relay = BaseApplication.app.breakfaultList.get(position);
                         relay.setExamination(true);
                     } catch (Exception e) {
@@ -478,6 +480,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 BaseApplication.app.falseList.add(new Relay(i + 1, i + 1, Relay.Green, ConstValue.type_false));
             }
         }
+
+        System.out.println("init data ....");
         // 不再初始化
         if (BaseApplication.app.faultboardOption == null) {
             switch (pos) {
@@ -505,63 +509,29 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         theFailurePointSetGVHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
+                if (!begin) {
+                    Toast.makeText(MainActivity.this, "还没开始考试,请点击开始考试", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Relay relay = (Relay) msg.obj;
-                int state = relay.getState();
                 // add by dyg
                 // 在adapter中判断红色是examnation
-                if (SpDataUtils.TYPE_TEACHER.equals(loginType)) {
-
-                    relay.setState(Relay.Yellow);
-                    // 老师端发送数据
-                    if (state == Relay.Red) {
-                        BaseApplication.app.faultboardOption.shutDown((byte) relay.getId(), msg.arg1);
-//                        relay.setExamination(false);
-                    } else if (state == Relay.Green) {
-                        int id = relay.getId();
-                        BaseApplication.app.faultboardOption.start((byte) id, msg.arg1);
-//                        if(BaseApplication.app.faultboardOption.isConneted()){
-//                            relay.setExamination(true);
-//                        }
-                    } else if (state == Relay.Yellow) {
-                        Toast.makeText(MainActivity.this, "Command had send !",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                    // 老师端发送数据 学生不发送数据
-
-
-                    int examNum = getSourceCount();
-//                    if (examNum < 5) {
-//                    if (!relay.isExamination()) {
-//                    } else {
-//                    }
-
-//                    }
-//                    else {
-//                        Toast.makeText(MainActivity.this, "最多出5道题目", Toast.LENGTH_SHORT).show();
-//                    }
-                } else {
-                    if (goOnCount) {
-                        if (relay.isStdentClick()) {
-                            relay.setStdentClick(false);
-                            relay.setState(Relay.Green);
-                        } else {
-                            relay.setStdentClick(true);
-                            relay.setState(Relay.Yellow);
-                        }
-                        int count = getSourceCount(relay.getCategory());
-                        int clickCount = getClickCount(relay.getCategory());
-                        if (clickCount > count) {
-//                        Toast.makeText(MainActivity.this, "已答" + clickCount + "道题,本次点击答题无效", Toast.LENGTH_SHORT).show();
-                            relay.setStdentClick(false);
-                            relay.setState(Relay.Green);
-                        }
+                if (goOnCount) {
+                    if (relay.isStdentClick()) {
+                        relay.setStdentClick(false);
+                        relay.setState(Relay.Green);
                     } else {
-                        Toast.makeText(MainActivity.this, "还没开始考试,请点击开始考试", Toast.LENGTH_SHORT).show();
+                        relay.setStdentClick(true);
+                        relay.setState(Relay.Yellow);
                     }
-
-
+                    int count = getSourceCount(relay.getCategory());
+                    int clickCount = getClickCount(relay.getCategory());
+                    if (clickCount > count) {
+//                        Toast.makeText(MainActivity.this, "已答" + clickCount + "道题,本次点击答题无效", Toast.LENGTH_SHORT).show();
+                        relay.setStdentClick(false);
+                        relay.setState(Relay.Green);
+                    }
                 }
-
                 theFailurePointSetAdapter.notifyDataSetChanged();
             }
         };
@@ -649,7 +619,10 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                         // 加载考试题数据
                         if (examzation != null) {
                             loadExamnination2DataList();
+                            //设置面板，并且设置设备名称
                             initStudentConsole();
+                            // 设置设备格子数据
+                            setDatas(examzation.getDeviceFileDatas());
                         } else {
                             initExamnination();
                         }
@@ -662,6 +635,50 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             }
         };
         task.execute();
+    }
+
+    private void setDatas(String deviceFileDatas) {
+        if (TextUtils.isEmpty(deviceFileDatas)) {
+            System.out.println("set file data is null");
+            return;
+        }
+
+        String[] strs = deviceFileDatas.split(ConstValue.SERIAL_DELIMTER);
+        if (strs.length == 0) {
+            System.out.println("set file data is null");
+            return;
+        }
+        List<FaultBean> faultBeans = new ArrayList<>();
+        for (int i = 0; i < strs.length; i++) {
+
+            String line = strs[i];
+            FaultBean fb = null;
+            // 断路
+            if (line.startsWith(ConstValue.type_break_str)) {
+
+                fb = new FaultBean();
+                fb.setType(ConstValue.type_break);
+                fb.setValue(line.substring(1));
+
+                // 虚接
+            } else if (line.startsWith(ConstValue.type_false_str)) {
+                fb = new FaultBean();
+                fb.setType(ConstValue.type_false);
+                fb.setValue(line.substring(1));
+                // 短路
+            } else if (line.startsWith(ConstValue.type_shortFault_str)) {
+                fb = new FaultBean();
+                fb.setType(ConstValue.type_shortFault);
+                fb.setValue(line.substring(1));
+            }
+            if (fb != null) {
+                faultBeans.add(fb);
+            }
+            // 前面代码组装数据
+        }
+        setValues(faultBeans);
+
+
     }
 
 
@@ -1122,8 +1139,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             Toast.makeText(this, "还没有选择考题", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (count > 5) {
-            Toast.makeText(this, "最多出5道题，当前已出题" + count + "道", Toast.LENGTH_SHORT).show();
+        if (count > 20) {
+            Toast.makeText(this, "最多出20道题，当前已出题" + count + "道", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -1550,5 +1567,24 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         if (SpDataUtils.getLoginType().equals(SpDataUtils.TYPE_TEACHER)) {
             readState();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 关闭第一个页面清除数据
+        clearData();
+    }
+
+    private void clearData() {
+        if (BaseApplication.app.faultboardOption != null) {
+            BaseApplication.app.faultboardOption.closeBluetoothSocket();
+            BaseApplication.app.faultboardOption = null;
+        }
+        BaseApplication.app.descStrFile = null;
+        BaseApplication.app.shortList = null;
+        BaseApplication.app.falseList = null;
+        BaseApplication.app.breakfaultList = null;
+
     }
 }

@@ -32,6 +32,8 @@ import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -62,6 +64,7 @@ public class RequestSaveScoresHandler implements RequestHandler {
 
 //        Student student = BaseApplication.app.daoSession.getStudentDao().queryBuilder().where(StudentDao.Properties.Username.eq(userName), StudentDao.Properties.Xuehao.eq(password)).distinct().limit(1).unique();
 //        if ("123".equals(userName) && "123".equals(password)) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Student student = new Student();
         student.setUsername(userName);
         student.setXuehao(xuehao);
@@ -71,6 +74,7 @@ public class RequestSaveScoresHandler implements RequestHandler {
         student.setSex(sex);
         student.setConsume_time(cousumetime);
         student.setDevices(devices);
+        student.setSemester(format.format(new Date()));
         // 学号
         ResponseData data = new ResponseData();
         try {

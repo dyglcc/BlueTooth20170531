@@ -15,6 +15,7 @@ import com.xiaobailong.bluetoothfaultboardcontrol.MainActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.MediaListAdapter;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.model.FaultBean;
+import com.xiaobailong.model.FaultDes;
 import com.xiaobailong.tools.ConstValue;
 
 import java.io.BufferedReader;
@@ -96,12 +97,18 @@ public class MediaFileListDialogMainpage extends Dialog implements OnItemClickLi
             listView.setOnItemClickListener(this);
 //            paths.push(path);
         } else {
-            BaseApplication.app.descStrFile = file;
-            ((MainActivity) context).setFileName(file);
-//            Toast.makeText(context, "设置名称" + file.getName(), Toast.LENGTH_SHORT).show();
+            BaseApplication.app.descStrFile = new FaultDes();
             List<FaultBean> datas = readFile(file);
 
+            BaseApplication.app.descStrFile.setDatas(datas);
+            BaseApplication.app.descStrFile.setSeriaData(getSerialData(datas));
+            BaseApplication.app.descStrFile.setSrcfile(file);
+
             ((MainActivity) context).setValues(datas);
+
+
+//            Toast.makeText(context, "设置名称" + file.getName(), Toast.LENGTH_SHORT).show();
+            ((MainActivity) context).setFileName(BaseApplication.app.descStrFile);
 
             dissss();
         }
@@ -172,19 +179,19 @@ public class MediaFileListDialogMainpage extends Dialog implements OnItemClickLi
                 FaultBean fb = null;
                 line = line.trim();
                 // 断路
-                if (line.startsWith("$")) {
+                if (line.startsWith(ConstValue.BREAK_DELIMTER)) {
 
                     fb = new FaultBean();
                     fb.setType(ConstValue.type_break);
                     fb.setValue(line.substring(1));
 
                     // 虚接
-                } else if (line.startsWith("#")) {
+                } else if (line.startsWith(ConstValue.FALSE_DELIMTER)) {
                     fb = new FaultBean();
                     fb.setType(ConstValue.type_false);
                     fb.setValue(line.substring(1));
                     // 短路
-                } else if (line.startsWith("@")) {
+                } else if (line.startsWith(ConstValue.SHORT_DELIMTER)) {
                     fb = new FaultBean();
                     fb.setType(ConstValue.type_shortFault);
                     fb.setValue(line.substring(1));
@@ -203,6 +210,21 @@ public class MediaFileListDialogMainpage extends Dialog implements OnItemClickLi
         }
 
         return list;
+    }
+
+    public static String getSerialData(List<FaultBean> list) {
+        StringBuilder build = new StringBuilder();
+
+        if (list == null) {
+            return "";
+        }
+        for (int i = 0; i < list.size(); i++) {
+            FaultBean fb = list.get(i);
+            build.append(fb.getType()).append(fb.getValue()).append(ConstValue.SERIAL_DELIMTER);
+        }
+
+
+        return build.toString();
     }
 
     private static File getFile() {

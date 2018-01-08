@@ -42,6 +42,7 @@ import com.xiaobailong.bean.Student;
 import com.xiaobailong.bluetooth.MediaFileListDialog;
 import com.xiaobailong.bluetooth.MediaFileListDialogMainpage;
 import com.xiaobailong.model.FaultBean;
+import com.xiaobailong.model.FaultDes;
 import com.xiaobailong.titile.WriteTitleActivity;
 import com.xiaobailong.tools.ConstValue;
 import com.xiaobailong.tools.SpDataUtils;
@@ -68,6 +69,7 @@ import static com.xiaobailong.tools.ConstValue.type_shortFault;
 public class MainActivity extends BaseActivity implements OnClickListener,
         OnTouchListener, OnScrollListener, ReadStateListenter {
 
+    private static final int Max = 20;
     public static final int ShortTable = 0;
     public static final int FalseTable = 1;
     public static final int BreakTable = 2;
@@ -708,6 +710,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                         examination.setMinutes(Integer.parseInt(str));
                         examination.setExpired(false);
                         examination.setDevices(devicesName);
+                        examination.setDeviceFileDatas(BaseApplication.app.descStrFile.getSeriaData());
                         BaseApplication.app.daoSession.getExaminationDao().save(examination);
                     }
                     Toast.makeText(this, "考题发送完毕，学生可以考试", Toast.LENGTH_SHORT).show();
@@ -1006,8 +1009,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             Toast.makeText(this, "还没有选择考题", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (count > 5) {
-            Toast.makeText(this, "最多出5道题，当前已出题" + count + "道", Toast.LENGTH_SHORT).show();
+        if (count > Max) {
+            Toast.makeText(this, "最多出" + Max + "道题，当前已出题" + count + "道", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -1256,7 +1259,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
     }
 
-    public void setFileName(File file) {
+    public void setFileName(FaultDes desc) {
+        File file = desc.getSrcfile();
         if (file != null && !this.isFinishing()) {
             tvFileName.setVisibility(View.VISIBLE);
             String name = file.getName().toString();

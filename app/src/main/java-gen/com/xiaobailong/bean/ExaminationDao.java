@@ -29,6 +29,7 @@ public class ExaminationDao extends AbstractDao<Examination, Long> {
         public final static Property Short_ = new Property(4, String.class, "short_", false, "SHORT_");
         public final static Property Minutes = new Property(5, Integer.class, "minutes", false, "MINUTES");
         public final static Property Devices = new Property(6, String.class, "devices", false, "DEVICES");
+        public final static Property DeviceFileDatas = new Property(7, String.class, "deviceFileDatas", false, "DEVICE_FILE_DATAS");
     }
 
 
@@ -50,7 +51,8 @@ public class ExaminationDao extends AbstractDao<Examination, Long> {
                 "\"FALSE_\" TEXT," + // 3: false_
                 "\"SHORT_\" TEXT," + // 4: short_
                 "\"MINUTES\" INTEGER," + // 5: minutes
-                "\"DEVICES\" TEXT);"); // 6: devices
+                "\"DEVICES\" TEXT," + // 6: devices
+                "\"DEVICE_FILE_DATAS\" TEXT);"); // 7: deviceFileDatas
     }
 
     /** Drops the underlying database table. */
@@ -93,6 +95,11 @@ public class ExaminationDao extends AbstractDao<Examination, Long> {
         if (devices != null) {
             stmt.bindString(7, devices);
         }
+ 
+        String deviceFileDatas = entity.getDeviceFileDatas();
+        if (deviceFileDatas != null) {
+            stmt.bindString(8, deviceFileDatas);
+        }
     }
 
     @Override
@@ -129,6 +136,11 @@ public class ExaminationDao extends AbstractDao<Examination, Long> {
         if (devices != null) {
             stmt.bindString(7, devices);
         }
+ 
+        String deviceFileDatas = entity.getDeviceFileDatas();
+        if (deviceFileDatas != null) {
+            stmt.bindString(8, deviceFileDatas);
+        }
     }
 
     @Override
@@ -145,7 +157,8 @@ public class ExaminationDao extends AbstractDao<Examination, Long> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // false_
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // short_
             cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // minutes
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // devices
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // devices
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // deviceFileDatas
         );
         return entity;
     }
@@ -159,6 +172,7 @@ public class ExaminationDao extends AbstractDao<Examination, Long> {
         entity.setShort_(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setMinutes(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
         entity.setDevices(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setDeviceFileDatas(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     @Override

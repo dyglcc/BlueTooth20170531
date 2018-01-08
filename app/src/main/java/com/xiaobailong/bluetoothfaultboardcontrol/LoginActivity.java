@@ -193,7 +193,11 @@ public class LoginActivity extends BaseActivity {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             hasSdcard = true;
-            savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/autoblue/";
+            savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/autoblue_company/";
+            File file = new File(savePath);
+            if (!file.exists()) {
+                file.mkdir();
+            }
 //			Toast.makeText(this, sdcardPath, Toast.LENGTH_LONG).show();
         }
     }

@@ -14,7 +14,7 @@ public class Generator {
 
     public static void main(String[] args) throws Exception {
 
-        int version = 15;
+        int version = 16;
 
         String defaultPackage = "com.xiaobailong.bean";
 
@@ -91,6 +91,8 @@ public class Generator {
         entity.addStringProperty("short_");
         entity.addIntProperty("minutes");
         entity.addStringProperty("devices");
+        // 用来保存设备名称的文件的文件内容的字段
+        entity.addStringProperty("deviceFileDatas");
 
     }
 

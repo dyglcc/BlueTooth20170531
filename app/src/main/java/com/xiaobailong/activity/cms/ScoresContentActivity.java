@@ -81,7 +81,6 @@ public class ScoresContentActivity extends BaseActivity implements FileSelectFra
         inflater = LayoutInflater.from(this);
         getData();
 
-
     }
 
     private void getData() {

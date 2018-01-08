@@ -11,6 +11,18 @@ public class ConstValue {
     public static final int type_false = 1;
     // @ 文件中开头符号 短路
     public static final int type_shortFault = 2;
+    // $ 文件中开头符号 断路
+    public static final String type_break_str = "0";
+    // # 文件中开头符号 虚接
+    public static final String type_false_str = "1";
+    // @ 文件中开头符号 短路
+    public static final String type_shortFault_str = "2";
+
+
+    public static String BREAK_DELIMTER = "$";
+    public static String FALSE_DELIMTER = "#";
+    public static String SHORT_DELIMTER = "@";
+    public static String SERIAL_DELIMTER = "&&&&";
     /**
      * 取sdcard的路径
      *

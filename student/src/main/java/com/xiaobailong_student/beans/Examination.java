@@ -15,6 +15,20 @@ public class Examination implements java.io.Serializable {
     private Integer minutes;
     private String devices;
 
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public String getDeviceFileDatas() {
+        return deviceFileDatas;
+    }
+
+    public void setDeviceFileDatas(String deviceFileDatas) {
+        this.deviceFileDatas = deviceFileDatas;
+    }
+
+    private String deviceFileDatas;
+
     public Examination() {
     }
 
@@ -22,15 +36,15 @@ public class Examination implements java.io.Serializable {
         this.id = id;
     }
 
-    public Examination(Long id, boolean expired, String break_, String false_, String short_, Integer minutes, String devices) {
-        this.id = id;
-        this.expired = expired;
-        this.break_ = break_;
-        this.false_ = false_;
-        this.short_ = short_;
-        this.minutes = minutes;
-        this.devices = devices;
-    }
+//    public Examination(Long id, boolean expired, String break_, String false_, String short_, Integer minutes, String devices) {
+//        this.id = id;
+//        this.expired = expired;
+//        this.break_ = break_;
+//        this.false_ = false_;
+//        this.short_ = short_;
+//        this.minutes = minutes;
+//        this.devices = devices;
+//    }
 
     public Long getId() {
         return id;

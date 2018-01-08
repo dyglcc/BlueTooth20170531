@@ -22,6 +22,10 @@ public class ConstValue {
     public static String DIR_STUDENT = "dir_student";
     public static String dir_autoblue = "autoblue";
     public static String dir_scores = "scores";
+    public static String BREAK_DELIMTER = "$";
+    public static String FALSE_DELIMTER = "#";
+    public static String SHORT_DELIMTER = "@";
+    public static String SERIAL_DELIMTER = "&&&&";
 
     public static String getSdcardPath() {
         if (haveSdcard()) {

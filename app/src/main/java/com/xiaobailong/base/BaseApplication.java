@@ -9,8 +9,8 @@ import com.xiaobailong.bean.DaoSession;
 import com.xiaobailong.bean.Examination;
 import com.xiaobailong.bluetoothfaultboardcontrol.FaultboardOption;
 import com.xiaobailong.bluetoothfaultboardcontrol.Relay;
+import com.xiaobailong.model.FaultDes;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class BaseApplication extends Application {
     public DaoSession daoSession;
     public DaoMaster daoMaster;
     // 故障点说明保存
-    public File descStrFile;
+    public FaultDes descStrFile;
     /**
      * 基本操作功能类
      */

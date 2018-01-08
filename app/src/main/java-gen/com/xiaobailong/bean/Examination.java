@@ -18,6 +18,7 @@ public class Examination implements java.io.Serializable {
     private String short_;
     private Integer minutes;
     private String devices;
+    private String deviceFileDatas;
 
     @Generated
     public Examination() {
@@ -28,7 +29,7 @@ public class Examination implements java.io.Serializable {
     }
 
     @Generated
-    public Examination(Long id, boolean expired, String break_, String false_, String short_, Integer minutes, String devices) {
+    public Examination(Long id, boolean expired, String break_, String false_, String short_, Integer minutes, String devices, String deviceFileDatas) {
         this.id = id;
         this.expired = expired;
         this.break_ = break_;
@@ -36,6 +37,7 @@ public class Examination implements java.io.Serializable {
         this.short_ = short_;
         this.minutes = minutes;
         this.devices = devices;
+        this.deviceFileDatas = deviceFileDatas;
     }
 
     public Long getId() {
@@ -92,6 +94,14 @@ public class Examination implements java.io.Serializable {
 
     public void setDevices(String devices) {
         this.devices = devices;
+    }
+
+    public String getDeviceFileDatas() {
+        return deviceFileDatas;
+    }
+
+    public void setDeviceFileDatas(String deviceFileDatas) {
+        this.deviceFileDatas = deviceFileDatas;
     }
 
 }

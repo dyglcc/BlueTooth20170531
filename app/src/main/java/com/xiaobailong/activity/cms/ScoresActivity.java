@@ -105,7 +105,7 @@ public class ScoresActivity extends BaseActivity {
                             if (strTime == null) {
                                 continue;
                             }
-                            if (strTime.equals(dateStr)) {
+                            if (strTime.equals(dateStr) && student.getClasses() == classes.getId()) {
                                 student.setSemester(null);
                                 student.setResults(null);
                                 dao.update(student);

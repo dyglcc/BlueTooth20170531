@@ -187,7 +187,8 @@ public class ExcelUtil {
 			for (int i = 0; i < data_list.size(); i++) {
 				List<Object> obj_list = data_list.get(i);
 				for (int j = 0; j < obj_list.size(); j++) {
-					Label label = new Label(j, i, obj_list.get(j).toString());
+					String value = obj_list.get(j) == null ? "":obj_list.get(j).toString();
+					Label label = new Label(j, i, value);
 					sheet1.addCell(label);
 				}
 			}

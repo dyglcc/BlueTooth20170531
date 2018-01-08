@@ -21,8 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xiaobailong_student.activity.EntryActivity;
-import com.xiaobailong_student.base.BaseApplication;
 import com.xiaobailong_student.beans.Student;
 import com.xiaobailong_student.net.AbstractNet;
 import com.xiaobailong_student.result.ResponseLoginData;
@@ -296,7 +294,6 @@ public class LoginActivity extends BaseActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("student", student);
             startActivity(intent);
-            finish();
         }
 //        Toast.makeText(this, " 打开学生考试界面", Toast.LENGTH_SHORT).show();
 
@@ -343,23 +340,6 @@ public class LoginActivity extends BaseActivity {
         }).create().show();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // 关闭第一个页面清除数据
-        clearData();
-    }
 
-    private void clearData() {
-        if (BaseApplication.app.faultboardOption != null) {
-            BaseApplication.app.faultboardOption.closeBluetoothSocket();
-            BaseApplication.app.faultboardOption = null;
-        }
-        BaseApplication.app.descStrFile = null;
-        BaseApplication.app.shortList = null;
-        BaseApplication.app.falseList = null;
-        BaseApplication.app.breakfaultList = null;
-
-    }
 
 }

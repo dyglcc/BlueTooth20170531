@@ -45,6 +45,8 @@ public class HandleRequestThread extends Thread {
                 mHttpService.handleRequest(mConnection, new BasicHttpContext());
             }
         } catch (Exception ignored) {
+            String msg = ignored == null ? "HandlerRequestThread error " : ignored.getMessage();
+            System.err.println(msg);
         } finally {
             try {
                 mConnection.shutdown();
