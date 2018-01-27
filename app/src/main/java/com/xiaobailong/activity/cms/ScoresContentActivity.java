@@ -16,6 +16,8 @@ import com.xiaobailong.base.BaseApplication;
 import com.xiaobailong.bean.Classes;
 import com.xiaobailong.bean.Student;
 import com.xiaobailong.bean.StudentDao;
+import com.xiaobailong.bean.Years;
+import com.xiaobailong.bean.YearsDao;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.tools.ExcelUtil;
@@ -57,6 +59,7 @@ public class ScoresContentActivity extends BaseActivity implements FileSelectFra
     @BindView(R.id.btn_view_result)
     Button btnViewResult;
     private Classes classes;
+    private Years years;
     private List<Student> datalist;
     private List<Student> importList;
     private StudentDao dao;
@@ -80,6 +83,8 @@ public class ScoresContentActivity extends BaseActivity implements FileSelectFra
         dao = BaseApplication.app.daoSession.getStudentDao();
         inflater = LayoutInflater.from(this);
         getData();
+        years = BaseApplication.app.daoSession.getYearsDao().queryBuilder()
+                .where(YearsDao.Properties.Id.eq(classes.getParent())).uniqueOrThrow();
 
     }
 
@@ -297,8 +302,12 @@ public class ScoresContentActivity extends BaseActivity implements FileSelectFra
             Student student = datalist.get(position);
             holder.xuehao.setText(student.getXuehao() + "");
             holder.username.setText(student.getUsername());
-            holder.tvScores.setText(student.getResults()+"");
+            holder.tvScores.setText(student.getResults() + "");
             holder.tvConsume.setText(student.getConsume_time());
+            holder.years.setText(years.getFilename());
+            holder.classes.setText(classes.getFilename());
+            holder.datastr.setText(dateStr);
+            holder.devices.setText(deviceName);
             return convertView;
         }
 
@@ -312,6 +321,14 @@ public class ScoresContentActivity extends BaseActivity implements FileSelectFra
         TextView username;
         @BindView(R.id.tv_scores)
         TextView tvScores;
+        @BindView(R.id.years)
+        TextView years;
+        @BindView(R.id.classes)
+        TextView classes;
+        @BindView(R.id.datestr)
+        TextView datastr;
+        @BindView(R.id.devices)
+        TextView devices;
         @BindView(R.id.tv_consume)
         TextView tvConsume;
 

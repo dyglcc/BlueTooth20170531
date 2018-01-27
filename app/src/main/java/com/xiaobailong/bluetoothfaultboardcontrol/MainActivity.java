@@ -69,6 +69,7 @@ import static com.xiaobailong.tools.ConstValue.type_shortFault;
 public class MainActivity extends BaseActivity implements OnClickListener,
         OnTouchListener, OnScrollListener, ReadStateListenter {
 
+    private static final String TAG = "MainActivity";
     private static final int Max = 20;
     public static final int ShortTable = 0;
     public static final int FalseTable = 1;
@@ -674,6 +675,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 if (!isCanstart) {
                     return;
                 }
+                Log.i(TAG, "onClick: canStart");
+//                Toast.makeText(MainActivity.this, isCanstart+"", Toast.LENGTH_LONG).show();
                 String str = etTime.getText().toString();
                 String devicesName = tvFileName.getText().toString();
                 if (examzation != null) {
@@ -713,10 +716,10 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                         examination.setDeviceFileDatas(BaseApplication.app.descStrFile.getSeriaData());
                         BaseApplication.app.daoSession.getExaminationDao().save(examination);
                     }
-                    Toast.makeText(this, "考题发送完毕，学生可以考试", Toast.LENGTH_SHORT).show();
                     findViewById(R.id.tv_tip2).setVisibility(View.VISIBLE);
                 }
-
+                Log.i(TAG, "onClick: canStart");
+                Toast.makeText(this, "考题发送完毕，学生可以考试", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

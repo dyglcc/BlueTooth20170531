@@ -35,7 +35,6 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xiaobailong_student.activity.EntryActivity;
 import com.xiaobailong_student.activity.ShowResultActivity;
 import com.xiaobailong_student.base.BaseApplication;
 import com.xiaobailong_student.beans.Examination;
@@ -1225,7 +1224,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         } else if (requestCode == 123) {
             if (resultCode == Activity.RESULT_OK) {
 //                Toast.makeText(this, "考试结束跳转页面", Toast.LENGTH_SHORT).show();
-                EntryActivity.studentLogin(MainActivity.this);
+//                EntryActivity.studentLogin(MainActivity.this);
                 finish();
             }
         }

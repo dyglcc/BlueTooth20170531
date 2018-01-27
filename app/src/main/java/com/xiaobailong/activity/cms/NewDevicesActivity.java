@@ -62,6 +62,7 @@ public class NewDevicesActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(NewDevicesActivity.this, ScoresActivity.class);
                 intent.putExtra("classes", classes);
+                intent.putExtra("years", classes);
                 intent.putExtra("device", deviceses.get(position));
                 startActivity(intent);
                 Toast.makeText(NewDevicesActivity.this, "scoresActivity", Toast.LENGTH_SHORT).show();
