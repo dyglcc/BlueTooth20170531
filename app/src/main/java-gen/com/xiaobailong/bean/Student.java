@@ -18,14 +18,10 @@ public class Student implements java.io.Serializable {
 
     @NotNull
     private String username;
-    private String semester;
     private long classes;
-    private Integer results;
     private String mobile;
     private String ids;
     private String sex;
-    private String devices;
-    private String consume_time;
 
     @Generated
     public Student() {
@@ -36,18 +32,14 @@ public class Student implements java.io.Serializable {
     }
 
     @Generated
-    public Student(Long id, String xuehao, String username, String semester, long classes, Integer results, String mobile, String ids, String sex, String devices, String consume_time) {
+    public Student(Long id, String xuehao, String username, long classes, String mobile, String ids, String sex) {
         this.id = id;
         this.xuehao = xuehao;
         this.username = username;
-        this.semester = semester;
         this.classes = classes;
-        this.results = results;
         this.mobile = mobile;
         this.ids = ids;
         this.sex = sex;
-        this.devices = devices;
-        this.consume_time = consume_time;
     }
 
     public Long getId() {
@@ -78,28 +70,12 @@ public class Student implements java.io.Serializable {
         this.username = username;
     }
 
-    public String getSemester() {
-        return semester;
-    }
-
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
-
     public long getClasses() {
         return classes;
     }
 
     public void setClasses(long classes) {
         this.classes = classes;
-    }
-
-    public Integer getResults() {
-        return results;
-    }
-
-    public void setResults(Integer results) {
-        this.results = results;
     }
 
     public String getMobile() {
@@ -124,22 +100,6 @@ public class Student implements java.io.Serializable {
 
     public void setSex(String sex) {
         this.sex = sex;
-    }
-
-    public String getDevices() {
-        return devices;
-    }
-
-    public void setDevices(String devices) {
-        this.devices = devices;
-    }
-
-    public String getConsume_time() {
-        return consume_time;
-    }
-
-    public void setConsume_time(String consume_time) {
-        this.consume_time = consume_time;
     }
 
 }

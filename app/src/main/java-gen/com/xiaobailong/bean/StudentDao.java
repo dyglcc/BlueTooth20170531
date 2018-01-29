@@ -25,14 +25,10 @@ public class StudentDao extends AbstractDao<Student, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Xuehao = new Property(1, String.class, "xuehao", false, "XUEHAO");
         public final static Property Username = new Property(2, String.class, "username", false, "USERNAME");
-        public final static Property Semester = new Property(3, String.class, "semester", false, "SEMESTER");
-        public final static Property Classes = new Property(4, long.class, "classes", false, "CLASSES");
-        public final static Property Results = new Property(5, Integer.class, "results", false, "RESULTS");
-        public final static Property Mobile = new Property(6, String.class, "mobile", false, "MOBILE");
-        public final static Property Ids = new Property(7, String.class, "ids", false, "IDS");
-        public final static Property Sex = new Property(8, String.class, "sex", false, "SEX");
-        public final static Property Devices = new Property(9, String.class, "devices", false, "DEVICES");
-        public final static Property Consume_time = new Property(10, String.class, "consume_time", false, "CONSUME_TIME");
+        public final static Property Classes = new Property(3, long.class, "classes", false, "CLASSES");
+        public final static Property Mobile = new Property(4, String.class, "mobile", false, "MOBILE");
+        public final static Property Ids = new Property(5, String.class, "ids", false, "IDS");
+        public final static Property Sex = new Property(6, String.class, "sex", false, "SEX");
     }
 
 
@@ -51,14 +47,10 @@ public class StudentDao extends AbstractDao<Student, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"XUEHAO\" TEXT NOT NULL ," + // 1: xuehao
                 "\"USERNAME\" TEXT NOT NULL ," + // 2: username
-                "\"SEMESTER\" TEXT," + // 3: semester
-                "\"CLASSES\" INTEGER NOT NULL ," + // 4: classes
-                "\"RESULTS\" INTEGER," + // 5: results
-                "\"MOBILE\" TEXT," + // 6: mobile
-                "\"IDS\" TEXT," + // 7: ids
-                "\"SEX\" TEXT," + // 8: sex
-                "\"DEVICES\" TEXT," + // 9: devices
-                "\"CONSUME_TIME\" TEXT);"); // 10: consume_time
+                "\"CLASSES\" INTEGER NOT NULL ," + // 3: classes
+                "\"MOBILE\" TEXT," + // 4: mobile
+                "\"IDS\" TEXT," + // 5: ids
+                "\"SEX\" TEXT);"); // 6: sex
     }
 
     /** Drops the underlying database table. */
@@ -77,41 +69,21 @@ public class StudentDao extends AbstractDao<Student, Long> {
         }
         stmt.bindString(2, entity.getXuehao());
         stmt.bindString(3, entity.getUsername());
- 
-        String semester = entity.getSemester();
-        if (semester != null) {
-            stmt.bindString(4, semester);
-        }
-        stmt.bindLong(5, entity.getClasses());
- 
-        Integer results = entity.getResults();
-        if (results != null) {
-            stmt.bindLong(6, results);
-        }
+        stmt.bindLong(4, entity.getClasses());
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(7, mobile);
+            stmt.bindString(5, mobile);
         }
  
         String ids = entity.getIds();
         if (ids != null) {
-            stmt.bindString(8, ids);
+            stmt.bindString(6, ids);
         }
  
         String sex = entity.getSex();
         if (sex != null) {
-            stmt.bindString(9, sex);
-        }
- 
-        String devices = entity.getDevices();
-        if (devices != null) {
-            stmt.bindString(10, devices);
-        }
- 
-        String consume_time = entity.getConsume_time();
-        if (consume_time != null) {
-            stmt.bindString(11, consume_time);
+            stmt.bindString(7, sex);
         }
     }
 
@@ -125,41 +97,21 @@ public class StudentDao extends AbstractDao<Student, Long> {
         }
         stmt.bindString(2, entity.getXuehao());
         stmt.bindString(3, entity.getUsername());
- 
-        String semester = entity.getSemester();
-        if (semester != null) {
-            stmt.bindString(4, semester);
-        }
-        stmt.bindLong(5, entity.getClasses());
- 
-        Integer results = entity.getResults();
-        if (results != null) {
-            stmt.bindLong(6, results);
-        }
+        stmt.bindLong(4, entity.getClasses());
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(7, mobile);
+            stmt.bindString(5, mobile);
         }
  
         String ids = entity.getIds();
         if (ids != null) {
-            stmt.bindString(8, ids);
+            stmt.bindString(6, ids);
         }
  
         String sex = entity.getSex();
         if (sex != null) {
-            stmt.bindString(9, sex);
-        }
- 
-        String devices = entity.getDevices();
-        if (devices != null) {
-            stmt.bindString(10, devices);
-        }
- 
-        String consume_time = entity.getConsume_time();
-        if (consume_time != null) {
-            stmt.bindString(11, consume_time);
+            stmt.bindString(7, sex);
         }
     }
 
@@ -174,14 +126,10 @@ public class StudentDao extends AbstractDao<Student, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // xuehao
             cursor.getString(offset + 2), // username
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // semester
-            cursor.getLong(offset + 4), // classes
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // results
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // mobile
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // ids
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // sex
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // devices
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // consume_time
+            cursor.getLong(offset + 3), // classes
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // mobile
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // ids
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // sex
         );
         return entity;
     }
@@ -191,14 +139,10 @@ public class StudentDao extends AbstractDao<Student, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setXuehao(cursor.getString(offset + 1));
         entity.setUsername(cursor.getString(offset + 2));
-        entity.setSemester(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setClasses(cursor.getLong(offset + 4));
-        entity.setResults(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
-        entity.setMobile(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setIds(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setSex(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setDevices(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setConsume_time(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setClasses(cursor.getLong(offset + 3));
+        entity.setMobile(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setIds(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setSex(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

@@ -107,6 +107,7 @@ public class ScoresActivity extends BaseActivity {
                             }
                             if (strTime.equals(dateStr) && student.getClasses() == classes.getId()) {
                                 student.setSemester(null);
+//                                todo 删除学生成绩
                                 student.setResults(null);
                                 dao.update(student);
                             }

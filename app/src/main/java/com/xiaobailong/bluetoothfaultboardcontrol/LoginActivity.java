@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.xiaobailong.activity.MenuActivity;
 import com.xiaobailong.base.BaseApplication;
+import com.xiaobailong.bean.Scores;
+import com.xiaobailong.bean.ScoresDao;
 import com.xiaobailong.bean.Student;
 import com.xiaobailong.bean.StudentDao;
 import com.xiaobailong.tools.SpDataUtils;
@@ -32,6 +34,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class LoginActivity extends BaseActivity {
@@ -42,6 +46,7 @@ public class LoginActivity extends BaseActivity {
     ImageView brandIV = null;
     RelativeLayout rl = null;
     private Student student;
+    private Scores scores;
 
     private String savePath = null;
     public static String companyFileName = "CompanyInfo.txt";
@@ -248,6 +253,7 @@ public class LoginActivity extends BaseActivity {
         } else {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("student", student);
+            intent.putExtra("scores", scores);
             startActivity(intent);
             finish();
         }
@@ -272,8 +278,12 @@ public class LoginActivity extends BaseActivity {
     }
 
     private boolean checkifStudentExamed(Student student) {
-        if (this.student != null && this.student.getResults() != null) {
 
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        scores = BaseApplication.app.daoSession.getScoresDao().queryBuilder().where(ScoresDao.Properties.Name
+                        .eq(student.getUsername()), ScoresDao.Properties.Xuehao.eq(student.getXuehao())
+                , ScoresDao.Properties.Date_.eq(format.format(new Date()))).distinct().limit(1).unique();
+        if (this.scores != null && this.scores.getScores() != 0) {
             return true;
         }
         return false;

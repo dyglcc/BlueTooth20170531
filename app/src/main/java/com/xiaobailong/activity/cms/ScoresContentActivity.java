@@ -181,7 +181,8 @@ public class ScoresContentActivity extends BaseActivity implements FileSelectFra
             for (int i = 0; i < students.size(); i++) {
                 Student student = students.get(i);
                 ArrayList<Object> list = new ArrayList<>();
-//            顺序，学号、姓名、性别、联系电话、身份证 成绩
+//            顺序，学号、姓名、性别、联系电话、身份证
+// 成绩导入个毛啊
                 list.add(student.getXuehao());
                 list.add(student.getUsername());
                 list.add(student.getSex());
@@ -239,12 +240,13 @@ public class ScoresContentActivity extends BaseActivity implements FileSelectFra
                         item.setMobile(((String) obj).trim());
                     } else if (j == 4) {
                         item.setIds(((String) obj).trim());
-                    } else if (j == 5) {
-                        String str = (String) obj;
-                        if ((String) obj != null && !((String) obj).equals("null")) {
-                            item.setResults(Integer.parseInt(str));
-                        }
                     }
+//                    else if (j == 5) {
+//                        String str = (String) obj;
+//                        if (str != null && !str.equals("null")) {
+//                            item.setResults(Integer.parseInt(str));
+//                        }
+//                    }
                     item.setClasses(classes.getId());
                 }
                 importList.add(item);

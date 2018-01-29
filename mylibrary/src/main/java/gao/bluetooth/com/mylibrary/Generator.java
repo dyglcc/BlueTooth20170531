@@ -14,7 +14,7 @@ public class Generator {
 
     public static void main(String[] args) throws Exception {
 
-        int version = 16;
+        int version = 18;
 
         String defaultPackage = "com.xiaobailong.bean";
 
@@ -32,6 +32,7 @@ public class Generator {
         addEntity(schema, "Time_");
         addStudentEntity(schema, "Student");
         addExaminationEntity(schema, "Examination");
+        addScores(schema, "Scores");
 
 //自动生成的bean和dao存放的java-gen路径，注意要改成自己的
 
@@ -43,6 +44,24 @@ public class Generator {
         new DaoGenerator().generateAll(schema, outDir);
 
     }
+
+    private static void addScores(Schema schema, String name) {
+
+//        成绩表需要id,成绩,日期,设备,学号，姓名，班级，年级,考试时间
+        Entity entity = schema.addEntity(name);
+        entity.implementsSerializable();
+        entity.addIdProperty().autoincrement();
+        entity.addIntProperty("scores");
+        entity.addDateProperty("date_");
+        entity.addStringProperty("devices");
+        entity.addStringProperty("xuehao");
+        entity.addStringProperty("name");
+        entity.addLongProperty("class_");
+        entity.addLongProperty("year_");
+        entity.addStringProperty("consume_time");
+
+    }
+
 
     private static void addEntity(Schema schema, String name) {
 
@@ -72,15 +91,16 @@ public class Generator {
         entity.addIdProperty().autoincrement();//添加Id,自增长
         entity.addStringProperty("xuehao").notNull();
         entity.addStringProperty("username").notNull();
-        entity.addStringProperty("semester");
+//        entity.addStringProperty("semester");
         entity.addLongProperty("classes").notNull();
-        entity.addIntProperty("results");
+//        entity.addIntProperty("results");
         entity.addStringProperty("mobile");//添加String类型的name,不能为空
         entity.addStringProperty("ids");//添加String类型的name,不能为空
         entity.addStringProperty("sex");
-        entity.addStringProperty("devices");
-        entity.addStringProperty("consume_time");
+//        entity.addStringProperty("devices");
+//        entity.addStringProperty("consume_time");
     }
+
     private static void addExaminationEntity(Schema schema, String name) {
         Entity entity = schema.addEntity(name);
         entity.implementsSerializable();

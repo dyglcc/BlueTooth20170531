@@ -38,6 +38,7 @@ import com.xiaobailong.activity.ShowResultActivity;
 import com.xiaobailong.base.BaseApplication;
 import com.xiaobailong.bean.Examination;
 import com.xiaobailong.bean.ExaminationDao;
+import com.xiaobailong.bean.Scores;
 import com.xiaobailong.bean.Student;
 import com.xiaobailong.bluetooth.MediaFileListDialog;
 import com.xiaobailong.bluetooth.MediaFileListDialogMainpage;
@@ -113,6 +114,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
     private Button button_start_exam, button_submit;
     private Examination examzation;
     private Student student;
+    private Scores scores;
     private LinearLayout content;
     private int count;
     private int resultCount;
@@ -153,9 +155,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                             begin = false;
                             tv_lasttime.setText("剩余时间：" + 0 + "分 " + 0 + " 秒");
                             tv_lasttime.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
-                            float scroes = getScores();
-                            student.setResults((int) scroes);
-                            BaseApplication.app.daoSession.getStudentDao().save(student);
+                            scores.setScores((int) getScores());
+                            BaseApplication.app.daoSession.getScoresDao().save(scores);
                             new AlertDialog.Builder(MainActivity.this).setMessage("考试结束")
                                     .setPositiveButton("查看成绩", new DialogInterface.OnClickListener() {
                                         @Override
@@ -393,6 +394,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
         Intent intent = getIntent();
         student = (Student) intent.getSerializableExtra("student");
+        scores = (Scores) intent.getSerializableExtra("scores");
         if (BaseApplication.app.shortList == null) {
             BaseApplication.app.shortList = new ArrayList<>();
         }
@@ -403,10 +405,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             BaseApplication.app.falseList = new ArrayList<>();
         }
 
-//        if(student!=null){
-//            sdfasdf
-//            // TODO: 2017/6/23
-//        }
         if (BaseApplication.app.shortList.isEmpty()) {
             for (int i = 0; i < 6; i++) {
                 BaseApplication.app.shortList.add(new Relay(i + 1, i + 1, Relay.Green, ConstValue.type_shortFault));
@@ -596,15 +594,15 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 // 停止计时
                 stopCount();
 
-                float scores = getScores();
                 // 判断分数写入数据库，跳转到显示分数界面
-                student.setResults((int) scores);
-                student.setDevices(examzation.getDevices());
+                scores.setScores((int) getScores());
+                scores.setDevices(examzation.getDevices());
+                scores.setDate_(new Date());
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                student.setSemester(format.format(new Date()));
+//                student.setSemester(format.format(new Date()));
                 int minutes = examzation.getMinutes();
 //                消耗时间计算
-                student.setConsume_time(minutes - (cousumeSeconds / 60) + "");
+                scores.setConsume_time(minutes - (cousumeSeconds / 60) + "");
                 BaseApplication.app.daoSession.getStudentDao().save(student);
 //                examzation.setExpired(true);
                 BaseApplication.app.daoSession.getExaminationDao().update(examzation);

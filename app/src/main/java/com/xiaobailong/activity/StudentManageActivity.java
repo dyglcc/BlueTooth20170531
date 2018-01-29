@@ -131,6 +131,7 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
 
                         Intent intent = new Intent(StudentManageActivity.this, ShowResultActivity.class);
                         intent.putExtra("student", student);
+//                        todo 这里学生成绩怎么显示呢？需要显示考试日期，和设备了。
                         intent.putExtra("view", "view");
                         startActivity(intent);
                     }
@@ -240,10 +241,10 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
                     } else if (j == 4) {
                         item.setIds(((String) obj).trim());
                     } else if (j == 5) {
-                        String str = (String) obj;
-                        if ((String) obj != null && !((String) obj).equals("null")) {
-                            item.setResults(Integer.parseInt(str));
-                        }
+//                        String str = (String) obj;
+//                        if ((String) obj != null && !((String) obj).equals("null")) {
+//                            item.setResults(Integer.parseInt(str));
+//                        }
                     }
                     item.setClasses(classes.getId());
                 }
