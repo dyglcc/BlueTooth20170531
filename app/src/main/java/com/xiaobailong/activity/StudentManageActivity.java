@@ -188,7 +188,7 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
                 list.add(student.getSex());
                 list.add(student.getMobile());
                 list.add(student.getIds());
-                list.add(student.getResults() == null ? "" : student.getResults());
+//                list.add(student.getResults() == null ? "" : student.getResults());
                 strs.add(list);
             }
             ExcelUtil.writeExcel(fileName, strs);

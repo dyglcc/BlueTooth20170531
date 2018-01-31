@@ -17,8 +17,8 @@ import android.widget.Toast;
 import com.xiaobailong.activity.AddFileActivity;
 import com.xiaobailong.base.BaseApplication;
 import com.xiaobailong.bean.Classes;
-import com.xiaobailong.bean.Student;
-import com.xiaobailong.bean.StudentDao;
+import com.xiaobailong.bean.Scores;
+import com.xiaobailong.bean.ScoresDao;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.widget.BottomMenuFragment;
@@ -50,7 +50,7 @@ public class ScoresActivity extends BaseActivity {
     GestureDetector dec = null;
 
     Classes classes;
-    StudentDao dao;
+    ScoresDao dao;
     private String deviceName;
 
 
@@ -96,19 +96,19 @@ public class ScoresActivity extends BaseActivity {
                         // 学生学期信息删除
                         String dateStr = groups.get(position);
                         for (int i = 0; i < times.size(); i++) {
-                            Student student = times.get(i);
+                            Scores student = times.get(i);
                             if (student == null) {
                                 continue;
                             }
 
-                            String strTime = student.getSemester();
+                            String strTime = student.getDate_().toString();
                             if (strTime == null) {
                                 continue;
                             }
-                            if (strTime.equals(dateStr) && student.getClasses() == classes.getId()) {
-                                student.setSemester(null);
+                            if (strTime.equals(dateStr) && student.getClass_() == classes.getId()) {
+                                student.setDate_(null);
 //                                todo 删除学生成绩
-                                student.setResults(null);
+                                student.setScores(null);
                                 dao.update(student);
                             }
                         }
@@ -139,28 +139,28 @@ public class ScoresActivity extends BaseActivity {
     private int editFilePos = -1;
 
     // 设备下面不同日期的考试
-    List<Student> times;
+    List<Scores> times;
     List<String> groups;
 
     private void getData() {
         times = new ArrayList<>();
         groups = new ArrayList<>();
-        dao = BaseApplication.app.daoSession.getStudentDao();
+        dao = BaseApplication.app.daoSession.getScoresDao();
 
-        times = dao.queryBuilder().where(StudentDao.Properties.Devices.eq(deviceName))
-                .orderDesc(StudentDao.Properties.Semester).build().list();
+        times = dao.queryBuilder().where(ScoresDao.Properties.Devices.eq(deviceName))
+                .orderDesc(ScoresDao.Properties.Date_).build().list();
 
-        HashMap<String, Student> map = new HashMap<>();
+        HashMap<String, Scores> map = new HashMap<>();
         for (int i = 0; i < times.size(); i++) {
-            Student stu = times.get(i);
-            if (TextUtils.isEmpty(stu.getSemester())) {
+            Scores stu = times.get(i);
+            if (TextUtils.isEmpty(stu.getDate_().toString())) {
                 continue;
             }
-            if (!map.containsKey(stu.getSemester())) {
-                map.put(stu.getSemester(), stu);
+            if (!map.containsKey(stu.getDate_())) {
+                map.put(stu.getDate_().toString(), stu);
             }
         }
-        for (Map.Entry<String, Student> entry : map.entrySet()) {
+        for (Map.Entry<String, Scores> entry : map.entrySet()) {
             String key = entry.getKey();
             groups.add(key);
         }

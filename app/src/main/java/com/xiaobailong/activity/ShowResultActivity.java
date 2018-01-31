@@ -1,6 +1,7 @@
 package com.xiaobailong.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -46,6 +47,7 @@ public class ShowResultActivity extends BaseActivity {
     @BindView(R.id.list)
     ListView list;
     private List<Scores> data;
+    DataAdatper adatper = null;
 
     private LayoutInflater inflater;
 
@@ -89,7 +91,8 @@ public class ShowResultActivity extends BaseActivity {
                     .queryBuilder().where(ScoresDao.Properties.Xuehao.eq(xuehao)
                             , ScoresDao.Properties.Name.eq(name)).limit(1).list();
         }
-
+        adatper = new DataAdatper(data,ShowResultActivity.this);
+        list.setAdapter(adatper);
 
     }
 
@@ -101,7 +104,15 @@ public class ShowResultActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-    private class DataAdatper extends BaseAdapter {
+    private static class DataAdatper extends BaseAdapter {
+
+        List<Scores> data = null;
+        LayoutInflater inflater = null;
+
+        public DataAdatper(List<Scores> data,Context context) {
+            this.data = data;
+            inflater = LayoutInflater.from(context);
+        }
 
         @Override
         public int getCount() {
