@@ -19,7 +19,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.xiaobailong.base.BaseApplication;
-import com.xiaobailong.bean.Student;
+import com.xiaobailong.bean.Scores;
 import com.xiaobailong.response.ResponseData;
 import com.yanzhenjie.andserver.RequestHandler;
 import com.yanzhenjie.andserver.util.HttpRequestParser;
@@ -32,7 +32,6 @@ import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -51,10 +50,11 @@ public class RequestSaveScoresHandler implements RequestHandler {
 
         String userName = URLDecoder.decode(params.get("username"), "utf-8");
         String xuehao = URLDecoder.decode(params.get("xuehao"), "utf-8");
-        String id = URLDecoder.decode(params.get("id"), "utf-8");
+//        String id = URLDecoder.decode(params.get("id"), "utf-8");
         String results = URLDecoder.decode(params.get("results"), "utf-8");
         String classes = URLDecoder.decode(params.get("classes"), "utf-8");
-        String sex = URLDecoder.decode(params.get("sex"), "utf-8");
+//        String years_ = URLDecoder.decode(params.get("years"), "utf-8");
+//        String sex = URLDecoder.decode(params.get("sex"), "utf-8");
         String cousumetime = URLDecoder.decode(params.get("cousumetime"), "utf-8");
         String devices = URLDecoder.decode(params.get("devices"), "utf-8");
 
@@ -64,21 +64,21 @@ public class RequestSaveScoresHandler implements RequestHandler {
 
 //        Student student = BaseApplication.app.daoSession.getStudentDao().queryBuilder().where(StudentDao.Properties.Username.eq(userName), StudentDao.Properties.Xuehao.eq(password)).distinct().limit(1).unique();
 //        if ("123".equals(userName) && "123".equals(password)) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Student student = new Student();
-        student.setUsername(userName);
-        student.setXuehao(xuehao);
-        student.setId(Long.parseLong(id));
-        student.setResults(Integer.parseInt(results));
-        student.setClasses(Long.parseLong(classes));
-        student.setSex(sex);
-        student.setConsume_time(cousumetime);
-        student.setDevices(devices);
-        student.setSemester(format.format(new Date()));
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Scores scores = new Scores();
+        scores.setName(userName);
+        scores.setXuehao(xuehao);
+//        student.setId(Long.parseLong(id));
+        scores.setScores(Integer.parseInt(results));
+        scores.setClass_(Long.parseLong(classes));
+        scores.setConsume_time(cousumetime);
+        scores.setDevices(devices);
+        scores.setDate_(new Date());
+//        scores.setYear_(Long.parseLong(years_));
         // 学号
         ResponseData data = new ResponseData();
         try {
-            BaseApplication.app.daoSession.getStudentDao().save(student);
+            BaseApplication.app.daoSession.getScoresDao().save(scores);
             data.setError(0);
             data.setMsg("保存学生成绩正常");
         } catch (Exception e) {

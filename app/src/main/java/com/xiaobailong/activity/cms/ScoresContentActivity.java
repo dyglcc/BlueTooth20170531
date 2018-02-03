@@ -103,6 +103,7 @@ public class ScoresContentActivity extends BaseActivity {
 
     @OnClick(R.id.btn_export)
     public void export() {
+        String title = years_.getFilename() + "_" + classes_.getFilename() + "_" + deviceName + "_" + dateStr;
         String fileName = classes_.getPath() + "/" + years_.getFilename() + "_" + classes_.getFilename() + "_" + deviceName + "_" + dateStr + ".xls";
         try {
             List<List<Object>> strs = new ArrayList<>();
@@ -123,7 +124,12 @@ public class ScoresContentActivity extends BaseActivity {
                 list.add(minutes);
                 strs.add(list);
             }
-            ExcelUtil.writeExcel(fileName, strs);
+            String[] column = new String[4];
+            column[0] = "学号";
+            column[1] = "名字";
+            column[2] = "成绩";
+            column[3] = "考试用时";
+            ExcelUtil.writeExcelWithTitleColumnAndMergeTitleCell(fileName, strs, column, title, "成绩表");
             Toast.makeText(this, "导出excel完成，保存路径是：" + fileName.toString(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "导出失败", Toast.LENGTH_SHORT).show();

@@ -3,6 +3,7 @@ package com.xiaobailong.activity.cms;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,7 @@ public class ScoresActivity extends BaseActivity {
     ScoresDao dao;
     private String deviceName;
 
+    private static final String TAG = "ScoresActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +109,6 @@ public class ScoresActivity extends BaseActivity {
                             }
                             if (strTime.equals(dateStr) && student.getClass_() == classes.getId()) {
                                 student.setDate_(null);
-//                                todo 删除学生成绩
                                 student.setScores(null);
                                 dao.update(student);
                             }
@@ -149,6 +150,8 @@ public class ScoresActivity extends BaseActivity {
 
         times = dao.queryBuilder().where(ScoresDao.Properties.Devices.eq(deviceName))
                 .orderDesc(ScoresDao.Properties.Date_).build().list();
+
+        Log.i(TAG, "getData: 日期的 sizes " + (times == null ? 0 : times.size()));
 
         HashMap<String, Scores> map = new HashMap<>();
         for (int i = 0; i < times.size(); i++) {

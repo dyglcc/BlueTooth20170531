@@ -12,14 +12,8 @@ public class Student implements java.io.Serializable {
     private String xuehao;
 
     private String username;
-    private String semester;
     private long classes;
-    private Integer results;
     private String mobile;
-    private String ids;
-    private String sex;
-    private String devices;
-    private String consume_time;
 
     public Long getId() {
         return id;
@@ -45,28 +39,12 @@ public class Student implements java.io.Serializable {
         this.username = username;
     }
 
-    public String getSemester() {
-        return semester;
-    }
-
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
-
     public long getClasses() {
         return classes;
     }
 
     public void setClasses(long classes) {
         this.classes = classes;
-    }
-
-    public Integer getResults() {
-        return results;
-    }
-
-    public void setResults(Integer results) {
-        this.results = results;
     }
 
     public String getMobile() {
@@ -93,14 +71,6 @@ public class Student implements java.io.Serializable {
         this.sex = sex;
     }
 
-    public String getDevices() {
-        return devices;
-    }
-
-    public void setDevices(String devices) {
-        this.devices = devices;
-    }
-
     public String getConsume_time() {
         return consume_time;
     }
@@ -108,5 +78,10 @@ public class Student implements java.io.Serializable {
     public void setConsume_time(String consume_time) {
         this.consume_time = consume_time;
     }
+
+    private String ids;
+    private String sex;
+    private String consume_time;
+
 
 }

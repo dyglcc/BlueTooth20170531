@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -49,10 +50,10 @@ public class DevicesActity extends BaseActivity {
     @BindView(R.id.parent)
     LinearLayout parent;
     GestureDetector dec = null;
-
     Classes classes;
-
     DevicesDao devicesDao;
+
+    private static String TAG = "DevicesActity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,6 @@ public class DevicesActity extends BaseActivity {
         setContentView(R.layout.main_devices);
         ButterKnife.bind(this);
         // get data
-
         classes = (Classes) getIntent().getSerializableExtra("classes");
         getData();
         adapter = new YearAdapter();
@@ -136,6 +136,7 @@ public class DevicesActity extends BaseActivity {
 
         devicesDao = BaseApplication.app.daoSession.getDevicesDao();
         deviceses = devicesDao.queryBuilder().where(DevicesDao.Properties.Parent.eq(classes.getId())).list();
+        Log.i(TAG, "getData:  devices");
 
     }
 
@@ -311,7 +312,6 @@ public class DevicesActity extends BaseActivity {
             @Override
             public void onClickMenuItem(View v, MenuItem menuItem) {
 
-                // todo 修改文件的名称
                 modifyFileName(position);
 
             }

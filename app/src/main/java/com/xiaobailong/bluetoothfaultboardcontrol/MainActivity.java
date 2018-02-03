@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
     private Button button_start_exam, button_submit;
     private Examination examzation;
     private Student student;
-    private Scores scores;
+    private Scores scores_login, scores;
     private LinearLayout content;
     private int count;
     private int resultCount;
@@ -155,16 +155,25 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                             begin = false;
                             tv_lasttime.setText("剩余时间：" + 0 + "分 " + 0 + " 秒");
                             tv_lasttime.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+                            scores = new Scores();
                             scores.setScores((int) getScores());
+                            scores.setClass_(student.getClasses());
+                            scores.setDate_(new Date());
+                            scores.setName(student.getUsername());
+                            scores.setXuehao(student.getXuehao());
+                            int minutes = examzation.getMinutes();
+                            scores.setConsume_time(minutes - (cousumeSeconds / 60) + "");
                             BaseApplication.app.daoSession.getScoresDao().save(scores);
-                            new AlertDialog.Builder(MainActivity.this).setMessage("考试结束")
-                                    .setPositiveButton("查看成绩", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                            showResultActivity();
-                                        }
-                                    }).show();
+
+                            afterSaveScores();
+//                            new AlertDialog.Builder(MainActivity.this).setMessage("考试结束")
+//                                    .setPositiveButton("查看成绩", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            dialog.dismiss();
+//                                            showResultActivity();
+//                                        }
+//                                    }).show();
                             // 判断答案
                             Toast.makeText(MainActivity.this, "考试时间结束", Toast.LENGTH_SHORT).show();
                         }
@@ -177,7 +186,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
     private void showResultActivity() {
         Intent intent = new Intent(MainActivity.this, ShowResultActivity.class);
-        intent.putExtra("student", student);
+//        intent.putExtra("scores", scores);
+        intent.putExtra("name", student.getUsername());
+        intent.putExtra("xuehao", student.getXuehao());
         startActivityForResult(intent, 123);
     }
 
@@ -547,7 +558,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         } catch (IOException e) {
             Toast.makeText(context, "读取文件出错！", Toast.LENGTH_LONG).show();
         }
-//                todo 创建修改标题的文件，读取文件，修改文件更新标题。
         return str;
     }
 
@@ -593,7 +603,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 }
                 // 停止计时
                 stopCount();
-
+                scores = new Scores();
                 // 判断分数写入数据库，跳转到显示分数界面
                 scores.setScores((int) getScores());
                 scores.setDevices(examzation.getDevices());
@@ -606,7 +616,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 BaseApplication.app.daoSession.getStudentDao().save(student);
 //                examzation.setExpired(true);
                 BaseApplication.app.daoSession.getExaminationDao().update(examzation);
-                showResultActivity();
+                BaseApplication.app.daoSession.getScoresDao().save(scores);
+                afterSaveScores();
+//                showResultActivity();
 
                 break;
             case R.id.Button_Ignition:// 点火
@@ -651,14 +663,12 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 faultboardOptionHandler.sendEmptyMessageDelayed(0, 500);
                 break;
             case R.id.Button_Mode_Teach02:// 教学模式
-//			todo 打开指定文件夹 /sdcard/
                 if (ConstValue.haveSdcard()) {
                     File file = new File(ConstValue.get_DIR());
                     if (!file.exists()) {
                         Toast.makeText(MainActivity.this, "没有文件可以显示！文件路径 " + ConstValue.get_DIR(), Toast.LENGTH_LONG).show();
                         return;
                     }
-
                     MediaFileListDialog bluetoothDevicesListDialog = new MediaFileListDialog(
                             MainActivity.this);
                     bluetoothDevicesListDialog.show();
@@ -973,7 +983,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
     }
 
     private boolean checkifStudentExamed() {
-        if (student != null && student.getResults() != null) {
+        if (scores_login != null && scores_login.getScores() != null) {
             Toast.makeText(this, "您已经考过试了", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -1288,7 +1298,18 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             tvFileName.setVisibility(View.GONE);
         }
     }
-
+    private void afterSaveScores() {
+        new AlertDialog.Builder(MainActivity.this).setMessage("考试结束")
+                .setPositiveButton("查看成绩", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        showResultActivity();
+                    }
+                }).show();
+        // 判断答案
+//        Toast.makeText(MainActivity.this, "考试时间结束", Toast.LENGTH_SHORT).show();
+    }
     private void afterSet(final String str) {
         tvFileName.setText(str + "..");
         countHandler.postDelayed(new Runnable() {

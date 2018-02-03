@@ -38,6 +38,7 @@ import android.widget.Toast;
 import com.xiaobailong_student.activity.ShowResultActivity;
 import com.xiaobailong_student.base.BaseApplication;
 import com.xiaobailong_student.beans.Examination;
+import com.xiaobailong_student.beans.Scores;
 import com.xiaobailong_student.beans.Student;
 import com.xiaobailong_student.bluetooth.MediaFileListDialog;
 import com.xiaobailong_student.bluetooth.MediaFileListDialogMainpage;
@@ -115,6 +116,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
     private Button button_start_exam, button_submit;
     private Examination examzation;
     private Student student;
+    private Scores scores, scoresNew;
     private LinearLayout content;
     private int count;
     private int resultCount;
@@ -184,9 +186,17 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                             tv_lasttime.setText("剩余时间：" + 0 + "分 " + 0 + " 秒");
                             tv_lasttime.setTextColor(ContextCompat.getColor(MainActivity.this, com.xiaobailong_student.bluetoothfaultboardcontrol.R.color.red));
                             float scroes = getScores();
-                            student.setResults((int) scroes);
+                            int scores_ = ((int) scroes);
+                            scoresNew = new Scores();
+                            scoresNew.setScores(scores_);
+                            scoresNew.setClass_(student.getClasses());
+                            scoresNew.setConsume_time(student.getConsume_time());
+                            scoresNew.setDate_(new Date());
+                            scoresNew.setDevices(examzation.getDevices());
+                            scoresNew.setName(student.getUsername());
+                            scoresNew.setXuehao(student.getXuehao());
 //                           保存学生成绩
-                            saveScoresInAsynTask(student);
+                            saveScoresInAsynTask(scoresNew);
 
 //                            BaseApplication.app.daoSession.getStudentDao().save(student);
 
@@ -211,7 +221,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 //        Toast.makeText(MainActivity.this, "考试时间结束", Toast.LENGTH_SHORT).show();
     }
 
-    private void saveScoresInAsynTask(Student student) {
+    private void saveScoresInAsynTask(Scores scores) {
 
         AsyncTask task = new AsyncTask() {
             @Override
@@ -238,16 +248,16 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
             @Override
             protected Object doInBackground(Object[] objects) {
-                Student student1 = (Student) objects[0];
-                return AbstractNet.getInstance().saveScores(student1);
+                Scores scores1 = (Scores) objects[0];
+                return AbstractNet.getInstance().saveScores(scores1);
             }
         };
-        task.execute(student);
+        task.execute(scores);
     }
 
     private void showResultActivity() {
         Intent intent = new Intent(MainActivity.this, ShowResultActivity.class);
-        intent.putExtra("student", student);
+        intent.putExtra("scores", scoresNew);
         startActivityForResult(intent, 123);
     }
 
@@ -452,6 +462,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
         Intent intent = getIntent();
         student = (Student) intent.getSerializableExtra("student");
+        scores = (Scores) intent.getSerializableExtra("scores");
         if (BaseApplication.app.shortList == null) {
             BaseApplication.app.shortList = new ArrayList<>();
         }
@@ -464,7 +475,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
 //        if(student!=null){
 //            sdfasdf
-//            // TODO: 2017/6/23
 //        }
         if (BaseApplication.app.shortList.isEmpty()) {
             for (int i = 0; i < 6; i++) {
@@ -576,7 +586,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         } catch (IOException e) {
             Toast.makeText(context, "读取文件出错！", Toast.LENGTH_LONG).show();
         }
-//                todo 创建修改标题的文件，读取文件，修改文件更新标题。
         return str;
     }
 
@@ -592,7 +601,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
     }
 
-    //    todo 加载学生成绩
     private void loadExamnination() {
         @SuppressLint("StaticFieldLeak") AsyncTask task = new AsyncTask() {
             @Override
@@ -720,20 +728,22 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
                 float scores = getScores();
                 // 判断分数写入数据库，跳转到显示分数界面
-                student.setResults((int) scores);
-                student.setDevices(examzation.getDevices());
+                scoresNew = new Scores();
+                scoresNew.setXuehao(student.getXuehao());
+                scoresNew.setName(student.getUsername());
+                scoresNew.setClass_(student.getClasses());
+                scoresNew.setScores((int) scores);
+                scoresNew.setDevices(examzation.getDevices());
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                student.setSemester(format.format(new Date()));
+                scoresNew.setDate_(new Date());
                 int minutes = examzation.getMinutes();
 //                消耗时间计算
-                student.setConsume_time(minutes - (cousumeSeconds / 60) + "");
-                // todo 保存考试使用时间
+                scoresNew.setConsume_time(minutes - (cousumeSeconds / 60) + "");
 //                BaseApplication.app.daoSession.getStudentDao().save(student);
 
-                saveScoresInAsynTask(student);
+                saveScoresInAsynTask(scoresNew);
 //                examzation.setExpired(true);
                 // 保存
-                // todo 更新考试信息。
 //                BaseApplication.app.daoSession.getExaminationDao().update(examzation);
 //                showResultActivity();
 
@@ -780,7 +790,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 faultboardOptionHandler.sendEmptyMessageDelayed(0, 500);
                 break;
             case com.xiaobailong_student.bluetoothfaultboardcontrol.R.id.Button_Mode_Teach02:// 教学模式
-//			todo 打开指定文件夹 /sdcard/
                 if (ConstValue.haveSdcard()) {
                     File file = new File(ConstValue.get_DIR());
                     if (!file.exists()) {
@@ -1101,7 +1110,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
     }
 
     private boolean checkifStudentExamed() {
-        if (student != null && student.getResults() != null) {
+        if (scores != null && scores.getScores() != null) {
             Toast.makeText(this, "您已经考过试了", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -1187,7 +1196,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 setInitGreenColorAndInitExamation();
                 // updateDatabase
                 if (examzation != null) {
-//                    todo 保存考试信息
 //                    BaseApplication.app.daoSession.getExaminationDao().update(examzation);
                 }
                 if (theFailurePointSetAdapter != null) {
@@ -1512,7 +1520,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             int countCheck = getSourceCount();
             if (countCheck == 0) {
                 examzation.setExpired(true);
-//                todo 保存考试信息
 //                BaseApplication.app.daoSession.getExaminationDao().delete(examzation);
                 finish();
                 return;
@@ -1552,7 +1559,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 if (count == 0) {
                     examzation.setExpired(true);
                 }
-//                todo 保存考试信息
 //                BaseApplication.app.daoSession.getExaminationDao().update(examzation);
                 finish();
             }

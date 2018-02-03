@@ -1,4 +1,5 @@
 package com.xiaobailong_student.activity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.xiaobailong_student.beans.Student;
+import com.xiaobailong_student.beans.Scores;
 import com.xiaobailong_student.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong_student.bluetoothfaultboardcontrol.R;
 
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 
 public class ShowResultActivity extends BaseActivity {
 
-    Student student = null;
+    Scores student = null;
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_name_value)
@@ -47,7 +48,7 @@ public class ShowResultActivity extends BaseActivity {
         setContentView(R.layout.main_show_result);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        student = (Student) intent.getSerializableExtra("student");
+        student = (Scores) intent.getSerializableExtra("scores");
         str = intent.getStringExtra("view");
 //        if (str != null) {
 //            buttonSave.setVisibility(View.GONE);
@@ -59,9 +60,9 @@ public class ShowResultActivity extends BaseActivity {
             minutes += "分钟";
         }
         tvDevicesValue.setText(minutes);
-        tvNameValue.setText(student.getUsername());
+        tvNameValue.setText(student.getName());
         tvXuehaoValue.setText(student.getXuehao() + "");
-        String result = student.getResults() == null ? "暂无成绩" : student.getResults() + "";
+        String result = student.getScores() == null ? "暂无成绩" : student.getScores() + "";
         tvScoresValue.setText(result);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {

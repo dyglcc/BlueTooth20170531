@@ -4,7 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.xiaobailong_student.beans.Student;
+import com.xiaobailong_student.beans.Scores;
 import com.xiaobailong_student.result.ResponseLoadExamData;
 import com.xiaobailong_student.result.ResponseLoginData;
 import com.xiaobailong_student.result.ResponseSaveScoreData;
@@ -63,28 +63,28 @@ public class AbstractNet {
 
     }
 
-    public ResponseSaveScoreData saveScores(Student student) {
-        if (student == null) {
+    public ResponseSaveScoreData saveScores(Scores scores) {
+        if (scores == null) {
             Log.d(TAG, "request para error when saveScores ");
             return null;
         }
-        String username = student.getUsername();
-        String xuehao = student.getXuehao();
-        String classes = student.getClasses() + "";
-        String id = student.getId() + "";
-        String sex = student.getSex();
-        String results = student.getResults() + "";
-        String cousumeTime = student.getConsume_time();
-        String devices = student.getDevices();
+        String username = scores.getName();
+        String xuehao = scores.getXuehao();
+        String classes = scores.getClass_() + "";
+//        String yearsID = student.get() + "";
+//        String sex = student.getSex();
+        String results = scores.getScores() + "";
+        String cousumeTime = scores.getConsume_time();
+        String devices = scores.getDevices();
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(xuehao)
-                || TextUtils.isEmpty(id) || TextUtils.isEmpty(results)) {
+                 || TextUtils.isEmpty(results)) {
             Log.d(TAG, "request para error when saveScores ");
             return null;
         }
         ResponseSaveScoreData responseSaveScoreData = null;
         String url = server + saveScores + "?username=" + username + "&xuehao=" + xuehao
-                + "&classes=" + classes + "&id=" + id
-                + "&sex=" + sex + "&results="
+                + "&classes=" + classes
+                + "&results="
                 + results + "&cousumetime="
                 + cousumeTime+ "&devices="
                 + devices;

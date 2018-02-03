@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 
 public class ShowResultActivity extends BaseActivity {
 
-    Scores scores = null;
+//    Scores scores = null;
     Button buttonSave;
     String str = "";
     String xuehao = "";
@@ -57,7 +57,7 @@ public class ShowResultActivity extends BaseActivity {
         setContentView(R.layout.main_show_result);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        scores = (Scores) intent.getSerializableExtra("scores");
+//        scores = (Scores) intent.getSerializableExtra("scores");
         str = intent.getStringExtra("view");
         xuehao = intent.getStringExtra("xuehao");
         name = intent.getStringExtra("name");

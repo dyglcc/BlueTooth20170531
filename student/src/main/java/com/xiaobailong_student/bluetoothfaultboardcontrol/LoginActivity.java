@@ -21,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xiaobailong_student.beans.LoginWraper;
+import com.xiaobailong_student.beans.Scores;
 import com.xiaobailong_student.beans.Student;
 import com.xiaobailong_student.net.AbstractNet;
 import com.xiaobailong_student.result.ResponseLoginData;
@@ -45,7 +47,8 @@ public class LoginActivity extends BaseActivity {
     EditText pwdEdit;
     ImageView brandIV = null;
     RelativeLayout rl = null;
-    private Student student;
+//    private Student student;
+//    private Scores scores;
 
     private String savePath = null;
     public static String companyFileName = "CompanyInfo.txt";
@@ -254,9 +257,11 @@ public class LoginActivity extends BaseActivity {
                     ResponseLoginData data = (ResponseLoginData) o;
                     if (data != null) {
                         if (data.getError() == 0) {
-                            Student student = data.getData();
+                            LoginWraper wraper = data.getData();
+                            Student student = wraper.getStudent();
+                            Scores scores = wraper.getScores();
                             if (student != null && student.getId() != null) {
-                                startStudentPage(student);
+                                startStudentPage(scores, student);
                             } else {
                                 Toast.makeText(LoginActivity.this, "" + data.getMsg(), Toast.LENGTH_SHORT).show();
                             }
@@ -286,12 +291,13 @@ public class LoginActivity extends BaseActivity {
         if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
     }
 
-    private void startStudentPage(Student student) {
-        boolean ifExamed = checkifStudentExamed(student);
+    private void startStudentPage(Scores scores, Student student) {
+        boolean ifExamed = checkifStudentExamed(scores);
         if (ifExamed) {
             Toast.makeText(this, "您已经考过试了", Toast.LENGTH_SHORT).show();
         } else {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("scores", scores);
             intent.putExtra("student", student);
             startActivity(intent);
         }
@@ -315,8 +321,8 @@ public class LoginActivity extends BaseActivity {
 //        finish();
     }
 
-    private boolean checkifStudentExamed(Student student) {
-        if (student != null && student.getResults() != null) {
+    private boolean checkifStudentExamed(Scores scores) {
+        if (scores != null && scores.getScores() != null) {
 
             return true;
         }
@@ -339,7 +345,6 @@ public class LoginActivity extends BaseActivity {
             }
         }).create().show();
     }
-
 
 
 }

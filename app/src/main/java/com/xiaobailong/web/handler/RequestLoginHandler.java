@@ -19,9 +19,12 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.xiaobailong.base.BaseApplication;
+import com.xiaobailong.bean.Scores;
+import com.xiaobailong.bean.ScoresDao;
 import com.xiaobailong.bean.Student;
 import com.xiaobailong.bean.StudentDao;
 import com.xiaobailong.response.ResponseData;
+import com.xiaobailong.web.handler.wrapper.LoginWraper;
 import com.yanzhenjie.andserver.RequestHandler;
 import com.yanzhenjie.andserver.util.HttpRequestParser;
 
@@ -33,6 +36,8 @@ import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -42,6 +47,7 @@ import java.util.Map;
 public class RequestLoginHandler implements RequestHandler {
 
     private static String TAG = "AndServer";
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     public void handle(HttpRequest request, HttpResponse response, HttpContext context) throws HttpException, IOException {
         Map<String, String> params = HttpRequestParser.parse(request);
@@ -55,13 +61,18 @@ public class RequestLoginHandler implements RequestHandler {
         System.out.println("The Password: " + password);
 
         Student student = BaseApplication.app.daoSession.getStudentDao().queryBuilder().where(StudentDao.Properties.Username.eq(userName), StudentDao.Properties.Xuehao.eq(password)).distinct().limit(1).unique();
-//        if ("123".equals(userName) && "123".equals(password)) {
 
         ResponseData data = new ResponseData();
         Gson gson = new Gson();
         if (student != null && student.getId() != null) {
             data.setError(0);
-            data.setData(student);
+            Scores scores = BaseApplication.app.daoSession.getScoresDao().queryBuilder().where(ScoresDao.Properties.Name
+                            .eq(student.getUsername()), ScoresDao.Properties.Xuehao.eq(student.getXuehao())
+                    , ScoresDao.Properties.Date_.eq(format.format(new Date()))).distinct().limit(1).unique();
+            LoginWraper wraper = new LoginWraper();
+            wraper.setScores(scores);
+            wraper.setStudent(student);
+            data.setData(wraper);
             data.setMsg("login success");
             Log.i(TAG, gson.toJson(data));
             StringEntity stringEntity = new StringEntity(gson.toJson(data), "utf-8");

@@ -25,7 +25,6 @@ public class ListScrollView extends ScrollView {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        // TODO Auto-generated method stub
         if (listView != null && checkArea(listView, ev)) {
             return false;
         }

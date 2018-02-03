@@ -130,8 +130,8 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
                     public void onClickMenuItem(View v, MenuItem menuItem) {
 
                         Intent intent = new Intent(StudentManageActivity.this, ShowResultActivity.class);
-                        intent.putExtra("student", student);
-//                        todo 这里学生成绩怎么显示呢？需要显示考试日期，和设备了。
+                        intent.putExtra("name", student.getUsername());
+                        intent.putExtra("xuehao", student.getXuehao());
                         intent.putExtra("view", "view");
                         startActivity(intent);
                     }
@@ -191,7 +191,13 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
 //                list.add(student.getResults() == null ? "" : student.getResults());
                 strs.add(list);
             }
-            ExcelUtil.writeExcel(fileName, strs);
+            String[] titles = new String[5];
+            titles[0] = "学号";
+            titles[1] = "姓名";
+            titles[2] = "性别";
+            titles[3] = "联系电话";
+            titles[4] = "身份证";
+            ExcelUtil.writeExcelWithTitleColumn(fileName, strs, titles, "学生信息表");
             Toast.makeText(this, "导出excel完成，保存路径是：" + fileName.toString(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "导出失败", Toast.LENGTH_SHORT).show();

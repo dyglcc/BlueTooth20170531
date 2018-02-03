@@ -282,7 +282,7 @@ public class LoginActivity extends BaseActivity {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         scores = BaseApplication.app.daoSession.getScoresDao().queryBuilder().where(ScoresDao.Properties.Name
                         .eq(student.getUsername()), ScoresDao.Properties.Xuehao.eq(student.getXuehao())
-                , ScoresDao.Properties.Date_.eq(format.format(new Date()))).distinct().limit(1).unique();
+                , ScoresDao.Properties.Date_.eq(new Date())).distinct().limit(1).unique();
         if (this.scores != null && this.scores.getScores() != 0) {
             return true;
         }

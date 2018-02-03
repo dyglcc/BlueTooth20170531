@@ -1,6 +1,6 @@
 package com.xiaobailong_student.result;
 
-import com.xiaobailong_student.beans.Student;
+import com.xiaobailong_student.beans.LoginWraper;
 
 /**
  * Created by dongyuangui on 2017/12/30.
@@ -8,6 +8,10 @@ import com.xiaobailong_student.beans.Student;
 
 public class ResponseLoginData {
     private int error ;
+
+    private LoginWraper data;
+
+    private String msg;
 
     public String getMsg() {
         return msg;
@@ -17,8 +21,6 @@ public class ResponseLoginData {
         this.msg = msg;
     }
 
-    private String msg;
-
     public int getError() {
         return error;
     }
@@ -27,13 +29,11 @@ public class ResponseLoginData {
         this.error = error;
     }
 
-    public Student getData() {
+    public LoginWraper getData() {
         return data;
     }
 
-    public void setData(Student data) {
+    public void setData(LoginWraper data) {
         this.data = data;
     }
-
-    private Student data;
 }

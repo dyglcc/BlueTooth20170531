@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class Utils {
     public static boolean isRightIdNum(String idString) {
-        // TODO Auto-generated method stub
 
         if (idString == null || idString.length() < 15) {
             return false;
@@ -24,7 +23,6 @@ public class Utils {
                 }
                 return IdNumberUtil.getInfof(s);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else if (idString.length() == 18) {

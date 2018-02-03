@@ -111,7 +111,6 @@ public class IdNumberUtil {
 			try {
 				gg[i - 1] = Integer.parseInt(sad.substring(j, j + 1));
 			} catch (Exception e) {
-				// TODO: handle exception
 				return null;
 			}
 
