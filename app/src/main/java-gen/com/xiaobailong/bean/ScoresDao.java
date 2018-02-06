@@ -24,7 +24,7 @@ public class ScoresDao extends AbstractDao<Scores, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Scores = new Property(1, Integer.class, "scores", false, "SCORES");
-        public final static Property Date_ = new Property(2, java.util.Date.class, "date_", false, "DATE_");
+        public final static Property Date_ = new Property(2, Long.class, "date_", false, "DATE_");
         public final static Property Devices = new Property(3, String.class, "devices", false, "DEVICES");
         public final static Property Xuehao = new Property(4, String.class, "xuehao", false, "XUEHAO");
         public final static Property Name = new Property(5, String.class, "name", false, "NAME");
@@ -77,9 +77,9 @@ public class ScoresDao extends AbstractDao<Scores, Long> {
             stmt.bindLong(2, scores);
         }
  
-        java.util.Date date_ = entity.getDate_();
+        Long date_ = entity.getDate_();
         if (date_ != null) {
-            stmt.bindLong(3, date_.getTime());
+            stmt.bindLong(3, date_);
         }
  
         String devices = entity.getDevices();
@@ -127,9 +127,9 @@ public class ScoresDao extends AbstractDao<Scores, Long> {
             stmt.bindLong(2, scores);
         }
  
-        java.util.Date date_ = entity.getDate_();
+        Long date_ = entity.getDate_();
         if (date_ != null) {
-            stmt.bindLong(3, date_.getTime());
+            stmt.bindLong(3, date_);
         }
  
         String devices = entity.getDevices();
@@ -173,7 +173,7 @@ public class ScoresDao extends AbstractDao<Scores, Long> {
         Scores entity = new Scores( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // scores
-            cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)), // date_
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // date_
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // devices
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // xuehao
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // name
@@ -188,7 +188,7 @@ public class ScoresDao extends AbstractDao<Scores, Long> {
     public void readEntity(Cursor cursor, Scores entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setScores(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
-        entity.setDate_(cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)));
+        entity.setDate_(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
         entity.setDevices(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setXuehao(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setName(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));

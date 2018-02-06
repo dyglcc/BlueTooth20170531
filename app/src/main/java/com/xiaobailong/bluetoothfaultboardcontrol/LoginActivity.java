@@ -34,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -238,7 +239,11 @@ public class LoginActivity extends BaseActivity {
         } else if (SpDataUtils.TYPE_STUDENT.equals(type)) {
             student = BaseApplication.app.daoSession.getStudentDao().queryBuilder().where(StudentDao.Properties.Username.eq(name), StudentDao.Properties.Xuehao.eq(password)).distinct().limit(1).unique();
             if (student != null && student.getId() != null) {
-                startStudentPage();
+                try {
+                    startStudentPage();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             } else {
                 Toast.makeText(this, "姓名或者学号不正确，请重新输入", Toast.LENGTH_SHORT).show();
             }
@@ -246,7 +251,7 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    private void startStudentPage() {
+    private void startStudentPage() throws ParseException {
         boolean ifExamed = checkifStudentExamed(student);
         if (ifExamed) {
             Toast.makeText(this, "您已经考过试了", Toast.LENGTH_SHORT).show();
@@ -277,12 +282,14 @@ public class LoginActivity extends BaseActivity {
         finish();
     }
 
-    private boolean checkifStudentExamed(Student student) {
+    private boolean checkifStudentExamed(Student student) throws ParseException {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String strdate = format.format(new Date());
+        long begin = format.parse(strdate).getTime();
         scores = BaseApplication.app.daoSession.getScoresDao().queryBuilder().where(ScoresDao.Properties.Name
                         .eq(student.getUsername()), ScoresDao.Properties.Xuehao.eq(student.getXuehao())
-                , ScoresDao.Properties.Date_.eq(new Date())).distinct().limit(1).unique();
+                , ScoresDao.Properties.Date_.ge(begin), ScoresDao.Properties.Date_.lt(begin + 3600 * 24 * 1000)).distinct().limit(1).unique();
         if (this.scores != null && this.scores.getScores() != 0) {
             return true;
         }

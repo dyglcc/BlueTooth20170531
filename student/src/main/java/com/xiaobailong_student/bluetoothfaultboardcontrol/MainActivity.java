@@ -59,9 +59,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import me.grantland.widget.AutofitTextView;
@@ -190,8 +188,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                             scoresNew = new Scores();
                             scoresNew.setScores(scores_);
                             scoresNew.setClass_(student.getClasses());
+                            scoresNew.setYear_(student.getYear_());
                             scoresNew.setConsume_time(student.getConsume_time());
-                            scoresNew.setDate_(new Date());
+                            scoresNew.setDate_(System.currentTimeMillis());
                             scoresNew.setDevices(examzation.getDevices());
                             scoresNew.setName(student.getUsername());
                             scoresNew.setXuehao(student.getXuehao());
@@ -732,10 +731,11 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 scoresNew.setXuehao(student.getXuehao());
                 scoresNew.setName(student.getUsername());
                 scoresNew.setClass_(student.getClasses());
+                scoresNew.setYear_(student.getYear_());
                 scoresNew.setScores((int) scores);
                 scoresNew.setDevices(examzation.getDevices());
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                scoresNew.setDate_(new Date());
+//                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                scoresNew.setDate_(System.currentTimeMillis());
                 int minutes = examzation.getMinutes();
 //                消耗时间计算
                 scoresNew.setConsume_time(minutes - (cousumeSeconds / 60) + "");

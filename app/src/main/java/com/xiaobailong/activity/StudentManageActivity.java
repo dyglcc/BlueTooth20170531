@@ -16,9 +16,10 @@ import android.widget.Toast;
 
 import com.xiaobailong.activity.cms.NewDevicesActivity;
 import com.xiaobailong.base.BaseApplication;
+import com.xiaobailong.bean.Classes;
 import com.xiaobailong.bean.Student;
 import com.xiaobailong.bean.StudentDao;
-import com.xiaobailong.bean.Classes;
+import com.xiaobailong.bean.Years;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.tools.ConstValue;
@@ -68,6 +69,7 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
     Button btnImport;
 
     private Classes classes;
+    private Years years;
     private List<Student> datalist;
     private List<Student> importList;
     private StudentDao dao;
@@ -82,6 +84,7 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
         setContentView(R.layout.main_student_manage);
         ButterKnife.bind(this);
         classes = (Classes) getIntent().getSerializableExtra("classes");
+        years = (Years) getIntent().getSerializableExtra("years");
         if (classes == null) {
             return;
         }
@@ -157,6 +160,7 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
     public void add() {
         Intent intent = new Intent(this, AddStudentActivity.class);
         intent.putExtra("classes", classes);
+        intent.putExtra("years", years);
         startActivityForResult(intent, 100);
     }
 
@@ -164,6 +168,7 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
     public void viewResult() {
         Intent intent = new Intent(this, NewDevicesActivity.class);
         intent.putExtra("classes", classes);
+        intent.putExtra("years", years);
         startActivityForResult(intent, 100);
     }
 
@@ -177,7 +182,9 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
         String fileName = classes.getPath() + "/" + classes.getFilename() + ".xls";
 
         try {
-            List<Student> students = dao.loadAll();
+            List<Student> students = dao.queryBuilder()
+                    .where(StudentDao.Properties.Classes
+                            .eq(classes.getId())).orderAsc(StudentDao.Properties.Id).list();
             List<List<Object>> strs = new ArrayList<>();
             for (int i = 0; i < students.size(); i++) {
                 Student student = students.get(i);
@@ -253,6 +260,7 @@ public class StudentManageActivity extends BaseActivity implements FileSelectFra
 //                        }
                     }
                     item.setClasses(classes.getId());
+                    item.setYear_(years.getId());
                 }
                 importList.add(item);
             }

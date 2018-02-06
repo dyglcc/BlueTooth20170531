@@ -91,6 +91,7 @@ public class ClassActivity extends BaseActivity {
         if (y != null) {
             Intent intent = new Intent(this, StudentManageActivity.class);
             intent.putExtra("classes", y);
+            intent.putExtra("years", years);
             startActivity(intent);
         }
 

@@ -288,7 +288,7 @@ public class ExcelUtil {
 //            }
 
             // 第一行
-            sheet1.mergeCells(0, 0, data_list.get(0).size(), 0);
+            sheet1.mergeCells(0, 0, columns.length-1, 0);
             sheet1.addCell(new Label(0, 0, title, wcf));
 
             // 循环写入表头

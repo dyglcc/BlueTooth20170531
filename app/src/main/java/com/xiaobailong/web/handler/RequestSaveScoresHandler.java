@@ -32,7 +32,6 @@ import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -53,7 +52,7 @@ public class RequestSaveScoresHandler implements RequestHandler {
 //        String id = URLDecoder.decode(params.get("id"), "utf-8");
         String results = URLDecoder.decode(params.get("results"), "utf-8");
         String classes = URLDecoder.decode(params.get("classes"), "utf-8");
-//        String years_ = URLDecoder.decode(params.get("years"), "utf-8");
+        String years_ = URLDecoder.decode(params.get("years"), "utf-8");
 //        String sex = URLDecoder.decode(params.get("sex"), "utf-8");
         String cousumetime = URLDecoder.decode(params.get("cousumetime"), "utf-8");
         String devices = URLDecoder.decode(params.get("devices"), "utf-8");
@@ -71,9 +70,10 @@ public class RequestSaveScoresHandler implements RequestHandler {
 //        student.setId(Long.parseLong(id));
         scores.setScores(Integer.parseInt(results));
         scores.setClass_(Long.parseLong(classes));
+        scores.setYear_(Long.parseLong(years_));
         scores.setConsume_time(cousumetime);
         scores.setDevices(devices);
-        scores.setDate_(new Date());
+        scores.setDate_(System.currentTimeMillis());
 //        scores.setYear_(Long.parseLong(years_));
         // 学号
         ResponseData data = new ResponseData();

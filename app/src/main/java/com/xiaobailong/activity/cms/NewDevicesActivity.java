@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.xiaobailong.activity.AddFileActivity;
 import com.xiaobailong.bean.Classes;
+import com.xiaobailong.bean.Years;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.LoginActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
@@ -42,6 +43,7 @@ public class NewDevicesActivity extends BaseActivity {
     GestureDetector dec = null;
 
     Classes classes;
+    Years years;
 
 //    DevicesDao devicesDao;
 
@@ -53,6 +55,7 @@ public class NewDevicesActivity extends BaseActivity {
         // get data
 
         classes = (Classes) getIntent().getSerializableExtra("classes");
+        years = (Years) getIntent().getSerializableExtra("years");
         getData();
         adapter = new DevicesAdapter();
         grid.setAdapter(adapter);
@@ -62,7 +65,7 @@ public class NewDevicesActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(NewDevicesActivity.this, ScoresActivity.class);
                 intent.putExtra("classes", classes);
-                intent.putExtra("years", classes);
+                intent.putExtra("years", years);
                 intent.putExtra("device", deviceses.get(position));
                 startActivity(intent);
                 Toast.makeText(NewDevicesActivity.this, "scoresActivity", Toast.LENGTH_SHORT).show();

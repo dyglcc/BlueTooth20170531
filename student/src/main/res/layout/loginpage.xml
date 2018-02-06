@@ -24,7 +24,6 @@
             android:maxLength="10"
             android:maxLines="1"
             android:saveEnabled="true"
-            android:text="123"
             android:singleLine="true"
             android:textSize="16sp"
             android:layout_centerVertical="true"
@@ -43,7 +42,6 @@
             android:hint="@string/inputpasswordhint"
             android:inputType="textPassword"
             android:maxLength="16"
-            android:text="123"
             android:maxLines="1"
             android:saveEnabled="true"
             android:singleLine="true"
@@ -88,7 +86,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="教师登录"
+            android:text="学生登录"
             android:textColor="#344c9c"
             android:textSize="50dp" />
 

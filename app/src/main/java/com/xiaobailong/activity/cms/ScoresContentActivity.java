@@ -21,7 +21,10 @@ import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.tools.ExcelUtil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,7 +46,7 @@ public class ScoresContentActivity extends BaseActivity {
     @BindView(R.id.years)
     TextView years;
     @BindView(R.id.classes)
-    TextView classes;
+    TextView classes_text;
     @BindView(R.id.devices)
     TextView devices;
     @BindView(R.id.datestr)
@@ -80,21 +83,29 @@ public class ScoresContentActivity extends BaseActivity {
         }
         dao = BaseApplication.app.daoSession.getScoresDao();
         inflater = LayoutInflater.from(this);
-        getData();
+        try {
+            getData();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         years_ = BaseApplication.app.daoSession.getYearsDao().queryBuilder()
-                .where(YearsDao.Properties.Id.eq(classes.getParent())).uniqueOrThrow();
+                .where(YearsDao.Properties.Id.eq(classes_.getParent())).uniqueOrThrow();
 
         years.setText(years_.getFilename());
         devices.setText(deviceName);
-        classes.setText(classes_.getFilename());
+        classes_text.setText(classes_.getFilename());
         datestr.setText(dateStr);
 
     }
 
-    private void getData() {
+    private void getData() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date base = format.parse(dateStr);
+
+        long timeStamp1 = base.getTime();
         datalist = dao.queryBuilder()
-                .where(ScoresDao.Properties.Class_.eq(classes.getId()),
-                        ScoresDao.Properties.Date_.eq(dateStr), ScoresDao.Properties.Devices.eq(deviceName))
+                .where(ScoresDao.Properties.Class_.eq(classes_.getId()),
+                        ScoresDao.Properties.Date_.ge(timeStamp1), ScoresDao.Properties.Date_.lt(timeStamp1 + 3600 * 24 * 1000), ScoresDao.Properties.Devices.eq(deviceName))
                 .list();
         adapter = new ScoresAdapter();
         list.setAdapter(adapter);

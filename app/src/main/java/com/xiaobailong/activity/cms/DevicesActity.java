@@ -21,6 +21,7 @@ import com.xiaobailong.base.BaseApplication;
 import com.xiaobailong.bean.Classes;
 import com.xiaobailong.bean.Devices;
 import com.xiaobailong.bean.DevicesDao;
+import com.xiaobailong.bean.Years;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.tools.ConstValue;
@@ -51,6 +52,7 @@ public class DevicesActity extends BaseActivity {
     LinearLayout parent;
     GestureDetector dec = null;
     Classes classes;
+    Years years;
     DevicesDao devicesDao;
 
     private static String TAG = "DevicesActity";
@@ -62,6 +64,7 @@ public class DevicesActity extends BaseActivity {
         ButterKnife.bind(this);
         // get data
         classes = (Classes) getIntent().getSerializableExtra("classes");
+        years = (Years) getIntent().getSerializableExtra("years");
         getData();
         adapter = new YearAdapter();
         grid.setAdapter(adapter);

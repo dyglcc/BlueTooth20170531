@@ -55,9 +55,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import me.grantland.widget.AutofitTextView;
@@ -158,7 +156,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                             scores = new Scores();
                             scores.setScores((int) getScores());
                             scores.setClass_(student.getClasses());
-                            scores.setDate_(new Date());
+                            scores.setYear_(student.getYear_());
+                            scores.setDate_(System.currentTimeMillis());
                             scores.setName(student.getUsername());
                             scores.setXuehao(student.getXuehao());
                             int minutes = examzation.getMinutes();
@@ -607,13 +606,18 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 // 判断分数写入数据库，跳转到显示分数界面
                 scores.setScores((int) getScores());
                 scores.setDevices(examzation.getDevices());
-                scores.setDate_(new Date());
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//                student.setSemester(format.format(new Date()));
+                scores.setDate_(System.currentTimeMillis());
+                scores.setClass_(student.getClasses());
+                scores.setYear_(student.getYear_());
+                scores.setXuehao(student.getXuehao());
+                scores.setName(student.getUsername());
                 int minutes = examzation.getMinutes();
 //                消耗时间计算
                 scores.setConsume_time(minutes - (cousumeSeconds / 60) + "");
-                BaseApplication.app.daoSession.getStudentDao().save(student);
+
+//                scores.setClass_(student.getClasses());
+//                scores.setYear_(student);
+//                BaseApplication.app.daoSession.getStudentDao().save(student);
 //                examzation.setExpired(true);
                 BaseApplication.app.daoSession.getExaminationDao().update(examzation);
                 BaseApplication.app.daoSession.getScoresDao().save(scores);
@@ -690,6 +694,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 if (examzation != null) {
                     examzation.setMinutes(Integer.parseInt(str));
                     examzation.setDevices(devicesName);
+                    updateValue(examzation);
                     dao.update(examzation);
                 } else {
                     if (isCanstart) {
@@ -1298,6 +1303,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             tvFileName.setVisibility(View.GONE);
         }
     }
+
     private void afterSaveScores() {
         new AlertDialog.Builder(MainActivity.this).setMessage("考试结束")
                 .setPositiveButton("查看成绩", new DialogInterface.OnClickListener() {
@@ -1310,6 +1316,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         // 判断答案
 //        Toast.makeText(MainActivity.this, "考试时间结束", Toast.LENGTH_SHORT).show();
     }
+
     private void afterSet(final String str) {
         tvFileName.setText(str + "..");
         countHandler.postDelayed(new Runnable() {
@@ -1414,42 +1421,79 @@ public class MainActivity extends BaseActivity implements OnClickListener,
             if (!checkCanMakeExamination()) {
             } else {
                 // 不管学生还是老师登陆都要保存一次
-                int count = 0;
-                StringBuilder fasleString = new StringBuilder();
-                StringBuilder breakString = new StringBuilder();
-                StringBuilder shortString = new StringBuilder();
-                for (int i = 0; i < BaseApplication.app.falseList.size(); i++) {
-                    Relay relay = BaseApplication.app.falseList.get(i);
-                    if (relay.isExamination()) {
-                        fasleString.append(i + ",");
-                        count++;
-                    }
-                }
-                for (int i = 0; i < BaseApplication.app.breakfaultList.size(); i++) {
-                    Relay relay = BaseApplication.app.breakfaultList.get(i);
-                    if (relay.isExamination()) {
-                        breakString.append(i + ",");
-                        count++;
-                    }
-                }
-                for (int i = 0; i < BaseApplication.app.shortList.size(); i++) {
-                    Relay relay = BaseApplication.app.shortList.get(i);
-                    if (relay.isExamination()) {
-                        shortString.append(i + ",");
-                        count++;
-                    }
-                }
-                examzation.setBreak_(breakString.toString());
-                examzation.setFalse_(fasleString.toString());
-                examzation.setShort_(shortString.toString());
-                if (count == 0) {
-                    examzation.setExpired(true);
-                }
+//                int count = 0;
+//                StringBuilder fasleString = new StringBuilder();
+//                StringBuilder breakString = new StringBuilder();
+//                StringBuilder shortString = new StringBuilder();
+//                for (int i = 0; i < BaseApplication.app.falseList.size(); i++) {
+//                    Relay relay = BaseApplication.app.falseList.get(i);
+//                    if (relay.isExamination()) {
+//                        fasleString.append(i + ",");
+//                        count++;
+//                    }
+//                }
+//                for (int i = 0; i < BaseApplication.app.breakfaultList.size(); i++) {
+//                    Relay relay = BaseApplication.app.breakfaultList.get(i);
+//                    if (relay.isExamination()) {
+//                        breakString.append(i + ",");
+//                        count++;
+//                    }
+//                }
+//                for (int i = 0; i < BaseApplication.app.shortList.size(); i++) {
+//                    Relay relay = BaseApplication.app.shortList.get(i);
+//                    if (relay.isExamination()) {
+//                        shortString.append(i + ",");
+//                        count++;
+//                    }
+//                }
+//                examzation.setBreak_(breakString.toString());
+//                examzation.setFalse_(fasleString.toString());
+//                examzation.setShort_(shortString.toString());
+//                if (count == 0) {
+//                    examzation.setExpired(true);
+//                }
+                updateValue(examzation);
                 BaseApplication.app.daoSession.getExaminationDao().update(examzation);
                 finish();
             }
         } else {
             finish();
+        }
+    }
+    private void updateValue(Examination examzation) {
+        // 不管学生还是老师登陆都要保存一次
+        int count = 0;
+        StringBuilder fasleString = new StringBuilder();
+        StringBuilder breakString = new StringBuilder();
+        StringBuilder shortString = new StringBuilder();
+        for (int i = 0; i < BaseApplication.app.falseList.size(); i++) {
+            Relay relay = BaseApplication.app.falseList.get(i);
+            if (relay.isExamination()) {
+                fasleString.append(i + ",");
+                count++;
+            }
+        }
+        for (int i = 0; i < BaseApplication.app.breakfaultList.size(); i++) {
+            Relay relay = BaseApplication.app.breakfaultList.get(i);
+            if (relay.isExamination()) {
+                breakString.append(i + ",");
+                count++;
+            }
+        }
+        for (int i = 0; i < BaseApplication.app.shortList.size(); i++) {
+            Relay relay = BaseApplication.app.shortList.get(i);
+            if (relay.isExamination()) {
+                shortString.append(i + ",");
+                count++;
+            }
+        }
+        examzation.setBreak_(breakString.toString());
+        examzation.setFalse_(fasleString.toString());
+        examzation.setShort_(shortString.toString());
+        if (count == 0) {
+            examzation.setExpired(true);
+        } else {
+            examzation.setExpired(false);
         }
     }
 

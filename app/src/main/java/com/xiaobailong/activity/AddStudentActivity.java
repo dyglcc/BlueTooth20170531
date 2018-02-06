@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.xiaobailong.base.BaseApplication;
 import com.xiaobailong.bean.Classes;
 import com.xiaobailong.bean.Student;
+import com.xiaobailong.bean.Years;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 
@@ -46,6 +47,7 @@ public class AddStudentActivity extends BaseActivity {
     ScrollView scroll;
 
     private Classes classes;
+    private Years years;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class AddStudentActivity extends BaseActivity {
         setContentView(R.layout.main_add_student);
         ButterKnife.bind(this);
         classes = (Classes) getIntent().getSerializableExtra("classes");
+        years = (Years) getIntent().getSerializableExtra("years");
         if (classes == null) {
             Toast.makeText(this, "没有班级信息", Toast.LENGTH_SHORT).show();
             return;
@@ -82,6 +85,7 @@ public class AddStudentActivity extends BaseActivity {
         student.setIds(idsStr);
         student.setMobile(mobileStr);
         student.setClasses(classes.getId());
+        student.setYear_(years.getId());
 
         if (btnMan.isChecked()) {
             student.setSex("男");

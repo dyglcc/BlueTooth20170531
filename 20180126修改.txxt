@@ -17,5 +17,13 @@
 通过simpledateformat 来格式化时间，format（long t）
 通过设置timeZone来显示当地时间，比如 GMT+8:00东八区，GMT-5:00西五区（纽约时间）
 
-todo .测试
+
 学生端和老师端登录验证---
+
+
+设置年级，
+1。学生表添加
+2。mainactivity添加
+3。查询添加
+4。导入添加
+

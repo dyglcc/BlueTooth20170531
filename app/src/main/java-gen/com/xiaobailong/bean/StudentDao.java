@@ -22,13 +22,14 @@ public class StudentDao extends AbstractDao<Student, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Xuehao = new Property(1, String.class, "xuehao", false, "XUEHAO");
-        public final static Property Username = new Property(2, String.class, "username", false, "USERNAME");
-        public final static Property Classes = new Property(3, long.class, "classes", false, "CLASSES");
-        public final static Property Mobile = new Property(4, String.class, "mobile", false, "MOBILE");
-        public final static Property Ids = new Property(5, String.class, "ids", false, "IDS");
-        public final static Property Sex = new Property(6, String.class, "sex", false, "SEX");
+        public final static Property Year_ = new Property(0, Long.class, "year_", false, "YEAR_");
+        public final static Property Id = new Property(1, Long.class, "id", true, "_id");
+        public final static Property Xuehao = new Property(2, String.class, "xuehao", false, "XUEHAO");
+        public final static Property Username = new Property(3, String.class, "username", false, "USERNAME");
+        public final static Property Classes = new Property(4, long.class, "classes", false, "CLASSES");
+        public final static Property Mobile = new Property(5, String.class, "mobile", false, "MOBILE");
+        public final static Property Ids = new Property(6, String.class, "ids", false, "IDS");
+        public final static Property Sex = new Property(7, String.class, "sex", false, "SEX");
     }
 
 
@@ -44,13 +45,14 @@ public class StudentDao extends AbstractDao<Student, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"STUDENT\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"XUEHAO\" TEXT NOT NULL ," + // 1: xuehao
-                "\"USERNAME\" TEXT NOT NULL ," + // 2: username
-                "\"CLASSES\" INTEGER NOT NULL ," + // 3: classes
-                "\"MOBILE\" TEXT," + // 4: mobile
-                "\"IDS\" TEXT," + // 5: ids
-                "\"SEX\" TEXT);"); // 6: sex
+                "\"YEAR_\" INTEGER," + // 0: year_
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 1: id
+                "\"XUEHAO\" TEXT NOT NULL ," + // 2: xuehao
+                "\"USERNAME\" TEXT NOT NULL ," + // 3: username
+                "\"CLASSES\" INTEGER NOT NULL ," + // 4: classes
+                "\"MOBILE\" TEXT," + // 5: mobile
+                "\"IDS\" TEXT," + // 6: ids
+                "\"SEX\" TEXT);"); // 7: sex
     }
 
     /** Drops the underlying database table. */
@@ -63,27 +65,32 @@ public class StudentDao extends AbstractDao<Student, Long> {
     protected final void bindValues(DatabaseStatement stmt, Student entity) {
         stmt.clearBindings();
  
+        Long year_ = entity.getYear_();
+        if (year_ != null) {
+            stmt.bindLong(1, year_);
+        }
+ 
         Long id = entity.getId();
         if (id != null) {
-            stmt.bindLong(1, id);
+            stmt.bindLong(2, id);
         }
-        stmt.bindString(2, entity.getXuehao());
-        stmt.bindString(3, entity.getUsername());
-        stmt.bindLong(4, entity.getClasses());
+        stmt.bindString(3, entity.getXuehao());
+        stmt.bindString(4, entity.getUsername());
+        stmt.bindLong(5, entity.getClasses());
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(5, mobile);
+            stmt.bindString(6, mobile);
         }
  
         String ids = entity.getIds();
         if (ids != null) {
-            stmt.bindString(6, ids);
+            stmt.bindString(7, ids);
         }
  
         String sex = entity.getSex();
         if (sex != null) {
-            stmt.bindString(7, sex);
+            stmt.bindString(8, sex);
         }
     }
 
@@ -91,58 +98,65 @@ public class StudentDao extends AbstractDao<Student, Long> {
     protected final void bindValues(SQLiteStatement stmt, Student entity) {
         stmt.clearBindings();
  
+        Long year_ = entity.getYear_();
+        if (year_ != null) {
+            stmt.bindLong(1, year_);
+        }
+ 
         Long id = entity.getId();
         if (id != null) {
-            stmt.bindLong(1, id);
+            stmt.bindLong(2, id);
         }
-        stmt.bindString(2, entity.getXuehao());
-        stmt.bindString(3, entity.getUsername());
-        stmt.bindLong(4, entity.getClasses());
+        stmt.bindString(3, entity.getXuehao());
+        stmt.bindString(4, entity.getUsername());
+        stmt.bindLong(5, entity.getClasses());
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(5, mobile);
+            stmt.bindString(6, mobile);
         }
  
         String ids = entity.getIds();
         if (ids != null) {
-            stmt.bindString(6, ids);
+            stmt.bindString(7, ids);
         }
  
         String sex = entity.getSex();
         if (sex != null) {
-            stmt.bindString(7, sex);
+            stmt.bindString(8, sex);
         }
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1);
     }    
 
     @Override
     public Student readEntity(Cursor cursor, int offset) {
         Student entity = new Student( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getString(offset + 1), // xuehao
-            cursor.getString(offset + 2), // username
-            cursor.getLong(offset + 3), // classes
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // mobile
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // ids
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // sex
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // year_
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // id
+            cursor.getString(offset + 2), // xuehao
+            cursor.getString(offset + 3), // username
+            cursor.getLong(offset + 4), // classes
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // mobile
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // ids
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // sex
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, Student entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setXuehao(cursor.getString(offset + 1));
-        entity.setUsername(cursor.getString(offset + 2));
-        entity.setClasses(cursor.getLong(offset + 3));
-        entity.setMobile(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setIds(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setSex(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setYear_(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
+        entity.setXuehao(cursor.getString(offset + 2));
+        entity.setUsername(cursor.getString(offset + 3));
+        entity.setClasses(cursor.getLong(offset + 4));
+        entity.setMobile(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setIds(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setSex(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     @Override

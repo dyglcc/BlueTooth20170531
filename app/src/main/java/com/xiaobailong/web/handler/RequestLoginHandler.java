@@ -36,6 +36,7 @@ import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -66,9 +67,18 @@ public class RequestLoginHandler implements RequestHandler {
         Gson gson = new Gson();
         if (student != null && student.getId() != null) {
             data.setError(0);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String strdate = format.format(new Date());
+            long begin = 0;
+            try {
+                begin = format.parse(strdate).getTime();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             Scores scores = BaseApplication.app.daoSession.getScoresDao().queryBuilder().where(ScoresDao.Properties.Name
                             .eq(student.getUsername()), ScoresDao.Properties.Xuehao.eq(student.getXuehao())
-                    , ScoresDao.Properties.Date_.eq(format.format(new Date()))).distinct().limit(1).unique();
+                    , ScoresDao.Properties.Date_.ge(begin), ScoresDao.Properties.Date_.lt(begin + 3600 * 24 * 1000)).distinct().limit(1).unique();
             LoginWraper wraper = new LoginWraper();
             wraper.setScores(scores);
             wraper.setStudent(student);

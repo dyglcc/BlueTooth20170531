@@ -14,7 +14,7 @@ public class Generator {
 
     public static void main(String[] args) throws Exception {
 
-        int version = 18;
+        int version = 20;
 
         String defaultPackage = "com.xiaobailong.bean";
 
@@ -52,7 +52,7 @@ public class Generator {
         entity.implementsSerializable();
         entity.addIdProperty().autoincrement();
         entity.addIntProperty("scores");
-        entity.addDateProperty("date_");
+        entity.addLongProperty("date_");
         entity.addStringProperty("devices");
         entity.addStringProperty("xuehao");
         entity.addStringProperty("name");
@@ -88,6 +88,7 @@ public class Generator {
 //指定表名，如不指定，表名则为Entity（即实体类名）
 //        entity.setDbName("student");
 //给实体类中添加属性（即给test表中添加字段）
+        entity.addLongProperty("year_");
         entity.addIdProperty().autoincrement();//添加Id,自增长
         entity.addStringProperty("xuehao").notNull();
         entity.addStringProperty("username").notNull();

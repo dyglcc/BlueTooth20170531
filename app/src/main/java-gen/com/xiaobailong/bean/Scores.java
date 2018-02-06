@@ -13,7 +13,7 @@ public class Scores implements java.io.Serializable {
     @Id(autoincrement = true)
     private Long id;
     private Integer scores;
-    private java.util.Date date_;
+    private Long date_;
     private String devices;
     private String xuehao;
     private String name;
@@ -30,7 +30,7 @@ public class Scores implements java.io.Serializable {
     }
 
     @Generated
-    public Scores(Long id, Integer scores, java.util.Date date_, String devices, String xuehao, String name, Long class_, Long year_, String consume_time) {
+    public Scores(Long id, Integer scores, Long date_, String devices, String xuehao, String name, Long class_, Long year_, String consume_time) {
         this.id = id;
         this.scores = scores;
         this.date_ = date_;
@@ -58,11 +58,11 @@ public class Scores implements java.io.Serializable {
         this.scores = scores;
     }
 
-    public java.util.Date getDate_() {
+    public Long getDate_() {
         return date_;
     }
 
-    public void setDate_(java.util.Date date_) {
+    public void setDate_(Long date_) {
         this.date_ = date_;
     }
 

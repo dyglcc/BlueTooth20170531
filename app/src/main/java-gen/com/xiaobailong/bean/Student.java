@@ -9,6 +9,7 @@ import org.greenrobot.greendao.annotation.*;
  */
 @Entity
 public class Student implements java.io.Serializable {
+    private Long year_;
 
     @Id(autoincrement = true)
     private Long id;
@@ -32,7 +33,8 @@ public class Student implements java.io.Serializable {
     }
 
     @Generated
-    public Student(Long id, String xuehao, String username, long classes, String mobile, String ids, String sex) {
+    public Student(Long year_, Long id, String xuehao, String username, long classes, String mobile, String ids, String sex) {
+        this.year_ = year_;
         this.id = id;
         this.xuehao = xuehao;
         this.username = username;
@@ -40,6 +42,14 @@ public class Student implements java.io.Serializable {
         this.mobile = mobile;
         this.ids = ids;
         this.sex = sex;
+    }
+
+    public Long getYear_() {
+        return year_;
+    }
+
+    public void setYear_(Long year_) {
+        this.year_ = year_;
     }
 
     public Long getId() {

@@ -2,7 +2,6 @@ package com.xiaobailong.activity.cms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -20,12 +19,15 @@ import com.xiaobailong.base.BaseApplication;
 import com.xiaobailong.bean.Classes;
 import com.xiaobailong.bean.Scores;
 import com.xiaobailong.bean.ScoresDao;
+import com.xiaobailong.bean.Years;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.widget.BottomMenuFragment;
 import com.xiaobailong.widget.MenuItem;
 import com.xiaobailong.widget.MenuItemOnClickListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,10 +53,12 @@ public class ScoresActivity extends BaseActivity {
     GestureDetector dec = null;
 
     Classes classes;
+    Years years;
     ScoresDao dao;
     private String deviceName;
 
     private static final String TAG = "ScoresActivity";
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,7 @@ public class ScoresActivity extends BaseActivity {
         // get data
 
         classes = (Classes) getIntent().getSerializableExtra("classes");
+        years = (Years) getIntent().getSerializableExtra("years");
         deviceName = getIntent().getStringExtra("device");
 
         getData();
@@ -78,6 +83,7 @@ public class ScoresActivity extends BaseActivity {
                 intent.putExtra("classes", classes);
                 intent.putExtra("dateStr", dateStr);
                 intent.putExtra("devices", deviceName);
+                intent.putExtra("years", years);
                 startActivity(intent);
             }
         });
@@ -97,21 +103,31 @@ public class ScoresActivity extends BaseActivity {
 
                         // 学生学期信息删除
                         String dateStr = groups.get(position);
+                        long baseTime = 0;
+                        try {
+                            baseTime = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr).getTime();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if (baseTime == 0) {
+                            Toast.makeText(ScoresActivity.this, "删除失败", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         for (int i = 0; i < times.size(); i++) {
-                            Scores student = times.get(i);
-                            if (student == null) {
+                            Scores scores = times.get(i);
+                            if (scores == null) {
                                 continue;
                             }
 
-                            String strTime = student.getDate_().toString();
-                            if (strTime == null) {
+                            long strTime = scores.getDate_();
+                            if (strTime == 0) {
                                 continue;
                             }
-                            if (strTime.equals(dateStr) && student.getClass_() == classes.getId()) {
-                                student.setDate_(null);
-                                student.setScores(null);
-                                dao.update(student);
+
+                            if (strTime >= baseTime && baseTime < (baseTime + 3600 * 24 * 1000)) {
+                                dao.delete(scores);
                             }
+
                         }
                         // 初始化数据
                         getData();
@@ -148,7 +164,8 @@ public class ScoresActivity extends BaseActivity {
         groups = new ArrayList<>();
         dao = BaseApplication.app.daoSession.getScoresDao();
 
-        times = dao.queryBuilder().where(ScoresDao.Properties.Devices.eq(deviceName))
+
+        times = dao.queryBuilder().where(ScoresDao.Properties.Devices.eq(deviceName), ScoresDao.Properties.Class_.eq(classes.getId()))
                 .orderDesc(ScoresDao.Properties.Date_).build().list();
 
         Log.i(TAG, "getData: 日期的 sizes " + (times == null ? 0 : times.size()));
@@ -156,11 +173,14 @@ public class ScoresActivity extends BaseActivity {
         HashMap<String, Scores> map = new HashMap<>();
         for (int i = 0; i < times.size(); i++) {
             Scores stu = times.get(i);
-            if (TextUtils.isEmpty(stu.getDate_().toString())) {
+            if (stu.getDate_() == null || stu.getDate_() == 0) {
                 continue;
             }
-            if (!map.containsKey(stu.getDate_())) {
-                map.put(stu.getDate_().toString(), stu);
+            Long value = stu.getDate_();
+            String dateStr = format.format(value);
+
+            if (!map.containsKey(dateStr)) {
+                map.put(dateStr, stu);
             }
         }
         for (Map.Entry<String, Scores> entry : map.entrySet()) {

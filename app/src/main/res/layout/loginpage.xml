@@ -39,7 +39,6 @@
             android:layout_marginTop="@dimen/layy13"
             android:background="@drawable/edit_animotion"
             android:ellipsize="end"
-            android:text="000000"
             android:hint="@string/inputpasswordhint"
             android:inputType="textPassword"
             android:maxLength="16"

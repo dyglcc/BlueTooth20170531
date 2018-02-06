@@ -9,6 +9,15 @@ public class Student implements java.io.Serializable {
 
     private Long id;
 
+    public Long getYear_() {
+        return year_;
+    }
+
+    public void setYear_(Long year_) {
+        this.year_ = year_;
+    }
+
+    private Long year_;
     private String xuehao;
 
     private String username;

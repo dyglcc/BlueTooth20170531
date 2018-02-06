@@ -71,6 +71,7 @@ public class AbstractNet {
         String username = scores.getName();
         String xuehao = scores.getXuehao();
         String classes = scores.getClass_() + "";
+        String years_ = scores.getYear_() + "";
 //        String yearsID = student.get() + "";
 //        String sex = student.getSex();
         String results = scores.getScores() + "";
@@ -84,6 +85,7 @@ public class AbstractNet {
         ResponseSaveScoreData responseSaveScoreData = null;
         String url = server + saveScores + "?username=" + username + "&xuehao=" + xuehao
                 + "&classes=" + classes
+                + "&years=" + years_
                 + "&results="
                 + results + "&cousumetime="
                 + cousumeTime+ "&devices="
