@@ -581,9 +581,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 return str;
             }
         } catch (FileNotFoundException e) {
-            Toast.makeText(context, "读取文件出错！", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "未找到标题文件！", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            Toast.makeText(context, "读取文件出错！", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "未找到标题文件！", Toast.LENGTH_LONG).show();
         }
         return str;
     }

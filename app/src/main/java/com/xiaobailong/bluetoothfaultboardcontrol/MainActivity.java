@@ -47,6 +47,7 @@ import com.xiaobailong.model.FaultDes;
 import com.xiaobailong.titile.WriteTitleActivity;
 import com.xiaobailong.tools.ConstValue;
 import com.xiaobailong.tools.SpDataUtils;
+import com.xiaobailong.tools.Utils;
 import com.xiaobailong.widget.ListScrollView;
 
 import java.io.BufferedReader;
@@ -540,7 +541,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 }
             }
         } else {
-            nosdcard();
+            Utils.nosdcard(this);
         }
     }
 
@@ -553,9 +554,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                 return str;
             }
         } catch (FileNotFoundException e) {
-            Toast.makeText(context, "读取文件出错！", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "未找到标题文件！", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            Toast.makeText(context, "读取文件出错！", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "未找到标题文件！", Toast.LENGTH_LONG).show();
         }
         return str;
     }
@@ -677,7 +678,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
                             MainActivity.this);
                     bluetoothDevicesListDialog.show();
                 } else {
-                    nosdcard();
+                    Utils.nosdcard(MainActivity.this);
                 }
 
                 break;
@@ -1032,9 +1033,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
         return true;
     }
 
-    private void nosdcard() {
-        Toast.makeText(MainActivity.this, "没有sdcard,无法显示教学文件", Toast.LENGTH_LONG).show();
-    }
 
     public static ArrayList<String> getDirFilesDir(File file) {
         ArrayList<String> list = new ArrayList<String>();

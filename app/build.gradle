@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.bluetooth.gao20170601"
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 14
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

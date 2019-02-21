@@ -1,6 +1,8 @@
 package com.xiaobailong.tools;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -41,5 +43,41 @@ public class Utils {
         }
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+    }
+
+
+    public static final String APP_PACKAGE_NAME = "com.*.*";//包名
+
+    /**
+     * 启动薄荷App
+     * @param context
+     */
+    public static void launchapp(Context context) {
+        // 判断是否安装过App，否则去市场下载
+        if (isAppInstalled(context, APP_PACKAGE_NAME)) {
+            context.startActivity(context.getPackageManager().getLaunchIntentForPackage(APP_PACKAGE_NAME));
+        } else {
+            Toast.makeText(context,"未安装app，请先安装",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 检测某个应用是否安装
+     *
+     * @param context
+     * @param packageName
+     * @return
+     */
+    public static boolean isAppInstalled(Context context, String packageName) {
+        try {
+            context.getPackageManager().getPackageInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    public static void nosdcard(Context firstActivity) {
+            Toast.makeText(firstActivity, "没有sdcard无法显示文件", Toast.LENGTH_LONG).show();
     }
 }

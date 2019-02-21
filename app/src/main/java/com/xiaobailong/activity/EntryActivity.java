@@ -49,10 +49,6 @@ public class EntryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_entry);
         ButterKnife.bind(this);
-//        if (Build.VERSION.SDK_INT >= 23) {
-//            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-//            ActivityCompat.requestPermissions(this, mPermissionList, 123);
-//        }
 
         getSdcardPath();
         rl = (ImageView) findViewById(R.id.login_Background);
@@ -60,7 +56,6 @@ public class EntryActivity extends BaseActivity {
             File file = new File(savePath + backgroundFileName);
             if (file.exists()) {
                 rl.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeFile(savePath + backgroundFileName)));
-//                rl.setImageDrawable(new BitmapDrawable());
             }
         }
 //        init brand image
