@@ -37,7 +37,7 @@
             android:background="@drawable/login_button"
             android:text="智能故障设置与诊断"
             android:textColor="@color/white"
-            android:textSize="30dp" />
+            android:textSize="24dp" />
 
         <Button
             android:id="@+id/btn_anther_app"
@@ -47,7 +47,7 @@
             android:background="@drawable/login_button"
             android:text="故障排除系统"
             android:textColor="@color/white"
-            android:textSize="30dp" />
+            android:textSize="26dp" />
 
 
         <Button
@@ -58,7 +58,7 @@
             android:background="@drawable/login_button"
             android:text="汽车资料库"
             android:textColor="@color/white"
-            android:textSize="30dp" />
+            android:textSize="26dp" />
 
         <Button
             android:id="@+id/btn_screening"
@@ -68,6 +68,6 @@
             android:background="@drawable/login_button"
             android:text="无线同屏"
             android:textColor="@color/white"
-            android:textSize="30dp" />
+            android:textSize="26dp" />
     </LinearLayout>
 </RelativeLayout>

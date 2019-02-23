@@ -46,8 +46,7 @@ public class Utils {
     }
 
 
-    public static final String APP_PACKAGE_NAME = "com.*.*";//包名
-
+    public static final String APP_PACKAGE_NAME = "com.ifoer.expedition.pro";//包名
     /**
      * 启动薄荷App
      * @param context

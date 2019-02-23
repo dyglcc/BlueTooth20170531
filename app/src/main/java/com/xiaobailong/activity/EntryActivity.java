@@ -1,8 +1,6 @@
 package com.xiaobailong.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -11,15 +9,12 @@ import android.os.Environment;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.xiaobailong.base.BaseApplication;
-import com.xiaobailong.bean.Examination;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.LoginActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
 import com.xiaobailong.tools.SpDataUtils;
 
 import java.io.File;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,48 +90,6 @@ public class EntryActivity extends BaseActivity {
             hasSdcard = true;
             savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/autoblue/";
 //			Toast.makeText(this, sdcardPath, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(EntryActivity.this).setTitle("确定退出？")
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        }).create().show();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // 关闭第一个页面清除数据
-        clearData();
-    }
-
-    private void clearData() {
-        if (BaseApplication.app.faultboardOption != null) {
-            BaseApplication.app.faultboardOption.closeBluetoothSocket();
-            BaseApplication.app.faultboardOption = null;
-        }
-        BaseApplication.app.descStrFile = null;
-        BaseApplication.app.shortList = null;
-        BaseApplication.app.falseList = null;
-        BaseApplication.app.breakfaultList = null;
-        List<Examination> list = BaseApplication.app.daoSession.getExaminationDao().queryBuilder().list();
-        for (int i = 0; i < list.size(); i++) {
-            Examination examination = list.get(i);
-            if (examination != null) {
-                examination.setExpired(true);
-                BaseApplication.app.daoSession.getExaminationDao().update(examination);
-            }
         }
     }
 }

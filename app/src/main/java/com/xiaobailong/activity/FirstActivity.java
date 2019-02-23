@@ -1,6 +1,8 @@
 package com.xiaobailong.activity;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.xiaobailong.base.BaseApplication;
+import com.xiaobailong.bean.Examination;
 import com.xiaobailong.bluetooth.MediaFileListDialog;
 import com.xiaobailong.bluetoothfaultboardcontrol.BaseActivity;
 import com.xiaobailong.bluetoothfaultboardcontrol.R;
@@ -17,6 +21,7 @@ import com.xiaobailong.tools.ConstValue;
 import com.xiaobailong.tools.Utils;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,14 +100,30 @@ public class FirstActivity extends BaseActivity {
 
     @OnClick(R.id.btn_screening)
     public void btnScreening() {
-        Intent intent = new Intent("/");
+        try {
+            Intent intent = new Intent("/");
 //        ComponentName cm = new ComponentName("com.android.settings","com.android.settings
 // .SubSettings");
-        ComponentName cm = new ComponentName("com.huawei.android.airsharing", "com.huawei.android" +
-                ".airsharing.player.DeviceListActivity");
-        intent.setComponent(cm);
-        intent.setAction("android.intent.action.VIEW");
-        startActivityForResult(intent, 0);
+            ComponentName cm = new ComponentName("com.huawei.android.airsharing", "com.huawei" +
+                    ".android" +
+                    ".airsharing.player.DeviceListActivity");
+            intent.setComponent(cm);
+            intent.setAction("android.intent.action.VIEW");
+            startActivityForResult(intent, 0);
+        } catch (Throwable throwable) {
+            Toast.makeText(FirstActivity.this, "打开同屏设置异常", Toast.LENGTH_LONG).show();
+            AlertDialog dialog = new AlertDialog.Builder(FirstActivity.this).setTitle("同屏设置步骤")
+                    .setMessage("请手动打开同屏设置\n第一步\n第二步").setNeutralButton("知道了", new DialogInterface
+                            .OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+
+        }
+
     }
 
     //    com.android.settings.DeviceAdminSettings 设备管理器
@@ -118,6 +139,47 @@ public class FirstActivity extends BaseActivity {
             hasSdcard = true;
             savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/autoblue/";
 //			Toast.makeText(this, sdcardPath, Toast.LENGTH_LONG).show();
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(FirstActivity.this).setTitle("确定退出？")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        }).create().show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 关闭第一个页面清除数据
+        clearData();
+    }
+
+    private void clearData() {
+        if (BaseApplication.app.faultboardOption != null) {
+            BaseApplication.app.faultboardOption.closeBluetoothSocket();
+            BaseApplication.app.faultboardOption = null;
+        }
+        BaseApplication.app.descStrFile = null;
+        BaseApplication.app.shortList = null;
+        BaseApplication.app.falseList = null;
+        BaseApplication.app.breakfaultList = null;
+        List<Examination> list = BaseApplication.app.daoSession.getExaminationDao().queryBuilder().list();
+        for (int i = 0; i < list.size(); i++) {
+            Examination examination = list.get(i);
+            if (examination != null) {
+                examination.setExpired(true);
+                BaseApplication.app.daoSession.getExaminationDao().update(examination);
+            }
         }
     }
 }

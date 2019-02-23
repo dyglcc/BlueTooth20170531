@@ -74,13 +74,13 @@ public class LoginActivity extends BaseActivity {
         initLoginView();
         if (!TextUtils.isEmpty(type)) {
             if (SpDataUtils.TYPE_TEACHER.equals(type)) {
-                login_type_text.setText("教师登录啊");
+                login_type_text.setText("教师登录");
                 idEdit.setHint("输入用户名");
                 pwdEdit.setHint("输入密码");
                 pwdEdit.setInputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_PASSWORD);
             } else {
-                login_type_text.setText("学生登录嗷嗷");
+                login_type_text.setText("学生登录");
                 idEdit.setHint("输入姓名");
                 pwdEdit.setHint("输入学号");
                 pwdEdit.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
